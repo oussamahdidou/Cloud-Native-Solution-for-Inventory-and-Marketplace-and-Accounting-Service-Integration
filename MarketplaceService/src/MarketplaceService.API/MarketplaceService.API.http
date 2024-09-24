@@ -1,0 +1,6 @@
+@MarketplaceService.API_HostAddress = http://localhost:5221
+
+GET {{MarketplaceService.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
