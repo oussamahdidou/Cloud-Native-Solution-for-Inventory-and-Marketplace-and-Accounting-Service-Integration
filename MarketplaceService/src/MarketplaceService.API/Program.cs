@@ -69,7 +69,7 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["JWT:Audience"],//issuer url same as jwt token creation url
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(
-                System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigninKey"]))
+                System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigninKey"] ?? ""))
 
     };
 });
