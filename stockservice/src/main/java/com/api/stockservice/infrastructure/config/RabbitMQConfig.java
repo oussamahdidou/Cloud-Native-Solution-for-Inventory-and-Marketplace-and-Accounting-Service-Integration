@@ -10,23 +10,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String ARTICLE_QUEUE = "article_created_queue";
-    public static final String ARTICLE_EXCHANGE = "article_exchange";
-    public static final String ARTICLE_ROUTING_KEY = "article_created";
+    public static final String ARTICLE_QUEUE = "stock_queue";
+    public static final String ARTICLE_EXCHANGE = "stock_exchange";
+    public static final String ARTICLE_ROUTING_KEY = "stock";
 
-    // Declare a queue
     @Bean
     public Queue articleQueue() {
-        return new Queue(ARTICLE_QUEUE, true); // durable queue
+        return new Queue(ARTICLE_QUEUE, true);
     }
 
-    // Declare a direct exchange
     @Bean
     public DirectExchange articleExchange() {
         return new DirectExchange(ARTICLE_EXCHANGE);
     }
 
-    // Binding the queue and exchange with a routing key
     @Bean
     public Binding binding() {
         return BindingBuilder
