@@ -1,7 +1,7 @@
 package com.api.stockservice.presentation.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-// MessageController.java
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +19,10 @@ public class MessageController {
 
     @GetMapping("/send-message")
     public String sendMessage() {
-        SimpleMessage message = new SimpleMessage("Hello from Spring Boot!");
-        rabbitMQSender.send("stock_queue", message);
+        SimpleMessage message = new SimpleMessage();
+        message.setText("hello i`m springboot");
+        rabbitMQSender.send(message);
+
         return "Message Sent!";
     }
 }

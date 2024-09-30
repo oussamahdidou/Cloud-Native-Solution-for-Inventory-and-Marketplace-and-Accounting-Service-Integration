@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +9,6 @@ using Newtonsoft.Json;
 using UsersService.Consumers;
 using UsersService.Data;
 using UsersService.Model;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -102,7 +102,12 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
-
+        // Configure to consume messages from a specific queue
+        cfg.ConfigureJsonSerializerOptions(options =>
+{
+    options.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
+    return options;
+});
         // Configure to consume messages from a specific queue
         cfg.ReceiveEndpoint("stock_queue", e =>
         {
