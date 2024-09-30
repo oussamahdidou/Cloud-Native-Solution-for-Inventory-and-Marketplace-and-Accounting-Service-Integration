@@ -1,9 +1,11 @@
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using UsersService.Consumers;
 using UsersService.Data;
 using UsersService.Model;
 
@@ -91,7 +93,25 @@ builder.Services.AddCors(options =>
                     .AllowAnyMethod()
                     );
 });
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("rabbitmq://localhost", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
 
+        // Configure to consume messages from a specific queue
+        cfg.ReceiveEndpoint("stock_queue", e =>
+        {
+            e.Consumer<SimpleMessageConsumer>();
+        });
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
