@@ -17,28 +17,17 @@ import java.util.Date;
 public class MessageController {
     @Autowired
     private final RabbitMQSender rabbitMQSender;
-
     public MessageController(RabbitMQSender rabbitMQSender) {
         this.rabbitMQSender = rabbitMQSender;
     }
-
     @GetMapping("/send-message")
     public String sendMessage() {
+        //this is the producer consumer pattern
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        // If user details are implemented
-//        if (authentication.getPrincipal() instanceof UserDetails) {
-//            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//            return userDetails.getUsername(); // This returns the username
-//        }
-
-        // For other cases
-        return authentication.getName();
-//        SimpleMessage message = new SimpleMessage();
-//        message.setText("hello i`m springboot");
-//        rabbitMQSender.send(message);
-//
-//        return "Message Sent!";
+        SimpleMessage message = new SimpleMessage();
+        message.setText(authentication.getName());
+        rabbitMQSender.send(message);
+        return "Message Sent!";
     }
     @GetMapping("/date")
     public Date date(){
