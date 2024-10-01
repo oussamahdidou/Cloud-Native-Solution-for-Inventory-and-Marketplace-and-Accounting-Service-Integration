@@ -102,7 +102,8 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
-        // Configure to consume messages from a specific queue
+        cfg.UseRawJsonDeserializer();
+
         cfg.ConfigureJsonSerializerOptions(options =>
 {
     options.DefaultIgnoreCondition = JsonIgnoreCondition.Never;

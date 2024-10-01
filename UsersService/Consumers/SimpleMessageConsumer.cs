@@ -10,7 +10,9 @@ namespace UsersService.Consumers
     {
         public Task Consume(ConsumeContext<SimpleMessage> context)
         {
-            Console.WriteLine(context.Message.Text);
+            var message = context.Message;
+            // Process the message here
+            Console.WriteLine($"Received message: {message.Text}");
             return Task.CompletedTask;
         }
     }
