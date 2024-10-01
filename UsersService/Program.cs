@@ -104,11 +104,11 @@ builder.Services.AddMassTransit(x =>
         });
         cfg.UseRawJsonDeserializer();
 
-        cfg.ConfigureJsonSerializerOptions(options =>
-{
-    options.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
-    return options;
-});
+        //        cfg.ConfigureJsonSerializerOptions(options =>
+        //{eyJhbGciOiJIUzI1NiJ9.eyJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6Im91c3NhbWEiLCJleHAiOjE3Mjg0Nzc3MjIsImlhdCI6MTcyNzc4NjUyMn0.v17bLIfcEpLLuK9BEjOQHSasLhPR0b59Sx6OJb-Cx_U
+        //    options.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
+        //    return options;
+        //});
         // Configure to consume messages from a specific queue
         cfg.ReceiveEndpoint("stock_queue", e =>
         {

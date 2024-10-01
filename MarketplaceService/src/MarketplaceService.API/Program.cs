@@ -1,4 +1,5 @@
 using MarketplaceService.Infrastructure.Data;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -81,7 +82,31 @@ builder.Services.AddCors(options =>
                     .AllowAnyMethod()
                     );
 });
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("rabbitmq://localhost", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+        cfg.UseRawJsonDeserializer();
 
+        //        cfg.ConfigureJsonSerializerOptions(options =>
+        //{
+        //    options.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
+        //    return options;
+        //});
+        // Configure to consume messages from a specific queue
+        cfg.ReceiveEndpoint("stock_queue", e =>
+        {
+            //e.Consumer<SimpleMessageConsumer>();
+        });
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
 
 var app = builder.Build();
 
