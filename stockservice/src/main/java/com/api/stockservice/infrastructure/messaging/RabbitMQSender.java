@@ -21,14 +21,11 @@ public class RabbitMQSender {
     }
 
     public void send(SimpleMessage message) {
-        try {
-            // Serialize the message to JSON
-            String jsonMessage = objectMapper.writeValueAsString(message);
+
+
             // Send the JSON message to RabbitMQ
-            rabbitTemplate.convertAndSend("stock_exchange", "stock", jsonMessage);
-            System.out.println(jsonMessage);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+            rabbitTemplate.convertAndSend("stock_exchange", "stock", message);
+            System.out.println(message);
+
     }
 }
