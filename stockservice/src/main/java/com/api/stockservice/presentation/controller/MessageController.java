@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.stockservice.domain.event.SimpleMessage;
 import com.api.stockservice.infrastructure.messaging.RabbitMQSender;
 
+import java.util.Date;
+
 @RestController
 public class MessageController {
     @Autowired
@@ -24,5 +26,9 @@ public class MessageController {
         rabbitMQSender.send(message);
 
         return "Message Sent!";
+    }
+    @GetMapping("/date")
+    public Date date(){
+        return  new Date();
     }
 }

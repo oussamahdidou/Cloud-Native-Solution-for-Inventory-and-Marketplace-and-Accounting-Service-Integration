@@ -1,5 +1,8 @@
 package com.api.stockservice.infrastructure.config;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -12,7 +15,7 @@ import io.jsonwebtoken.Jwts;
 public class JwtConfig {
     public String getUserNameFromJWT(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(JWTConstantes.SECRET_KEY)
+                .setSigningKey(JWTConstantes.SECRET_KEY.getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
@@ -20,18 +23,31 @@ public class JwtConfig {
 
     public List<String> getRolesFromJWT(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(JWTConstantes.SECRET_KEY)
+                .setSigningKey(JWTConstantes.SECRET_KEY.getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(token)
                 .getBody();
-        return (List<String>) claims.get("roles");
+        List<String> roles = new ArrayList<>();
+        String role = (String) claims.get("role");
+        if (role != null) {
+            roles.add(role);
+        }
+        return roles;
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(JWTConstantes.SECRET_KEY).parseClaimsJws(token);
+            Claims claims = Jwts.parser()
+                    .setSigningKey(JWTConstantes.SECRET_KEY.getBytes(StandardCharsets.UTF_8))
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            if (claims.getExpiration().before(new Date())) {
+                throw new IllegalArgumentException("Token has expired");
+            }
             return true;
         } catch (Exception e) {
-            throw new AuthenticationCredentialsNotFoundException("token not valid");
+            throw new IllegalArgumentException("Token not valid", e);
         }
     }
+
 }

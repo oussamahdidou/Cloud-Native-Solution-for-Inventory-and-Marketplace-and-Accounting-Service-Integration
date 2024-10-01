@@ -8,7 +8,9 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using UsersService.Consumers;
 using UsersService.Data;
+using UsersService.Interfaces;
 using UsersService.Model;
+using UsersService.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -117,9 +119,18 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-builder.Services.AddMassTransitHostedService();
-var app = builder.Build();
 
+builder.Services.AddMassTransitHostedService();
+builder.Services.AddScoped<ITokenService, TokenService>();
+var app = builder.Build();
+if (args.Length >= 2 && args[0].Length == 1 && args[1].ToLower() == "seeddata")
+{
+    await SeedData.SeedUsersAndRolesAsync(app);
+}
+else
+{
+    Console.WriteLine("Invalid arguments or missing command.");
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

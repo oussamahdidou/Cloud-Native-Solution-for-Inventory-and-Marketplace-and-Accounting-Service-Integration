@@ -31,9 +31,9 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-//                .antMatchers("/")
-                .anyRequest().authenticated()
+                .authorizeHttpRequests() // Updated to use authorizeHttpRequests()
+                .requestMatchers("/send-message").authenticated()// Allow access to Swagger UI and API docs
+                .anyRequest().permitAll()
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
