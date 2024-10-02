@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MassTransit;
+using MassTransit.Transports;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,15 +14,17 @@ namespace UsersService.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly IPublishEndpoint publishEndpoint;
         private readonly UserManager<AppUser> userManager;
         private readonly SignInManager<AppUser> signInManager;
 
         private readonly ITokenService tokenService;
-        public AccountController(ITokenService tokenService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(ITokenService tokenService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IPublishEndpoint   publishEndpoint)
         {
             this.tokenService = tokenService;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.publishEndpoint = publishEndpoint;
         }
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
@@ -31,12 +35,19 @@ namespace UsersService.Controllers
             var userconnected = await signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if (!userconnected.Succeeded)
                 return NotFound("invalid password");
+            string token = await tokenService.CreateToken(user);
+          SimpleMessage simpleMessage=  new SimpleMessage() { Text = token };
+            await publishEndpoint.Publish(simpleMessage, context =>
+            {
+                context.SetRoutingKey("receive_");
 
+               
+            });
             return Ok(new NewUserDto()
             {
                 Username = user.UserName,
                 Email = user.Email,
-                Token = await tokenService.CreateToken(user)
+                Token = token
             });
         }
     }

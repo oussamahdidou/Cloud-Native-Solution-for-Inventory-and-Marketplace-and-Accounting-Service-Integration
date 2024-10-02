@@ -7,6 +7,6 @@ namespace UsersService
 {
     public class SimpleMessage
     {
-        public string? Text { get; set; }
+        public string Text { get; set; } = "token";
     }
 }

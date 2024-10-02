@@ -11,8 +11,8 @@ namespace UsersService.Consumers
         public Task Consume(ConsumeContext<SimpleMessage> context)
         {
             var message = context.Message;
-            // Process the message here
-            Console.WriteLine($"Received message: {message.Text}");
+            Console.WriteLine("message received " + message.Text);
+
             return Task.CompletedTask;
         }
     }
