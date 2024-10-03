@@ -10,4 +10,5 @@ public class RabbitMQListener {
     @RabbitListener(queues = "receive_queue")
     public void listen(SimpleMessage message) {
         System.out.println("Received message: " + message.getText());
-    }  }
+    }
+}

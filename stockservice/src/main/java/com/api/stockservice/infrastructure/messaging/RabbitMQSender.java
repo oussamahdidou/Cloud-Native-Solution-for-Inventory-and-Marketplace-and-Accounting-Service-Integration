@@ -24,7 +24,7 @@ public class RabbitMQSender {
 
 
             // Send the JSON message to RabbitMQ
-            rabbitTemplate.convertAndSend("send_exchange", "send", message);
+            rabbitTemplate.convertAndSend("receive_exchange", "receive", message);
 
 
     }

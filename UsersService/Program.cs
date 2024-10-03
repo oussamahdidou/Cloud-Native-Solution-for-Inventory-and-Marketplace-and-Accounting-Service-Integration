@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using UsersService;
 using UsersService.Consumers;
 using UsersService.Data;
 using UsersService.Interfaces;
@@ -95,24 +96,7 @@ builder.Services.AddCors(options =>
                     .AllowAnyMethod()
                     );
 });
-builder.Services.AddMassTransit(x =>
-{
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host("rabbitmq://localhost", h =>
-        {
-            h.Username("guest");
-            h.Password("guest");
-        });
-        cfg.UseRawJsonDeserializer();
-        cfg.UseNewtonsoftJsonSerializer();
-        cfg.ReceiveEndpoint("send_queue", e =>
-        {
-            e.Consumer<SimpleMessageConsumer>();
-        });
-    });
-});
-builder.Services.AddMassTransitHostedService();
+
 builder.Services.AddScoped<ITokenService, TokenService>();
 var app = builder.Build();
 if (args.Length >= 2 && args[0].Length == 1 && args[1].ToLower() == "seeddata")

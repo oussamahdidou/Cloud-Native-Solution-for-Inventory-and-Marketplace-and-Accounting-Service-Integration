@@ -37,12 +37,7 @@ namespace UsersService.Controllers
                 return NotFound("invalid password");
             string token = await tokenService.CreateToken(user);
           SimpleMessage simpleMessage=  new SimpleMessage() { Text = token };
-            await publishEndpoint.Publish(simpleMessage, context =>
-            {
-                context.SetRoutingKey("receive_");
-
-               
-            });
+            await publishEndpoint.Publish(simpleMessage);
             return Ok(new NewUserDto()
             {
                 Username = user.UserName,
