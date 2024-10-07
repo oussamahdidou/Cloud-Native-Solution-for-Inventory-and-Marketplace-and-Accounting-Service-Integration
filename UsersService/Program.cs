@@ -1,19 +1,24 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using UsersService;
 using UsersService.Consumers;
 using UsersService.Data;
 using UsersService.Interfaces;
+using UsersService.Messages;
 using UsersService.Model;
+using UsersService.Producers;
 using UsersService.Services;
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -96,7 +101,43 @@ builder.Services.AddCors(options =>
                     .AllowAnyMethod()
                     );
 });
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<RequestConsumer>();
+    x.AddConsumer<FirstEventConsumer>();
 
+    x.AddConsumer<SecondEventConsumer>();
+    x.AddRequestClient<RequestMessage>(new Uri("queue:my-request-queue"));
+    x.UsingRabbitMq((context, cfg) =>
+    {
+     
+        cfg.Host("rabbitmq://localhost", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+        });
+        cfg.UseRawJsonDeserializer();
+
+        cfg.ReceiveEndpoint("my-request-queue", e =>
+        {
+            e.ConfigureConsumer<RequestConsumer>(context);
+        });
+        cfg.ReceiveEndpoint("first-publish-queue", e =>
+        {
+            e.Bind("publish_exchange");
+            e.ConfigureConsumer<FirstEventConsumer>(context);
+        });
+        cfg.ReceiveEndpoint("second-publish-queue", e =>
+        {
+            e.Bind("publish_exchange");
+            e.ConfigureConsumer<SecondEventConsumer>(context);
+        });
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
+builder.Services.AddScoped<MyRequester>();
+builder.Services.AddScoped<MyPublisher>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 var app = builder.Build();
 if (args.Length >= 2 && args[0].Length == 1 && args[1].ToLower() == "seeddata")
