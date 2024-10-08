@@ -24,6 +24,11 @@ public class RabbitMQConfig {
         return new Jackson2JsonMessageConverter();
     }
     @Bean
+    public Queue standaloneQueue() {
+        // The second argument 'false' means the queue is not durable.
+        return new Queue("test-request-queue", false);
+    }
+    @Bean
     public Queue myQueue() {
         return new Queue("spring-boot-queue", true);
     }

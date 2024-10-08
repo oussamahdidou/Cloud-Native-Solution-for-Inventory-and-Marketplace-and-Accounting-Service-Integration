@@ -84,10 +84,10 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true, //issuer url same as jwt token creation url
-        ValidIssuer = builder.Configuration["JWT:Issuer"], //audience
+        ValidateIssuer = true, 
+        ValidIssuer = builder.Configuration["JWT:Issuer"], 
         ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWT:Audience"],//issuer url same as jwt token creation url
+        ValidAudience = builder.Configuration["JWT:Audience"],
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(
                 System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigninKey"]))
@@ -117,10 +117,10 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
-        // Set the JSON serializer to serialize messages in a simple format
+
         cfg.UseNewtonsoftRawJsonSerializer();
         cfg.UseNewtonsoftJsonDeserializer();
-        // Automatically configure endpoints based on registered consumers
+        
         cfg.ConfigureEndpoints(context);
         //cfg.ReceiveEndpoint("my-request-queue", e =>
         //{
