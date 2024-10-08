@@ -104,7 +104,7 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumer<RequestConsumer>();
+    //x.AddConsumer<RequestConsumer>();
     x.AddConsumer<FirstEventConsumer>();
 
     x.AddConsumer<SecondEventConsumer>();
@@ -119,13 +119,13 @@ builder.Services.AddMassTransit(x =>
         });
         // Set the JSON serializer to serialize messages in a simple format
         cfg.UseNewtonsoftRawJsonSerializer();
-
+        cfg.UseNewtonsoftJsonDeserializer();
         // Automatically configure endpoints based on registered consumers
         cfg.ConfigureEndpoints(context);
-        cfg.ReceiveEndpoint("my-request-queue", e =>
-        {
-            e.ConfigureConsumer<RequestConsumer>(context);
-        });
+        //cfg.ReceiveEndpoint("my-request-queue", e =>
+        //{
+        //    e.ConfigureConsumer<RequestConsumer>(context);
+        //});
         cfg.ReceiveEndpoint("first-publish-queue", e =>
         {
             e.Bind("publish_exchange");
