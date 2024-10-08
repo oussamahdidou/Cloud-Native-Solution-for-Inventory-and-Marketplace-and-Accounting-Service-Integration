@@ -13,7 +13,7 @@ public class JacksonConfig {
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE); // If needed
+//        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE); // Adjust if necessary
         return mapper;
     }
 }

@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using MassTransit;
@@ -116,8 +117,11 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
-        cfg.UseRawJsonDeserializer();
+        // Set the JSON serializer to serialize messages in a simple format
+        cfg.UseNewtonsoftRawJsonSerializer();
 
+        // Automatically configure endpoints based on registered consumers
+        cfg.ConfigureEndpoints(context);
         cfg.ReceiveEndpoint("my-request-queue", e =>
         {
             e.ConfigureConsumer<RequestConsumer>(context);
