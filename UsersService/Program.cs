@@ -104,7 +104,7 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddMassTransit(x =>
 {
-    //x.AddConsumer<RequestConsumer>();
+    x.AddConsumer<RequestConsumer>();
     x.AddConsumer<FirstEventConsumer>();
 
     x.AddConsumer<SecondEventConsumer>();
@@ -122,10 +122,12 @@ builder.Services.AddMassTransit(x =>
         cfg.UseNewtonsoftJsonDeserializer();
         
         cfg.ConfigureEndpoints(context);
-        //cfg.ReceiveEndpoint("my-request-queue", e =>
-        //{
-        //    e.ConfigureConsumer<RequestConsumer>(context);
-        //});
+        cfg.ReceiveEndpoint("test-request-queue", e =>
+        {
+            e.Durable = false;
+            e.ConfigureConsumer<RequestConsumer>(context);
+
+        });
         cfg.ReceiveEndpoint("first-publish-queue", e =>
         {
             e.Bind("publish_exchange");

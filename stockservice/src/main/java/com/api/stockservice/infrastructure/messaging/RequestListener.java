@@ -16,7 +16,7 @@ public class RequestListener {
     private RabbitTemplate rabbitTemplate;
 
     @RabbitListener(queues = "my-request-queue")
-    @SendTo("request.messageProperties.header['MT-Response-Address]")
+    @SendTo("request.messageProperties.header['MT-Response-Address']")
     public ResponseMessage handleRequest(@Payload RequestMessage request) {
         // Process the request
         String result = "Processed: " + request.getPayload();
