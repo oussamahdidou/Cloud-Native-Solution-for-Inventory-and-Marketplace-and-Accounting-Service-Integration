@@ -15,7 +15,7 @@ namespace UsersService.Producers
         public async Task SendRequest(string value)
         {
             var request = new RequestMessage { Payload = value };
-
+            var requestId = Guid.NewGuid();
             // Send the request and wait for the response
             var response = await _requestClient.GetResponse<ResponseMessage>(request);
 
