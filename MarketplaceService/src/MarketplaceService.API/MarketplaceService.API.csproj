@@ -19,4 +19,8 @@
     <ProjectReference Include="..\MarketplaceService.Application\MarketplaceService.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
