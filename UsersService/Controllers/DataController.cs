@@ -1,7 +1,9 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UsersService.Messages;
+using UsersService.Model;
 using UsersService.Producers;
 
 namespace UsersService.Controllers
@@ -10,20 +12,19 @@ namespace UsersService.Controllers
     [ApiController]
     public class DataController : ControllerBase
     {
-        private readonly MyRequester _myRequester;
         private readonly MyPublisher myPublisher;
-
-        public DataController(MyRequester myRequester, MyPublisher myPublisher)
+        private readonly UserManager<AppUser> userManager;
+        public DataController(MyPublisher myPublisher, UserManager<AppUser> userManager)
         {
-            _myRequester = myRequester;
             this.myPublisher = myPublisher;
+            this.userManager = userManager;
         }
 
-        [HttpGet("send-request")]
-        public async Task<IActionResult> SendRequest()
+        [HttpGet("send-request/{username}")]
+        public async Task<IActionResult> SendRequest([FromRoute] string username)
         {
-            await _myRequester.SendRequest("Test Value");
-            return Ok("Request Sent");
+      
+            return Ok((await userManager.FindByNameAsync(username)).Id);
         }
         [HttpGet("publish-event")]
         public async Task<IActionResult> PublishEvent()
@@ -31,5 +32,6 @@ namespace UsersService.Controllers
             await myPublisher.PublishToCustomExchange("Test Value");
             return Ok("Request Sent");
         }
+  
     }
 }

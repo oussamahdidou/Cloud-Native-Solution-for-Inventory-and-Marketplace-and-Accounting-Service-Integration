@@ -2,12 +2,13 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
+	// Protobuf plugin
 }
 
 group = 'com.api'
 version = '0.0.1-SNAPSHOT'
 
-java { 
+java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
@@ -34,15 +35,17 @@ dependencies {
 	 implementation 'com.fasterxml.jackson.core:jackson-databind' // Replace with the latest version
     implementation 'com.fasterxml.jackson.core:jackson-core'    // Core module
     implementation 'com.fasterxml.jackson.core:jackson-annotations' // Annotations module
-	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.amqp:spring-rabbit-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation 'io.grpc:grpc-testing:1.58.0'
+	testImplementation 'io.grpc:grpc-testing:1.58.0'  // gRPC testing
 }
 
 tasks.named('test') {

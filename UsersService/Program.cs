@@ -16,6 +16,7 @@ using UsersService.Messages;
 using UsersService.Model;
 using UsersService.Producers;
 using UsersService.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -97,18 +98,18 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin",
-        builder => builder.WithOrigins("http://localhost:4200")
+        builder => builder.WithOrigins("*")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     );
 });
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumer<RequestConsumer>();
+
     x.AddConsumer<FirstEventConsumer>();
 
     x.AddConsumer<SecondEventConsumer>();
-    x.AddRequestClient<RequestMessage>(new Uri("queue:my-request-queue"));
+   
     x.UsingRabbitMq((context, cfg) =>
     {
      
@@ -117,17 +118,12 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
-
+        //LogContext.Info
         cfg.UseNewtonsoftRawJsonSerializer();
-        cfg.UseNewtonsoftJsonDeserializer();
+        cfg.UseNewtonsoftRawJsonDeserializer();
         
         cfg.ConfigureEndpoints(context);
-        cfg.ReceiveEndpoint("test-request-queue", e =>
-        {
-            e.Durable = false;
-            e.ConfigureConsumer<RequestConsumer>(context);
 
-        });
         cfg.ReceiveEndpoint("first-publish-queue", e =>
         {
             e.Bind("publish_exchange");
@@ -138,11 +134,13 @@ builder.Services.AddMassTransit(x =>
             e.Bind("publish_exchange");
             e.ConfigureConsumer<SecondEventConsumer>(context);
         });
+
+
     });
 });
 
 builder.Services.AddMassTransitHostedService();
-builder.Services.AddScoped<MyRequester>();
+
 builder.Services.AddScoped<MyPublisher>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 var app = builder.Build();

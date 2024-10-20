@@ -1,3 +1,5 @@
+
+using MarketplaceService.API;
 using MarketplaceService.Infrastructure.Data;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -5,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,32 +84,46 @@ builder.Services.AddCors(options =>
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     );
+   
 });
 builder.Services.AddMassTransit(x =>
 {
+
+    //x.AddConsumer<FirstEventConsumer>();
+
+    //x.AddConsumer<SecondEventConsumer>();
+
     x.UsingRabbitMq((context, cfg) =>
     {
+
         cfg.Host("rabbitmq://localhost", h =>
         {
             h.Username("guest");
             h.Password("guest");
         });
-        cfg.UseRawJsonDeserializer();
+        //LogContext.Info
+        cfg.UseNewtonsoftRawJsonSerializer();
+        cfg.UseNewtonsoftRawJsonDeserializer();
 
-        //        cfg.ConfigureJsonSerializerOptions(options =>
+        cfg.ConfigureEndpoints(context);
+
+        //cfg.ReceiveEndpoint("first-publish-queue", e =>
         //{
-        //    options.DefaultIgnoreCondition = JsonIgnoreCondition.Never;
-        //    return options;
+        //    e.Bind("publish_exchange");
+        //    e.ConfigureConsumer<FirstEventConsumer>(context);
         //});
-        // Configure to consume messages from a specific queue
-        cfg.ReceiveEndpoint("stock_queue", e =>
-        {
-            //e.Consumer<SimpleMessageConsumer>();
-        });
+        //cfg.ReceiveEndpoint("second-publish-queue", e =>
+        //{
+        //    e.Bind("publish_exchange");
+        //    e.ConfigureConsumer<SecondEventConsumer>(context);
+        //});
+
+
     });
 });
 
 builder.Services.AddMassTransitHostedService();
+
 
 var app = builder.Build();
 
@@ -122,6 +139,5 @@ app.UseCors("AllowOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 
 app.Run();

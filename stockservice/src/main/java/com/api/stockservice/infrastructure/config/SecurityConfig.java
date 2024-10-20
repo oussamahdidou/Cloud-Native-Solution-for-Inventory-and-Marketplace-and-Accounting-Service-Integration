@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests() // Updated to use authorizeHttpRequests()
-                .requestMatchers("/send-message").authenticated()// Allow access to Swagger UI and API docs
+                .requestMatchers("/send-message").hasAnyAuthority("Admin")// Allow access to Swagger UI and API docs
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic();

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class RequestMessage
 {
-    public String Payload ;
+    private String payload ;
+
 }
 

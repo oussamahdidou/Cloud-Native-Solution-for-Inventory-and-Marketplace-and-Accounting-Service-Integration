@@ -1,21 +1,23 @@
 package com.api.stockservice.presentation.controller;
 
-import com.api.stockservice.domain.event.ResponseMessage;
 import com.api.stockservice.infrastructure.messaging.MyEventPublisher;
-import com.api.stockservice.infrastructure.messaging.RequesterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class MyEventController {
 
     private final MyEventPublisher myEventPublisher;
-
-    private final RequesterService requesterService;
+    private final RestTemplate restTemplate;
     @Autowired
-    public MyEventController(MyEventPublisher myEventPublisher, RequesterService requesterService) {
+    public MyEventController(MyEventPublisher myEventPublisher, RestTemplate restTemplate) {
         this.myEventPublisher = myEventPublisher;
-        this.requesterService = requesterService;
+        this.restTemplate = restTemplate;
+
     }
 
     @PostMapping("/publish")
@@ -23,9 +25,11 @@ public class MyEventController {
         myEventPublisher.publishEvent(value);
         return "Event published successfully!";
     }
-    @GetMapping("/send-request")
-    public ResponseMessage sendRequest(@RequestParam String message) {
-        // Send the request and return the response
-        return requesterService.sendRequest(message);
+    @PostMapping("/send-message")
+    public ResponseEntity<String> getUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String url = "http://localhost:5098/api/Data/send-request/admin1";
+       restTemplate.getForObject(url, String.class);// Replace with your .NET API URL
+        return ResponseEntity.ok(restTemplate.getForObject(url, String.class));
     }
 }
