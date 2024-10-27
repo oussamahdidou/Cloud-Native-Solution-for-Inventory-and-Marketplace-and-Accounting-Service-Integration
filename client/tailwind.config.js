@@ -2,6 +2,16 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        sm: "600px",
+        md: "720px",
+        lg: "960px",
+        xl: "1140px",
+      },
+    },
     screens: {
       sm: "480px",
       md: "768px",
@@ -22,5 +32,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("flowbite/plugin")({
+      datatables: true,
+    }),
+  ],
 };
