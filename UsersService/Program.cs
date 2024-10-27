@@ -70,7 +70,6 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 8;
-
 })
 .AddEntityFrameworkStores<apiDbContext>();
 builder.Services.AddAuthentication(options =>
@@ -118,7 +117,7 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
-        //LogContext.Info
+     
         cfg.UseNewtonsoftRawJsonSerializer();
         cfg.UseNewtonsoftRawJsonDeserializer();
         

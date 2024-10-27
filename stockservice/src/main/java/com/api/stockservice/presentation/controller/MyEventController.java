@@ -27,9 +27,7 @@ public class MyEventController {
     }
     @PostMapping("/send-message")
     public ResponseEntity<String> getUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String url = "http://localhost:5098/api/Data/send-request/admin1";
-       restTemplate.getForObject(url, String.class);// Replace with your .NET API URL
-        return ResponseEntity.ok(restTemplate.getForObject(url, String.class));
+
+        return ResponseEntity.ok("noura wjh zft");
     }
 }

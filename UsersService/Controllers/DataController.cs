@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,6 @@ namespace UsersService.Controllers
             this.myPublisher = myPublisher;
             this.userManager = userManager;
         }
-
         [HttpGet("send-request/{username}")]
         public async Task<IActionResult> SendRequest([FromRoute] string username)
         {
