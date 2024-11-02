@@ -28,6 +28,6 @@ public class MyEventController {
     @PostMapping("/send-message")
     public ResponseEntity<String> getUserId() {
 
-        return ResponseEntity.ok("noura wjh zft");
+        return ResponseEntity.ok("wjh zft");
     }
 }
