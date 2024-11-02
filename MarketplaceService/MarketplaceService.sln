@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketplaceService.Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersService", "..\UsersService\UsersService.csproj", "{189558A7-78EF-4928-9C94-9426292388B4}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "client", "..\client\client.esproj", "{E083C16C-9C5C-4BB7-B6E2-BCAC3DEB493B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,12 +39,6 @@ Global
 		{189558A7-78EF-4928-9C94-9426292388B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{189558A7-78EF-4928-9C94-9426292388B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{189558A7-78EF-4928-9C94-9426292388B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E083C16C-9C5C-4BB7-B6E2-BCAC3DEB493B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E083C16C-9C5C-4BB7-B6E2-BCAC3DEB493B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E083C16C-9C5C-4BB7-B6E2-BCAC3DEB493B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{E083C16C-9C5C-4BB7-B6E2-BCAC3DEB493B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E083C16C-9C5C-4BB7-B6E2-BCAC3DEB493B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E083C16C-9C5C-4BB7-B6E2-BCAC3DEB493B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

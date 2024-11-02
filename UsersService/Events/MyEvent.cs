@@ -1,4 +1,4 @@
-﻿namespace UsersService.Messages
+﻿namespace UsersService.Events
 {
     public class MyEvent
     {

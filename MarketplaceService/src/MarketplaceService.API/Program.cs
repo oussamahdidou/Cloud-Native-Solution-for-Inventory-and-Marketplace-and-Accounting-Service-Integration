@@ -1,5 +1,4 @@
 
-using MarketplaceService.API;
 using MarketplaceService.Infrastructure.Data;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,8 +49,8 @@ builder.Services.AddSwaggerGen(option =>
 });
 builder.Services.AddDbContext<apiDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("MarketplaceService.API"));
+  
 });
 
 
@@ -89,10 +88,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddMassTransit(x =>
 {
 
-    //x.AddConsumer<FirstEventConsumer>();
-
-    //x.AddConsumer<SecondEventConsumer>();
-
     x.UsingRabbitMq((context, cfg) =>
     {
 
@@ -101,24 +96,10 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
-        //LogContext.Info
         cfg.UseNewtonsoftRawJsonSerializer();
         cfg.UseNewtonsoftRawJsonDeserializer();
 
         cfg.ConfigureEndpoints(context);
-
-        //cfg.ReceiveEndpoint("first-publish-queue", e =>
-        //{
-        //    e.Bind("publish_exchange");
-        //    e.ConfigureConsumer<FirstEventConsumer>(context);
-        //});
-        //cfg.ReceiveEndpoint("second-publish-queue", e =>
-        //{
-        //    e.Bind("publish_exchange");
-        //    e.ConfigureConsumer<SecondEventConsumer>(context);
-        //});
-
-
     });
 });
 
