@@ -12,7 +12,6 @@ using Newtonsoft.Json;
 using UsersService.Consumers;
 using UsersService.Data;
 using UsersService.Interfaces;
-using UsersService.Messages;
 using UsersService.Model;
 using UsersService.Producers;
 using UsersService.Services;

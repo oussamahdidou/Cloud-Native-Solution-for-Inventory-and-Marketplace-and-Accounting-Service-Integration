@@ -1,5 +1,5 @@
 ﻿using MassTransit;
-using UsersService.Messages;
+using UsersService.Events;
 
 namespace UsersService.Consumers
 {
