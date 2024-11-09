@@ -1,5 +1,7 @@
 
+using MarketplaceService.Domain.Repositories;
 using MarketplaceService.Infrastructure.Data;
+using MarketplaceService.Infrastructure.Repositories;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -104,7 +106,11 @@ builder.Services.AddMassTransit(x =>
 });
 
 builder.Services.AddMassTransitHostedService();
-
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICommandeRepository, CommandeRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
