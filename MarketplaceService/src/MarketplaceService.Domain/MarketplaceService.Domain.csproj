@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\EventsContracts\EventsContracts.csproj" />
+
   </ItemGroup>
 
 </Project>

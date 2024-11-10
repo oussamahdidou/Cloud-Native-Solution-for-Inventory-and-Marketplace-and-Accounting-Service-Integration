@@ -1,4 +1,5 @@
 ﻿using MarketplaceService.Domain.Entities;
+using MarketplaceService.Domain.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace MarketplaceService.Domain.Repositories
     public interface IProductRepository
     {
         // Get all products
-        Task<List<Product>> GetAllProductsAsync();
+        Task<List<Product>> GetAllProductsAsync(ProductQuery productQuery);
 
         // Get a product by ID
         Task<Product> GetProductByIdAsync(int id);
