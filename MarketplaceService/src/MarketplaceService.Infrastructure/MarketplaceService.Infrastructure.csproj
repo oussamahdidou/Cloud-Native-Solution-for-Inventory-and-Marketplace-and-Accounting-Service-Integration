@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\EventsContracts\EventsContracts.csproj" />
+    <ProjectReference Include="..\EventsContracts\EventsContracts.csproj" />
     <ProjectReference Include="..\MarketplaceService.Domain\MarketplaceService.Domain.csproj" />
   </ItemGroup>
 

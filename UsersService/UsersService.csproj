@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MarketplaceService\EventsContracts\EventsContracts.csproj" />
+    <ProjectReference Include="..\MarketplaceService\src\EventsContracts\EventsContracts.csproj" />
   </ItemGroup>
 
 
