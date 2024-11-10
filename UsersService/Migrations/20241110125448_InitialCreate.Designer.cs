@@ -12,8 +12,8 @@ using UsersService.Data;
 namespace UsersService.Migrations
 {
     [DbContext(typeof(apiDbContext))]
-    [Migration("20241001161118_InitialUsers")]
-    partial class InitialUsers
+    [Migration("20241110125448_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,20 @@ namespace UsersService.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "556b68fe-7b70-4806-9ce7-4addc433f7b7",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "423ae09a-7c41-4812-8f8a-996f817af17f",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

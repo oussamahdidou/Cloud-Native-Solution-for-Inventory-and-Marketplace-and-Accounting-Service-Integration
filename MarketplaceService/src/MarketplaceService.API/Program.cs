@@ -1,5 +1,6 @@
 
 using MarketplaceService.Domain.Repositories;
+using MarketplaceService.Infrastructure.Consumers;
 using MarketplaceService.Infrastructure.Data;
 using MarketplaceService.Infrastructure.Repositories;
 using MassTransit;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -89,11 +91,12 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<RegistredUserConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {
 
-        cfg.Host("rabbitmq://localhost", h =>
+        cfg.Host("localhost", "/", h =>
         {
             h.Username("guest");
             h.Password("guest");
@@ -102,6 +105,15 @@ builder.Services.AddMassTransit(x =>
         cfg.UseNewtonsoftRawJsonDeserializer();
 
         cfg.ConfigureEndpoints(context);
+        cfg.ReceiveEndpoint("marketplace_user_registration_queue", e =>
+        {
+            e.Bind("user_registration_exchange", exchange =>
+            {
+                exchange.ExchangeType = ExchangeType.Fanout; // Use direct, topic, or fanout as appropriate
+            });
+            e.ConfigureConsumer<RegistredUserConsumer>(context);
+        });
+
     });
 });
 

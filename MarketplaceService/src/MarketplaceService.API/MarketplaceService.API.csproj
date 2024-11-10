@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\EventsContracts\EventsContracts.csproj" />
     <ProjectReference Include="..\MarketplaceService.Application\MarketplaceService.Application.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 using System.Net.Mime;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using EventsContracts.EventsContracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
 using UsersService.Consumers;
 using UsersService.Data;
 using UsersService.Interfaces;
@@ -111,12 +113,15 @@ builder.Services.AddMassTransit(x =>
     x.UsingRabbitMq((context, cfg) =>
     {
      
-        cfg.Host("rabbitmq://localhost", h =>
+        cfg.Host("localhost", "/", h =>
         {
             h.Username("guest");
             h.Password("guest");
         });
-     
+        cfg.Message<INewUserRegistredEvent>(m =>
+        {
+            m.SetEntityName("user_registration_exchange"); // specify the exchange name explicitly
+        });
         cfg.UseNewtonsoftRawJsonSerializer();
         cfg.UseNewtonsoftRawJsonDeserializer();
         
@@ -132,6 +137,7 @@ builder.Services.AddMassTransit(x =>
             e.Bind("publish_exchange");
             e.ConfigureConsumer<SecondEventConsumer>(context);
         });
+  
 
 
     });
