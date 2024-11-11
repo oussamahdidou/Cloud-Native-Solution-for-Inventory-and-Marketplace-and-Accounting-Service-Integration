@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MarketplaceService.API.Migrations
 {
-    [DbContext(typeof(apiDbContext))]
+    [DbContext(typeof(ApiDbContext))]
     partial class apiDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

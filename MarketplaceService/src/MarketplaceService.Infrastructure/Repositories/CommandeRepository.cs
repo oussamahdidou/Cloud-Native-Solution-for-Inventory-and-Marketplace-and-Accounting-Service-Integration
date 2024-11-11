@@ -12,9 +12,9 @@ namespace MarketplaceService.Infrastructure.Repositories
 {
     public class CommandeRepository : ICommandeRepository
     {
-        private readonly apiDbContext apiDbContext;
+        private readonly ApiDbContext apiDbContext;
 
-        public CommandeRepository(apiDbContext apiDbContext)
+        public CommandeRepository(ApiDbContext apiDbContext)
         {
             this.apiDbContext = apiDbContext;
         }

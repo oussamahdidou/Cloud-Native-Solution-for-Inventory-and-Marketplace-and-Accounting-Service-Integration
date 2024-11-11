@@ -14,9 +14,9 @@ namespace MarketplaceService.Infrastructure.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly apiDbContext apiDbContext;
+        private readonly ApiDbContext apiDbContext;
 
-        public ProductRepository(apiDbContext apiDbContext)
+        public ProductRepository(ApiDbContext apiDbContext)
         {
             this.apiDbContext = apiDbContext;
         }

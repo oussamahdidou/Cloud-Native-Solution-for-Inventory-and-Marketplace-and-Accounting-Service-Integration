@@ -13,9 +13,9 @@ namespace MarketplaceService.Infrastructure.Repositories
     
     public class CartRepository : ICartRepository
     {
-        private readonly apiDbContext apiDbContext;
+        private readonly ApiDbContext apiDbContext;
 
-        public CartRepository(apiDbContext apiDbContext)
+        public CartRepository(ApiDbContext apiDbContext)
         {
             this.apiDbContext = apiDbContext;
         }

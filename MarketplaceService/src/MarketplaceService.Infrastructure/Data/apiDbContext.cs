@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MarketplaceService.Infrastructure.Data
 {
-    public class apiDbContext : DbContext
+    public class ApiDbContext : DbContext
     {
-        public apiDbContext(DbContextOptions dbContextOptions)
+        public ApiDbContext(DbContextOptions dbContextOptions)
         : base(dbContextOptions)
         {
 

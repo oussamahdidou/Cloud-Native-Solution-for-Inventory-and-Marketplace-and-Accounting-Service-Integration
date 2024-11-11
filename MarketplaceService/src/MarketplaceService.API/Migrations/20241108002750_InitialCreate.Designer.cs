@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MarketplaceService.API.Migrations
 {
-    [DbContext(typeof(apiDbContext))]
+    [DbContext(typeof(ApiDbContext))]
     [Migration("20241108002750_InitialCreate")]
     partial class InitialCreate
     {
