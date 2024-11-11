@@ -1,4 +1,6 @@
 
+using MarketplaceService.Application.Interfaces;
+using MarketplaceService.Application.Services;
 using MarketplaceService.Domain.Repositories;
 using MarketplaceService.Infrastructure.Consumers;
 using MarketplaceService.Infrastructure.Data;
@@ -123,6 +125,10 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICommandeRepository, CommandeRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICartProductRepository, CartProductRepository>();
+builder.Services.AddScoped<ICartService,CartService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
