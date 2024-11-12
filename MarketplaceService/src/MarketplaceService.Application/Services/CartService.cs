@@ -31,7 +31,7 @@ namespace MarketplaceService.Application.Services
 
         public async Task AddProductToCart(AddProductToCartDto addProductToCartDto)
         {
-            if (await cartProductRepository.GetCartProductByIdAsync(addProductToCartDto.CartId,addProductToCartDto.ProductId)!=null)
+            if (await cartProductRepository.GetCartProductByIdAsync(addProductToCartDto.CartId,addProductToCartDto.ProductId)==null)
             {
                 CartProduct cartProduct = new CartProduct()
                 {
