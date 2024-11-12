@@ -1,8 +1,11 @@
-﻿using MarketplaceService.Application.Dtos.Cart;
+﻿using EventsContracts.EventsContracts;
+using MarketplaceService.Application.Dtos.Cart;
 using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Application.Mappers;
 using MarketplaceService.Domain.Entities;
+using MarketplaceService.Domain.Events;
 using MarketplaceService.Domain.Repositories;
+using MassTransit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +19,14 @@ namespace MarketplaceService.Application.Services
     {
         private readonly ICartRepository cartRepository;
         private readonly ICartProductRepository cartProductRepository;
-
-        public CartService(ICartRepository cartRepository, ICartProductRepository cartProductRepository)
+        private readonly ICommandeRepository commandeRepository;
+        private readonly IBus bus;
+        public CartService(ICartRepository cartRepository, ICartProductRepository cartProductRepository, ICommandeRepository commandeRepository, IBus bus)
         {
             this.cartRepository = cartRepository;
             this.cartProductRepository = cartProductRepository;
+            this.commandeRepository = commandeRepository;
+            this.bus = bus;
         }
 
         public async Task AddProductToCart(AddProductToCartDto addProductToCartDto)
@@ -40,15 +46,37 @@ namespace MarketplaceService.Application.Services
 
         public async Task CartCheckout(string CustomerId)
         {
-           Cart cart=  await cartRepository.GetCartByCustomerAsync(CustomerId);
-            foreach (var item in cart.CartProducts)
+
+            Cart cart =  await cartRepository.GetCartByCustomerAsync(CustomerId);
+            var insufficientStockItem = cart.CartProducts
+                .FirstOrDefault(item => item.Product.Quantity < item.Quantity);
+
+            if (insufficientStockItem != null)
             {
-                if(item.Product.Quantity < item.Quantity)
-                {
-                    throw new Exception($"Stock du produit {item.Product.Name} epuisee");
-                }
-                
+                throw new Exception($"Stock du produit {insufficientStockItem.Product.Name} épuisé");
             }
+            List<CommandeProduct> commandeProducts = cart.CartProducts.Select(x => x.FromCartItemToCommandeItem()).ToList();
+            Commande commande = new Commande()
+            {
+                OrderDate = DateTime.Now,
+                Status = "Order Confirmed",
+                CustomerId = CustomerId,
+                TotaleAmount = cart.TotalAmount,
+                CommandeProducts = commandeProducts
+            };
+            await commandeRepository.AddCommandeAsync(commande);
+            CommandeConfirmedEvent commandeConfirmedEvent = new CommandeConfirmedEvent()
+            {
+                Date = commande.OrderDate,
+                Items = commandeProducts.Select(x => new CommandeItemEvent()
+                {
+                    ItemId = x.ProductId,
+                    Quantity = x.Quantity
+                }).Cast<ICommandeItemEvent>().ToList() 
+            };
+
+            await bus.Publish<ICommandeConfirmedEvent>(commandeConfirmedEvent);
+
         }
 
         public async Task DecreaseProductQuantity(UpdateCartItemDto updateCartItemDto)

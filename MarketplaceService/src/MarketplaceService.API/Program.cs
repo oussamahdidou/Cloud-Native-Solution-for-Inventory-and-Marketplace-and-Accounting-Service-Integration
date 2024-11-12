@@ -1,4 +1,5 @@
 
+using EventsContracts.EventsContracts;
 using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Application.Services;
 using MarketplaceService.Domain.Repositories;
@@ -102,6 +103,10 @@ builder.Services.AddMassTransit(x =>
         {
             h.Username("guest");
             h.Password("guest");
+        });
+        cfg.Message<ICommandeConfirmedEvent>(m =>
+        {
+            m.SetEntityName("commande_confirmed_exchange"); // specify the exchange name explicitly
         });
         cfg.UseNewtonsoftRawJsonSerializer();
         cfg.UseNewtonsoftRawJsonDeserializer();

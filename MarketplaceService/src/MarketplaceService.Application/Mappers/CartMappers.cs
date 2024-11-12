@@ -30,5 +30,13 @@ namespace MarketplaceService.Application.Mappers
                 UnityPrice = cartProduct.Product.Price,
             };
         }
+        public static CommandeProduct FromCartItemToCommandeItem(this CartProduct cartProduct)
+        {
+            return new CommandeProduct()
+            {
+                ProductId = cartProduct.ProductId,
+                Quantity=cartProduct.Quantity
+            };
+        }
     }
 }
