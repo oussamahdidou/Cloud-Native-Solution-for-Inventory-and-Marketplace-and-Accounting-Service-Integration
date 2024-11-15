@@ -9,7 +9,7 @@ namespace MarketplaceService.Domain.Entities
 {
     public class CartProduct
     {
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
 
         public int CartId { get; set; }
         public int Quantity { get; set; }

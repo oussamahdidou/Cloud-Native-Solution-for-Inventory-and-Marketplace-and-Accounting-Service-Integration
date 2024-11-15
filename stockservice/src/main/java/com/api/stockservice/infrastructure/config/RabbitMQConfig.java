@@ -38,4 +38,64 @@ public class RabbitMQConfig {
     public Binding binding(Queue myQueue, FanoutExchange myExchange) {
         return BindingBuilder.bind(myQueue).to(myExchange);
     }
+
+    @Bean
+    public Queue productAddedQueue() {
+        return new Queue("product-added", true);
+    }
+
+    @Bean
+    public FanoutExchange productAddedExchange() {
+        return new FanoutExchange("product-exchange");
+    }
+
+    @Bean
+    public Binding Productbinding(Queue productAddedQueue, FanoutExchange productAddedExchange) {
+        return BindingBuilder.bind(productAddedQueue).to(productAddedExchange);
+    }
+
+    @Bean
+    public Queue productUpdateQueue() {
+        return new Queue("product-Update-Queue", true);
+    }
+
+    @Bean
+    public FanoutExchange productUpdateExchange() {
+        return new FanoutExchange("product-Update-exchange");
+    }
+
+    @Bean
+    public Binding ProductUpdatebinding(Queue productUpdateQueue, FanoutExchange productUpdateExchange) {
+        return BindingBuilder.bind(productUpdateQueue).to(productUpdateExchange);
+    }
+
+    @Bean
+    public Queue CategoryAddedQueue() {
+        return new Queue("Category-added-queue", true);
+    }
+
+    @Bean
+    public FanoutExchange CategoryAddedExchange() {
+        return new FanoutExchange("Category-added-Exchange");
+    }
+
+    @Bean
+    public Binding Categorybinding(Queue CategoryAddedQueue, FanoutExchange CategoryAddedExchange) {
+        return BindingBuilder.bind(CategoryAddedQueue).to(CategoryAddedExchange);
+    }
+    @Bean
+    public Queue SupplierAddedQueue() {
+        return new Queue("Supplier-added-queue", true);
+    }
+
+    @Bean
+    public FanoutExchange SupplierAddedExchange() {
+        return new FanoutExchange("Supplier-added-Exchange");
+    }
+
+    @Bean
+    public Binding Supplierbinding(Queue SupplierAddedQueue, FanoutExchange SupplierAddedExchange) {
+        return BindingBuilder.bind(SupplierAddedQueue).to(SupplierAddedExchange);
+    }
+
 }

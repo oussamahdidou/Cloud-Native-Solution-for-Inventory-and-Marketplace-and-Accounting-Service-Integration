@@ -1,25 +1,31 @@
 package com.api.stockservice.domain.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@DynamicUpdate
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String Id;
     private String name;
     private String thumbnail;
     private String description;
     private Double price;
-    private Integer quantite;
+    private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne
-//    @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 }

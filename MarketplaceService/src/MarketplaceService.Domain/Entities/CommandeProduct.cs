@@ -11,7 +11,7 @@ namespace MarketplaceService.Domain.Entities
     public class CommandeProduct
     {
        
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
         public int CommandeId { get; set; }
         public int Quantity { get; set; }
         public Product? Product { get; set; }

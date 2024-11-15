@@ -13,7 +13,7 @@ namespace MarketplaceService.Domain.Repositories
         Task<List<Category>> GetAllCategoriesAsync();
 
         // Get a category by ID
-        Task<Category> GetCategoryByIdAsync(int id);
+        Task<Category> GetCategoryByIdAsync(string id);
 
         // Add a new category
         Task AddCategoryAsync(Category category);
@@ -22,6 +22,6 @@ namespace MarketplaceService.Domain.Repositories
         Task UpdateCategoryAsync(Category category);
 
         // Delete a category by ID
-        Task DeleteCategoryAsync(int id);
+        Task DeleteCategoryAsync(string id);
     }
 }

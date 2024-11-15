@@ -25,7 +25,7 @@ namespace MarketplaceService.Infrastructure.Repositories
             await apiDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteProductAsync(int id)
+        public async Task DeleteProductAsync(string id)
         {
             var product = await apiDbContext.products.FindAsync(id);
             if (product != null)
@@ -40,7 +40,7 @@ namespace MarketplaceService.Infrastructure.Repositories
             return await apiDbContext.products.ToListAsync();
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<Product> GetProductByIdAsync(string id)
         {
             return await apiDbContext.products.FindAsync(id);
         }

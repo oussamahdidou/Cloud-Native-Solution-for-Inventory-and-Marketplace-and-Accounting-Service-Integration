@@ -92,6 +92,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<RegistredUserConsumer>();
+    x.AddConsumer<ProductAddedConsumer>();
+    x.AddConsumer<CategoryAddedConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {
@@ -105,6 +107,7 @@ builder.Services.AddMassTransit(x =>
         cfg.UseNewtonsoftRawJsonDeserializer();
 
         cfg.ConfigureEndpoints(context);
+       
         cfg.ReceiveEndpoint("marketplace_user_registration_queue", e =>
         {
             e.Bind("user_registration_exchange", exchange =>
@@ -112,6 +115,36 @@ builder.Services.AddMassTransit(x =>
                 exchange.ExchangeType = ExchangeType.Fanout; // Use direct, topic, or fanout as appropriate
             });
             e.ConfigureConsumer<RegistredUserConsumer>(context);
+        });
+        // product 
+        cfg.ReceiveEndpoint("product-added", e =>
+        {
+            e.Durable = true;
+            e.Bind("product-exchange", exchange =>
+            {
+                exchange.ExchangeType = ExchangeType.Fanout;
+            });
+            e.ConfigureConsumer<ProductAddedConsumer>(context);
+        });
+        // for update Product 
+        cfg.ReceiveEndpoint("product-Update-Queue", e =>
+        {
+            e.Durable = true;
+            e.Bind("product-Update-exchange", exchange =>
+            {
+                exchange.ExchangeType = ExchangeType.Fanout;
+            });
+            e.ConfigureConsumer<ProductAddedConsumer>(context);
+        });
+        // category 
+        cfg.ReceiveEndpoint("Category-added-queue", e =>
+        {
+            e.Durable = true;
+            e.Bind("Category-added-Exchange", exchange =>
+            {
+                exchange.ExchangeType = ExchangeType.Fanout;
+            });
+            e.ConfigureConsumer<CategoryAddedConsumer>(context);
         });
 
     });

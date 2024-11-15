@@ -24,7 +24,7 @@ namespace MarketplaceService.Infrastructure.Repositories
             await apiDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteCategoryAsync(int id)
+        public async Task DeleteCategoryAsync(string id)
         {
             var category = await apiDbContext.categories.FindAsync(id);
             if (category != null)
@@ -39,7 +39,7 @@ namespace MarketplaceService.Infrastructure.Repositories
             return await apiDbContext.categories.ToListAsync();
         }
 
-        public async Task<Category> GetCategoryByIdAsync(int id)
+        public async Task<Category> GetCategoryByIdAsync(string id)
         {
             return await apiDbContext.categories.FindAsync(id);
         }
