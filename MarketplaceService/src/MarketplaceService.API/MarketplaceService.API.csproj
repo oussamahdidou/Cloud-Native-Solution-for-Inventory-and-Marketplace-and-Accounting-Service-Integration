@@ -10,10 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\**" />
-    <Content Remove="Controllers\**" />
-    <EmbeddedResource Remove="Controllers\**" />
-    <None Remove="Controllers\**" />
+    <Compile Include="Controllers\**" />
+    <Content Include="Controllers\**" />
+    <EmbeddedResource Include="Controllers\**" />
+    <None Include="Controllers\**" />
   </ItemGroup>
 
   <ItemGroup>
