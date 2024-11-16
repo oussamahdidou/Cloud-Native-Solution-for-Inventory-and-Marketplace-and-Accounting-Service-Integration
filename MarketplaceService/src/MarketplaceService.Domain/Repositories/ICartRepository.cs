@@ -14,6 +14,7 @@ namespace MarketplaceService.Domain.Repositories
 
         // Get a cart by ID
         Task<Cart> GetCartByIdAsync(int id);
+        Task<Cart> GetCartByCustomerAsync(string CustomerId);
 
         // Add a new cart
         Task AddCartAsync(Cart cart);

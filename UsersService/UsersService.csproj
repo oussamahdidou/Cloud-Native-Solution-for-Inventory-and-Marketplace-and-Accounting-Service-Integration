@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\MarketplaceService</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MarketplaceService\EventsContracts\EventsContracts.csproj" />
+    <ProjectReference Include="..\MarketplaceService\src\EventsContracts\EventsContracts.csproj" />
   </ItemGroup>
 
 

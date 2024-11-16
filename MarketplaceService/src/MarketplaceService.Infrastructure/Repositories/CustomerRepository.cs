@@ -12,9 +12,9 @@ namespace MarketplaceService.Infrastructure.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private readonly apiDbContext apiDbContext;
+        private readonly ApiDbContext apiDbContext;
 
-        public CustomerRepository(apiDbContext apiDbContext)
+        public CustomerRepository(ApiDbContext apiDbContext)
         {
             this.apiDbContext = apiDbContext;
         }

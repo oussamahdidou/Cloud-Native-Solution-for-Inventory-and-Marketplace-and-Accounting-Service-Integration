@@ -4,6 +4,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>b52b9eb5-0636-4935-b104-24c14fcc861a</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,12 +30,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\EventsContracts\EventsContracts.csproj" />
+    <ProjectReference Include="..\EventsContracts\EventsContracts.csproj" />
     <ProjectReference Include="..\MarketplaceService.Application\MarketplaceService.Application.csproj" />
   </ItemGroup>
 

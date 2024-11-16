@@ -1,4 +1,5 @@
 ﻿using MarketplaceService.Domain.Entities;
+using MarketplaceService.Domain.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;

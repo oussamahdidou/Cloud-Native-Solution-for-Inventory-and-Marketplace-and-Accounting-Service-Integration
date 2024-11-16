@@ -1,4 +1,7 @@
 
+using EventsContracts.EventsContracts;
+using MarketplaceService.Application.Interfaces;
+using MarketplaceService.Application.Services;
 using MarketplaceService.Domain.Repositories;
 using MarketplaceService.Infrastructure.Consumers;
 using MarketplaceService.Infrastructure.Data;
@@ -51,7 +54,7 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-builder.Services.AddDbContext<apiDbContext>(options =>
+builder.Services.AddDbContext<ApiDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("MarketplaceService.API"));
   
@@ -102,6 +105,10 @@ builder.Services.AddMassTransit(x =>
         {
             h.Username("guest");
             h.Password("guest");
+        });
+        cfg.Message<ICommandeConfirmedEvent>(m =>
+        {
+            m.SetEntityName("commande_confirmed_exchange"); // specify the exchange name explicitly
         });
         cfg.UseNewtonsoftRawJsonSerializer();
         cfg.UseNewtonsoftRawJsonDeserializer();
@@ -156,6 +163,11 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICommandeRepository, CommandeRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICartProductRepository, CartProductRepository>();
+builder.Services.AddScoped<ICartService,CartService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IPaypalService, PaypalService>();
 
 var app = builder.Build();
 

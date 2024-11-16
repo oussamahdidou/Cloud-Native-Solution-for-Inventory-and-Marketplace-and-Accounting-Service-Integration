@@ -13,9 +13,9 @@ namespace MarketplaceService.Infrastructure.Repositories
     
     public class CartRepository : ICartRepository
     {
-        private readonly apiDbContext apiDbContext;
+        private readonly ApiDbContext apiDbContext;
 
-        public CartRepository(apiDbContext apiDbContext)
+        public CartRepository(ApiDbContext apiDbContext)
         {
             this.apiDbContext = apiDbContext;
         }
@@ -39,6 +39,11 @@ namespace MarketplaceService.Infrastructure.Repositories
         public async Task<List<Cart>> GetAllCartsAsync()
         {
             return await apiDbContext.carts.ToListAsync();
+        }
+
+        public Task<Cart> GetCartByCustomerAsync(string CustomerId)
+        {
+            return apiDbContext.carts.Include(x=>x.CartProducts).ThenInclude(x=>x.Product).FirstOrDefaultAsync(x => x.CustomerId == CustomerId);
         }
 
         public async Task<Cart> GetCartByIdAsync(int id)
