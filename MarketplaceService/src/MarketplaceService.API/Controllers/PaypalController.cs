@@ -24,8 +24,8 @@ namespace MarketplaceService.API.Controllers
             {
                 Amount=amount,
                 Description="pays commande",
-                CancelUrl= "https://600d-160-179-78-47.ngrok-free.app/api/Paypal/cancel",
-                ReturnUrl= "https://600d-160-179-78-47.ngrok-free.app/api/Paypal/success"
+                CancelUrl= "https://28c7-105-73-98-11.ngrok-free.app/api/Paypal/cancel",
+                ReturnUrl= "https://28c7-105-73-98-11.ngrok-free.app/api/Paypal/success"
 
             };
             var payment = paypalService.CreatePayment(createPaymentDto);
