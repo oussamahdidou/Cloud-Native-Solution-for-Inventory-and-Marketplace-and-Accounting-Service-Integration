@@ -9,7 +9,7 @@ namespace MarketplaceService.Domain.Events
 {
     public class CommandeItemEvent : ICommandeItemEvent
     {
-        public int ItemId { get ; set ; }
+        public string ItemId { get ; set ; }
         public int Quantity { get ; set ; }
     }
 }

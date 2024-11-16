@@ -8,7 +8,7 @@ namespace MarketplaceService.Domain.Queries
 {
     public class ProductQuery
     {
-        public int? CategoryId { get; set; }
+        public string? CategoryId { get; set; }
         public string? Marque { get; set; }
         public string? TextQuery { get; set; }
         public bool SortByPrice { get; set; }

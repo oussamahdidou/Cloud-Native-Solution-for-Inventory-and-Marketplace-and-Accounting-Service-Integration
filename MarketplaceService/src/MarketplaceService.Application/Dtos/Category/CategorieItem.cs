@@ -8,7 +8,7 @@ namespace MarketplaceService.Application.Dtos.Category
 {
     public class CategorieItem
     {
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
         public string Name { get; set; }
 

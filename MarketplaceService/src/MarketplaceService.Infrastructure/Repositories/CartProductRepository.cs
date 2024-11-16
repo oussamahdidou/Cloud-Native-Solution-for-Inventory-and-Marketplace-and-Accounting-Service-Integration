@@ -25,7 +25,7 @@ namespace MarketplaceService.Infrastructure.Repositories
             await apiDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteCartProductAsync(int CartId, int ProductId)
+        public async Task DeleteCartProductAsync(int CartId, string ProductId)
         {
             CartProduct? cartProduct = await apiDbContext.cartProducts.FirstOrDefaultAsync(x => x.CartId == CartId && x.ProductId == ProductId);
             if (cartProduct != null)
@@ -42,7 +42,7 @@ namespace MarketplaceService.Infrastructure.Repositories
             return await apiDbContext.cartProducts.ToListAsync();
         }
 
-        public async Task<CartProduct> GetCartProductByIdAsync(int CartId, int ProductId)
+        public async Task<CartProduct> GetCartProductByIdAsync(int CartId, string ProductId)
         {
             CartProduct? cartProduct= await apiDbContext.cartProducts.FirstOrDefaultAsync(x=>x.CartId==CartId&&x.ProductId==ProductId);
             if(cartProduct != null)

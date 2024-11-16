@@ -11,7 +11,7 @@ namespace MarketplaceService.Application.Interfaces
     public interface IProductService
     {
         Task<List<ProductItem>> GetProductItems(ProductQuery productQuery);
-        Task<ProductDetail> GetProductDetail(int productId);
+        Task<ProductDetail> GetProductDetail(string productId);
 
     }
 }

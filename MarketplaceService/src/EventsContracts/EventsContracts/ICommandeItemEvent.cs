@@ -8,7 +8,7 @@ namespace EventsContracts.EventsContracts
 {
     public interface ICommandeItemEvent
     {
-        int ItemId { set; get; }
+        string ItemId { set; get; }
         int Quantity { set; get; }
     }
 }
