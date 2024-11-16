@@ -20,6 +20,8 @@ public class CloudinaryService {
     {
         this.cloudinary = cloudinary;
     }
+
+
     public String UploadImage(MultipartFile file) throws IOException
     {
         return cloudinary.uploader()

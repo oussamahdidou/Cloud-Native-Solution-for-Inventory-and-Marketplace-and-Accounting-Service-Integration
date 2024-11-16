@@ -5,11 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCategoryDTO {
-    private String categoryId;
+@NoArgsConstructor
+public class ProductCreateDto {
+
     private String name;
-    private MultipartFile  thumbnail;
+    private String  thumbnail;
+    private String description;
+    private Double price;
+    private Integer quantity;
+    private String categoryId;
+    private Long supplierId;
 }

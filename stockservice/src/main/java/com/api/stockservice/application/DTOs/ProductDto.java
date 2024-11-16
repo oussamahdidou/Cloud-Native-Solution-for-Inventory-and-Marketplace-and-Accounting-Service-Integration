@@ -11,8 +11,9 @@ import java.io.File;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDto {
+
     private String name;
-    private String thumbnail;
+    private MultipartFile thumbnail;
     private String description;
     private Double price;
     private Integer quantity;

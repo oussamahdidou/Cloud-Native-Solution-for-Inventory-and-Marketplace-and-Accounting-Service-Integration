@@ -1,5 +1,6 @@
 package com.api.stockservice.application.Services;
 
+import com.api.stockservice.application.DTOs.ProductCreateDto;
 import com.api.stockservice.application.DTOs.ProductDto;
 import com.api.stockservice.domain.Entities.Category;
 import com.api.stockservice.domain.Entities.Supplier;
@@ -14,6 +15,7 @@ import com.api.stockservice.domain.event.PoductEvents.UpdateProductEvent;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,12 +27,14 @@ public class ProductService implements IProductService {
 //    private final IProductMapper productMapper;
     private final CategoryRepository categoryRepository;
     private final SupplierRepository supplierRepository;
+    private final CloudinaryService cloudinaryService;
 
-    public ProductService(ProductRepository productRepository,IProductPublisher productPublisher, CategoryRepository categoryRepository, SupplierRepository supplierRepository) {
+    public ProductService(ProductRepository productRepository,IProductPublisher productPublisher, CategoryRepository categoryRepository, SupplierRepository supplierRepository, CloudinaryService cloudinaryService) {
         this.productRepository = productRepository;
         this.productPublisher = productPublisher;
         this.categoryRepository = categoryRepository;
         this.supplierRepository = supplierRepository;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @Override
@@ -40,7 +44,14 @@ public class ProductService implements IProductService {
 
         Product product = new Product();
         product.setName(productDto.getName());
-        product.setThumbnail(productDto.getThumbnail());
+
+        try {
+            String urlThumbnail = cloudinaryService.UploadImage(productDto.getThumbnail());
+            product.setThumbnail(urlThumbnail);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to upload image to Cloudinary", e);
+        }
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
         product.setQuantity(productDto.getQuantity());
@@ -55,7 +66,15 @@ public class ProductService implements IProductService {
     {
         Product product = productRepository.findById(ProductId).orElseThrow();
         if (productDto.getName() != null) product.setName(productDto.getName());
-        if (productDto.getThumbnail() != null) product.setThumbnail(productDto.getThumbnail());
+        if(productDto.getThumbnail()  != null)
+        {
+            try{
+                String UrlThumbnail = cloudinaryService.UploadImage(productDto.getThumbnail());
+                product.setThumbnail(UrlThumbnail);
+            }catch(IOException e){
+                throw new RuntimeException("Failed to upload image to Cloudinary", e);
+            }
+        }
         if (productDto.getDescription() != null) product.setDescription(productDto.getDescription());
         if (productDto.getPrice() != null) product.setPrice(productDto.getPrice());
         if (productDto.getQuantity() !=null) product.setQuantity(productDto.getQuantity());
@@ -76,21 +95,21 @@ public class ProductService implements IProductService {
         return UpdatedProduct;
     }
     @Override
-    public ProductDto getproduct(String ProductID)
+    public ProductCreateDto getproduct(String ProductID)
     {
         Product product = productRepository.findById(ProductID).orElseThrow(() -> new RuntimeException("Product not found "));
         return  toDto(product);
     }
     @Override
-    public List<ProductDto> getALLProduct()
+    public List<ProductCreateDto> getALLProduct()
     {
         List<Product> ListOfProduct = productRepository.findAll();
-        List<ProductDto> ListOfProductDto = ListOfProduct.stream().map(this::toDto).collect(Collectors.toList());
+        List<ProductCreateDto> ListOfProductDto = ListOfProduct.stream().map(this::toDto).collect(Collectors.toList());
         return ListOfProductDto;
     }
-    private ProductDto toDto(Product product)
+    private ProductCreateDto toDto(Product product)
     {
-        return new ProductDto(
+        return new ProductCreateDto(
                 product.getName(),
                 product.getThumbnail(),
                 product.getDescription(),

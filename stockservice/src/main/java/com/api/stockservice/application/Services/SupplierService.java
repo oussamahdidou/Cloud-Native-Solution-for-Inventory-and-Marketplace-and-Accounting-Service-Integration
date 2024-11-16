@@ -8,6 +8,7 @@ import com.api.stockservice.domain.IServices.ISupplierService;
 import com.api.stockservice.domain.Repositories.SupplierRepository;
 import com.api.stockservice.domain.event.SupplierEvents.SupplierAddedEvent;
 import com.api.stockservice.infrastructure.messaging.SupplierPublisher;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,21 +38,40 @@ public class SupplierService implements ISupplierService {
         supplierPublisher.SendSupplier(new SupplierAddedEvent(SavedSupplier.getId(),SavedSupplier.getName(),SavedSupplier.getEmail(),SavedSupplier.getThumbnail()));
         return  SavedSupplier;
     }
-//    @Override
-//    public SupplierDto GetSupplier(Long ID)
-//    {
-//        Supplier supplier = supplierRepository.findById(ID).orElseThrow();
-//        return toDto(supplier);
-//    }
-//    public SupplierDto toDto(Supplier supplier)
-//    {
-//        return new SupplierDto(supplier.getName(),supplier.getEmail(),supplier.getThumbnail());
-//    }
-//    @Override
-//    public List<SupplierDto> GetAllSuppliers()
-//    {
-//        List<Supplier> ListOfSuppliers = supplierRepository.findAll();
-//        return ListOfSuppliers.stream().map(this::toDto).collect(Collectors.toList());
-//    }
+    @Override
+    public SupplierDto GetSupplier(Long ID)
+    {
+        Supplier supplier = supplierRepository.findById(ID).orElseThrow();
+        return toDto(supplier);
+    }
+    public SupplierDto toDto(Supplier supplier)
+    {
+        return new SupplierDto(supplier.getName(),supplier.getEmail(),supplier.getThumbnail());
+    }
+    @Override
+    public List<SupplierDto> GetAllSuppliers()
+    {
+        List<Supplier> ListOfSuppliers = supplierRepository.findAll();
+        return ListOfSuppliers.stream().map(this::toDto).collect(Collectors.toList());
+    }
+    public SupplierDto UpdateSupplier(Long Id, SupplierDto supplierDto)
+    {
+        Supplier supplier = supplierRepository.findById(Id).orElseThrow();
+        if(supplierDto.getName() != null) supplier.setName(supplierDto.getName());
+        if(supplierDto.getEmail() != null) supplier.setEmail(supplierDto.getEmail());
+        if(supplierDto.getThumbnail() != null) supplier.setThumbnail(supplierDto.getThumbnail());
+        return toDto(supplierRepository.save(supplier));
+    }
+    public boolean DeleteSupplier(Long ID)
+    {
+        if(supplierRepository.existsById(ID))
+        {
+            supplierRepository.deleteById(ID);
+            return true;
+        }
+        else{
+            throw new EntityNotFoundException("supplier with this id = " +ID+ "not found");
+        }
+    }
 
 }

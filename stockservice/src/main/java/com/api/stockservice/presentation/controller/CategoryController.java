@@ -1,27 +1,60 @@
 package com.api.stockservice.presentation.controller;
 
 import com.api.stockservice.application.DTOs.CategoryDto;
+import com.api.stockservice.application.DTOs.SupplierDto;
+import com.api.stockservice.application.DTOs.createCategoryDTO;
+import com.api.stockservice.application.Services.CategoryService;
+import com.api.stockservice.application.Services.CloudinaryService;
 import com.api.stockservice.domain.Entities.Category;
 import com.api.stockservice.domain.IServices.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
 
+    private ICategoryService categoryService;
+    private CloudinaryService cloudinaryService;
 
     @Autowired
-    private ICategoryService categoryService;
+    public CategoryController (ICategoryService categoryService, CloudinaryService cloudinaryService)
+    {
+        this.categoryService = categoryService;
+        this.cloudinaryService = cloudinaryService;
+    }
 
-    @PostMapping()
-    public Category addedCategory(@RequestBody CategoryDto categoryDto)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public createCategoryDTO addedCategory(@ModelAttribute CategoryDto categoryDto)
     {
         return categoryService.CreateCategory(categoryDto);
     }
 
+    @GetMapping("/Categories")
+    public List<createCategoryDTO> GetAllCategory()
+    {
+        return categoryService.GetAllCategory();
+    }
+    @GetMapping("/{IdCategory}")
+    public createCategoryDTO GetCategory(@PathVariable String Id)
+    {
+        return categoryService.GetCategory(Id);
+    }
+    @PutMapping(path= "/{IdCategory}" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public createCategoryDTO UpdateCategory(@PathVariable String Id, @ModelAttribute CategoryDto categoryDto)
+    {
+        return categoryService.UpdateCategory(Id,categoryDto);
+    }
+    @DeleteMapping("{IdCategory}")
+    public boolean DeleteCategory(String Id)
+    {
+        return categoryService.DeleteCategory(Id);
+    }
 
 }

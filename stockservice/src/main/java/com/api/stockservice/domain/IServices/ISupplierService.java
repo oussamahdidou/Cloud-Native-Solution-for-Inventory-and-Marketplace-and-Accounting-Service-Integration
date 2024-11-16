@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface ISupplierService {
     Supplier createSupllier(SupplierDto supplierDto);
-//    SupplierDto GetSupplier(Long ID);
-//    List<SupplierDto> GetAllSuppliers();
-//    SupplierDto UpdateSupplier(Long ID, SupplierDto supplierDto);
-//    boolean DeleteSupplier(Long ID);
+    SupplierDto GetSupplier(Long ID);
+    List<SupplierDto> GetAllSuppliers();
+    SupplierDto UpdateSupplier(Long ID, SupplierDto supplierDto);
+    boolean DeleteSupplier(Long ID);
 }
