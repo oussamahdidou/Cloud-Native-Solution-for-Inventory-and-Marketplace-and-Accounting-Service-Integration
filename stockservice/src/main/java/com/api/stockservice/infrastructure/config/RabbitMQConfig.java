@@ -68,6 +68,20 @@ public class RabbitMQConfig {
     public Binding ProductUpdatebinding(Queue productUpdateQueue, FanoutExchange productUpdateExchange) {
         return BindingBuilder.bind(productUpdateQueue).to(productUpdateExchange);
     }
+    @Bean
+    public Queue DeleteProductQueue() {
+        return new Queue("product-Delete-Queue", true);
+    }
+
+    @Bean
+    public FanoutExchange DeleteProductExchange() {
+        return new FanoutExchange("product-Delete-exchange");
+    }
+
+    @Bean
+    public Binding ProductDeletebinding(Queue DeleteProductQueue, FanoutExchange DeleteProductExchange) {
+        return BindingBuilder.bind(DeleteProductQueue).to(DeleteProductExchange);
+    }
 
     @Bean
     public Queue CategoryAddedQueue() {

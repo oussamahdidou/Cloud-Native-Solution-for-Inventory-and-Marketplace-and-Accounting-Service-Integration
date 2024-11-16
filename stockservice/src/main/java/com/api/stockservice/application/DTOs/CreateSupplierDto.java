@@ -8,9 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SupplierDto {
-//    private Long supplierId;
+public class CreateSupplierDto {
     private String name;
     private String email;
-    private MultipartFile thumbnail;
+    private String thumbnail;
 }

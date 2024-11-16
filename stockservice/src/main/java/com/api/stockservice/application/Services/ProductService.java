@@ -11,6 +11,7 @@ import com.api.stockservice.domain.IServices.IProductService;
 import com.api.stockservice.domain.Repositories.ProductRepository;
 import com.api.stockservice.domain.Repositories.SupplierRepository;
 import com.api.stockservice.domain.event.PoductEvents.ProductAddedEvent;
+import com.api.stockservice.domain.event.PoductEvents.ProductDeleteEvent;
 import com.api.stockservice.domain.event.PoductEvents.UpdateProductEvent;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -125,7 +126,9 @@ public class ProductService implements IProductService {
         if(productRepository.existsById(ProductId))
         {
             productRepository.deleteById(ProductId);
+            productPublisher.sendIdProduct(new ProductDeleteEvent(ProductId));
             return true;
+
         }
         else{
             throw new EntityNotFoundException("product with " + ProductId + "not found");
