@@ -13,10 +13,10 @@ namespace MarketplaceService.Infrastructure.Consumers
 {
     public class RegistredUserConsumer : IConsumer<INewUserRegistredEvent>
     {
-        private readonly ICustomerRepository customerRepository;
-        public RegistredUserConsumer(ICustomerRepository customerRepository)
+        private readonly ICartRepository cartRepository;
+        public RegistredUserConsumer(ICartRepository cartRepository)
         {
-            this.customerRepository = customerRepository;
+            this.cartRepository = cartRepository;
         }
         public async Task Consume(ConsumeContext<INewUserRegistredEvent> context)
         {
@@ -24,9 +24,14 @@ namespace MarketplaceService.Infrastructure.Consumers
             Customer customer = new Customer()
             {
                 CustomerId = context.Message.CustomerId,
-                UserName = context.Message.UserName,
+                UserName = context.Message.UserName,  
             };
-            await customerRepository.AddCustomerAsync(customer);
+            Cart cart = new Cart()
+            {
+                Customer = customer,
+                TotalAmount = 0
+            };
+            await cartRepository.AddCartAsync(cart);
             
         }
     }
