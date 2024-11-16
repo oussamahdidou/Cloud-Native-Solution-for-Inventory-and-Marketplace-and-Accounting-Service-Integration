@@ -97,6 +97,8 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<RegistredUserConsumer>();
     x.AddConsumer<ProductAddedConsumer>();
     x.AddConsumer<CategoryAddedConsumer>();
+    x.AddConsumer<ProductUpdateConsumer>();
+    x.AddConsumer<ProductDeleteConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {
@@ -141,7 +143,17 @@ builder.Services.AddMassTransit(x =>
             {
                 exchange.ExchangeType = ExchangeType.Fanout;
             });
-            e.ConfigureConsumer<ProductAddedConsumer>(context);
+            e.ConfigureConsumer<ProductUpdateConsumer>(context);
+        });
+        // Delete Product 
+        cfg.ReceiveEndpoint("product-Delete-Queue", e =>
+        {
+            e.Durable = true;
+            e.Bind("product-Delete-exchange", exchange =>
+            {
+                exchange.ExchangeType = ExchangeType.Fanout;
+            });
+            e.ConfigureConsumer<ProductDeleteConsumer>(context);
         });
         // category 
         cfg.ReceiveEndpoint("Category-added-queue", e =>

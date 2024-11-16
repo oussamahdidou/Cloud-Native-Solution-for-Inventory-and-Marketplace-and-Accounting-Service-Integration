@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EventsContracts.EventsContracts
 {
-    internal interface IupdateProductEvent
+    public interface IupdateProductEvent
     {
         public string Id { get; set; }
         public string MarqueName { get; set; }
