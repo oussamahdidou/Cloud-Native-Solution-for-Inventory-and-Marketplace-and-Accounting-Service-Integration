@@ -42,9 +42,9 @@ namespace MarketplaceService.Infrastructure.Repositories
             var products = apiDbContext.products.AsQueryable();
 
             // Apply category filter
-            if (productQuery.CategoryId.HasValue)
+            if (!string.IsNullOrEmpty(productQuery.CategoryId))
             {
-                products = products.Where(p => p.CategoryId == productQuery.CategoryId.Value);
+                products = products.Where(p => p.CategoryId == productQuery.CategoryId);
             }
 
             // Apply marque filter

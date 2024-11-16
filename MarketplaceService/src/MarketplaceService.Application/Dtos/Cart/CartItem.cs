@@ -8,7 +8,7 @@ namespace MarketplaceService.Application.Dtos.Cart
 {
     public class CartItem
     {
-        public int ProductId { get; set; }
+        public string ProductId { get; set; }
         public string Title { get; set; }
         public string Thumbnail { get; set; }
         public int Quantity { get; set; }

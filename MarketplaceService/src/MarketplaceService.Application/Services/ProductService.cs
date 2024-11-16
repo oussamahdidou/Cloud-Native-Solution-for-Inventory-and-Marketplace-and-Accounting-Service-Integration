@@ -19,7 +19,7 @@ namespace MarketplaceService.Application.Services
         {
             this.productRepository = productRepository;
         }
-        public async Task<ProductDetail> GetProductDetail(int productId)
+        public async Task<ProductDetail> GetProductDetail(string productId)
         {
             try
             {
