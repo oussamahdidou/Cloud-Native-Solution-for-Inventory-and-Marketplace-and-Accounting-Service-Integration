@@ -8,6 +8,8 @@ import com.api.stockservice.domain.IServices.ICategoryService;
 import com.api.stockservice.domain.Repositories.CategoryRepository;
 import com.api.stockservice.domain.Repositories.ICategoryPublisher;
 import com.api.stockservice.domain.event.CategoryEvents.AddedCategoryEvent;
+import com.api.stockservice.domain.event.CategoryEvents.DeleteCatgoryEvent;
+import com.api.stockservice.domain.event.CategoryEvents.UpdateCategoryEvent;
 import com.cloudinary.Url;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +65,9 @@ public class CategoryService implements ICategoryService {
                 throw new RuntimeException("Failed to upload image to Cloudinary", e);
             }
         }
-        return toDTO(categoryRepository.save(category));
+        Category savedCategory =  categoryRepository.save(category);
+        categoryPublisher.SendUpdateCategory(new UpdateCategoryEvent(savedCategory.getId(),savedCategory.getName(),savedCategory.getThumbnail()));
+        return toDTO(savedCategory);
     }
     public createCategoryDTO GetCategory(String id)
     {
@@ -84,6 +88,7 @@ public class CategoryService implements ICategoryService {
         if(categoryRepository.existsById(ID))
         {
             categoryRepository.deleteById(ID);
+            categoryPublisher.SendDeleteCategory(new DeleteCatgoryEvent(ID));
             return true;
         }else{
             throw new EntityNotFoundException("this  cotegory with this id" + ID + "not found");

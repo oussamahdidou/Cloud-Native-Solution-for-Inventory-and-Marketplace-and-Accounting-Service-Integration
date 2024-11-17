@@ -98,9 +98,40 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(CategoryAddedQueue).to(CategoryAddedExchange);
     }
     @Bean
+    public Queue UpdateCategorydQueue() {
+        return new Queue("Category-Update-queue", true);
+    }
+
+    @Bean
+    public FanoutExchange UpdateCategoryExchange() {
+        return new FanoutExchange("Category-Update-Exchange");
+    }
+
+    @Bean
+    public Binding UpdateCategorybinding(Queue UpdateCategorydQueue, FanoutExchange UpdateCategoryExchange) {
+        return BindingBuilder.bind(UpdateCategorydQueue).to(UpdateCategoryExchange);
+    }
+
+    @Bean
+    public Queue DeleteCategorydQueue() {
+        return new Queue("Category-Delete-queue", true);
+    }
+
+    @Bean
+    public FanoutExchange DeleteCategoryExchange() {
+        return new FanoutExchange("Category-Delete-Exchange");
+    }
+
+    @Bean
+    public Binding DeleteCategorybinding(Queue DeleteCategorydQueue, FanoutExchange DeleteCategoryExchange) {
+        return BindingBuilder.bind(DeleteCategorydQueue).to(DeleteCategoryExchange);
+    }
+
+    @Bean
     public Queue SupplierAddedQueue() {
         return new Queue("Supplier-added-queue", true);
     }
+
 
     @Bean
     public FanoutExchange SupplierAddedExchange() {

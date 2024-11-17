@@ -41,20 +41,22 @@ public class CategoryController {
     {
         return categoryService.GetAllCategory();
     }
+
     @GetMapping("/{IdCategory}")
-    public createCategoryDTO GetCategory(@PathVariable String Id)
+    public createCategoryDTO GetCategory(@PathVariable String IdCategory)
     {
-        return categoryService.GetCategory(Id);
+        return categoryService.GetCategory(IdCategory);
     }
+
     @PutMapping(path= "/{IdCategory}" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public createCategoryDTO UpdateCategory(@PathVariable String Id, @ModelAttribute CategoryDto categoryDto)
+    public createCategoryDTO UpdateCategory(@PathVariable String IdCategory, @ModelAttribute CategoryDto categoryDto)
     {
-        return categoryService.UpdateCategory(Id,categoryDto);
+        return categoryService.UpdateCategory(IdCategory,categoryDto);
     }
     @DeleteMapping("{IdCategory}")
-    public boolean DeleteCategory(String Id)
+    public boolean DeleteCategory(String IdCategory)
     {
-        return categoryService.DeleteCategory(Id);
+        return categoryService.DeleteCategory(IdCategory);
     }
 
 }
