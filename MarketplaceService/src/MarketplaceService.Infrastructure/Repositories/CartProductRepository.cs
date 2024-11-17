@@ -42,14 +42,12 @@ namespace MarketplaceService.Infrastructure.Repositories
             return await apiDbContext.cartProducts.ToListAsync();
         }
 
-        public async Task<CartProduct> GetCartProductByIdAsync(int CartId, string ProductId)
+        public async Task<CartProduct?> GetCartProductByIdAsync(int CartId, string ProductId)
         {
-            CartProduct? cartProduct= await apiDbContext.cartProducts.FirstOrDefaultAsync(x=>x.CartId==CartId&&x.ProductId==ProductId);
-            if(cartProduct != null)
-            {
+            CartProduct? cartProduct = await apiDbContext.cartProducts.Include(x => x.Product).Include(x => x.Cart).FirstOrDefaultAsync(x => x.CartId == CartId && x.ProductId == ProductId);
+          
                 return cartProduct;
-            }
-            throw new Exception("cartProduct not found ");
+            
         }
 
     

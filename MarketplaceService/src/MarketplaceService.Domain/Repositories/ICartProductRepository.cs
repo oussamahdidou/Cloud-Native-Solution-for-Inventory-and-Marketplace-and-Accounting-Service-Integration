@@ -13,7 +13,7 @@ namespace MarketplaceService.Domain.Repositories
         Task<List<CartProduct>> GetAllCartProductsAsync();
 
         // Get a cartProduct by ID
-        Task<CartProduct> GetCartProductByIdAsync(int CartId,string ProductId);
+        Task<CartProduct?> GetCartProductByIdAsync(int CartId,string ProductId);
 
         // Add a new cartProduct
         Task AddCartProductAsync(CartProduct cartProduct);

@@ -26,7 +26,7 @@ namespace MarketplaceService.Application.Mappers
             return new CartItem()
             {
                 ProductId = cartProduct.Product.ProductId,
-                Quantity = cartProduct.Product.Quantity,
+                Quantity = cartProduct.Quantity,
                 Thumbnail = cartProduct.Product.Thumbnail,
                 Title = cartProduct.Product.Name,
                 UnityPrice = cartProduct.Product.Price,
