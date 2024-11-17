@@ -20,13 +20,15 @@ namespace MarketplaceService.Application.Services
         private readonly ICartRepository cartRepository;
         private readonly ICartProductRepository cartProductRepository;
         private readonly ICommandeRepository commandeRepository;
+        private readonly IProductRepository productRepository;
         private readonly IBus bus;
-        public CartService(ICartRepository cartRepository, ICartProductRepository cartProductRepository, ICommandeRepository commandeRepository, IBus bus)
+        public CartService(ICartRepository cartRepository, ICartProductRepository cartProductRepository, ICommandeRepository commandeRepository, IBus bus, IProductRepository productRepository)
         {
             this.cartRepository = cartRepository;
             this.cartProductRepository = cartProductRepository;
             this.commandeRepository = commandeRepository;
             this.bus = bus;
+            this.productRepository = productRepository;
         }
 
         public async Task AddProductToCart(AddProductToCartDto addProductToCartDto)
@@ -39,6 +41,10 @@ namespace MarketplaceService.Application.Services
                     CartId = addProductToCartDto.CartId,
                     Quantity = 1
                 };
+                Cart cart =await cartRepository.GetCartByIdAsync(addProductToCartDto.CartId);
+                Product product = await productRepository.GetProductByIdAsync(addProductToCartDto.ProductId);
+                cart.TotalAmount += product.Price ;
+                await cartRepository.UpdateCartAsync(cart);
                 await cartProductRepository.AddCartProductAsync(cartProduct);
             }
            
@@ -85,6 +91,10 @@ namespace MarketplaceService.Application.Services
             if (cartProduct != null)
             {
                 cartProduct.Quantity--;
+                Cart cart = await cartRepository.GetCartByIdAsync(updateCartItemDto.CartId);
+                Product product = await productRepository.GetProductByIdAsync(updateCartItemDto.ProductId);
+                cart.TotalAmount -= product.Price;
+                await cartRepository.UpdateCartAsync(cart);
                 await cartProductRepository.UpdateCartProductAsync(cartProduct);
             }
         }
@@ -101,12 +111,19 @@ namespace MarketplaceService.Application.Services
             if (cartProduct != null)
             {
                 cartProduct.Quantity++;
+                Cart cart = await cartRepository.GetCartByIdAsync(updateCartItemDto.CartId);
+                Product product = await productRepository.GetProductByIdAsync(updateCartItemDto.ProductId);
+                cart.TotalAmount += product.Price;
+                await cartRepository.UpdateCartAsync(cart);
                 await cartProductRepository.UpdateCartProductAsync(cartProduct);
             }
         }
 
         public async Task RemoveProductFromCart(UpdateCartItemDto updateCartItemDto)
         {
+            CartProduct cartProduct = await cartProductRepository.GetCartProductByIdAsync(updateCartItemDto.CartId, updateCartItemDto.ProductId);
+            cartProduct.Cart.TotalAmount-=(cartProduct.Product.Price*cartProduct.Quantity);
+            await cartRepository.UpdateCartAsync(cartProduct.Cart);
             await cartProductRepository.DeleteCartProductAsync(updateCartItemDto.CartId, updateCartItemDto.ProductId);
         }
     }

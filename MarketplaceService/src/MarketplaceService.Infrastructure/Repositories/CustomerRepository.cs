@@ -40,9 +40,14 @@ namespace MarketplaceService.Infrastructure.Repositories
             return await apiDbContext.customers.ToListAsync();
         }
 
-        public async Task<Customer> GetCustomerByIdAsync(int id)
+        public async Task<Customer> GetCustomerByIdAsync(string id)
         {
             return await apiDbContext.customers.FindAsync(id);
+        }
+
+        public async Task<Customer> GetCustomerByUsernameAsync(string username)
+        {
+            return await apiDbContext.customers.FirstOrDefaultAsync(x => x.UserName == username); ;
         }
 
         public async Task UpdateCustomerAsync(Customer customer)

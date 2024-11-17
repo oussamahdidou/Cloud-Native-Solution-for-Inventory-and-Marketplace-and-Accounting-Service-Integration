@@ -13,8 +13,8 @@ namespace MarketplaceService.Domain.Repositories
         Task<List<Customer>> GetAllCustomersAsync();
 
         // Get a customer by ID
-        Task<Customer> GetCustomerByIdAsync(int id);
-
+        Task<Customer> GetCustomerByIdAsync(string id);
+        Task<Customer> GetCustomerByUsernameAsync(string username);
         // Add a new customer
         Task AddCustomerAsync(Customer customer);
 

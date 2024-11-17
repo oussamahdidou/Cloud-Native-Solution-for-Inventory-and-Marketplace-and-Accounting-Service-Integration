@@ -15,8 +15,10 @@ namespace MarketplaceService.Application.Mappers
         {
             return new CartDetail()
             {
+                CartId=cart.CartId,
                 CartItems = cart.CartProducts.Select(x=>x.FromProductToCartItem()).ToList(),
                 TotalAmount = cart.TotalAmount,
+                
             };
         }
         public static CartItem FromProductToCartItem(this CartProduct cartProduct)
@@ -24,7 +26,7 @@ namespace MarketplaceService.Application.Mappers
             return new CartItem()
             {
                 ProductId = cartProduct.Product.ProductId,
-                Quantity = cartProduct.Product.Quantity,
+                Quantity = cartProduct.Quantity,
                 Thumbnail = cartProduct.Product.Thumbnail,
                 Title = cartProduct.Product.Name,
                 UnityPrice = cartProduct.Product.Price,

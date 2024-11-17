@@ -201,6 +201,7 @@ builder.Services.AddScoped<ICartService,CartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IPaypalService, PaypalService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 var app = builder.Build();
 

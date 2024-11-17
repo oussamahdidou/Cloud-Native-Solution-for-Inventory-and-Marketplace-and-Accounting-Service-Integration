@@ -26,7 +26,7 @@ namespace UsersService.Services
             {
                 new Claim(JwtRegisteredClaimNames.Email,appUser.Email ),
                 new Claim(JwtRegisteredClaimNames.Sub,appUser.UserName),
-                new Claim(JwtRegisteredClaimNames.UniqueName,appUser.Id)
+                new Claim(JwtRegisteredClaimNames.UniqueName,appUser.Id),
             };
             foreach (var role in roles)
             {
