@@ -1,5 +1,7 @@
 ﻿using MarketplaceService.Application.Dtos.Paypal;
 using MarketplaceService.Application.Interfaces;
+using MarketplaceService.Domain.Entities;
+using MarketplaceService.Domain.Repositories;
 using Microsoft.Extensions.Configuration;
 using PayPal;
 using PayPal.Api;
@@ -16,7 +18,7 @@ namespace MarketplaceService.Application.Services
         private readonly string clientId;
         private readonly string clientSecret;
         private readonly string mode;
-
+        private readonly ICommandeRepository commandeRepository;
         public PaypalService(IConfiguration configuration)
         {
             var payPalConfig = configuration.GetSection("PayPal");
@@ -26,7 +28,7 @@ namespace MarketplaceService.Application.Services
         }
 
 
-        public Payment CreatePayment(CreatePaymentDto createPaymentDto)
+        public async Task<Payment> CreatePayment(CreatePaymentDto createPaymentDto)
         {
             var apiContext = new APIContext(new OAuthTokenCredential(clientId, clientSecret).GetAccessToken())
             {
@@ -55,8 +57,11 @@ namespace MarketplaceService.Application.Services
                     cancel_url = createPaymentDto.CancelUrl
                 }
             };
-
-            return payment.Create(apiContext);
+            var validPayment = payment.Create(apiContext);
+            Commande commande = await commandeRepository.GetCommandeByIdAsync(createPaymentDto.CommandeId);
+            commande.PayementId = validPayment.id;
+            await commandeRepository.UpdateCommandeAsync(commande);
+            return validPayment;
         }
     }
 }

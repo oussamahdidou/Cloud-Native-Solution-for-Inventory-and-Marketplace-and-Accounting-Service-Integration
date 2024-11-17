@@ -197,11 +197,13 @@ builder.Services.AddScoped<ICommandeRepository, CommandeRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICartProductRepository, CartProductRepository>();
+builder.Services.AddScoped<ICommandeProductRepository, CommandeProductRepository>();
 builder.Services.AddScoped<ICartService,CartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IPaypalService, PaypalService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICommandeService, CommandeService>();
 
 var app = builder.Build();
 

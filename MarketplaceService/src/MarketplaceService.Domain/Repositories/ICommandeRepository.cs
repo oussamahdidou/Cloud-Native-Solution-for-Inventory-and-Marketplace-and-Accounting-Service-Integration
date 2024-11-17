@@ -15,7 +15,8 @@ namespace MarketplaceService.Domain.Repositories
 
         // Get a commande by ID
         Task<Commande> GetCommandeByIdAsync(int id);
-
+        Task<Commande> GetCommandesByPaymentIdAsync(string PaymentId);
+        Task<List<Commande>> GetCommandesByCustomerAsync(string CustomerId);
         // Add a new commande
         Task AddCommandeAsync(Commande commande);
 

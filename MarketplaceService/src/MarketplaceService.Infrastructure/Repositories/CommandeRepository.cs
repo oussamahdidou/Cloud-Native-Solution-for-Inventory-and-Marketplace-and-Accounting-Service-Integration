@@ -40,6 +40,11 @@ namespace MarketplaceService.Infrastructure.Repositories
             return await apiDbContext.commandes.ToListAsync();
         }
 
+        public async Task<List<Commande>> GetCommandesByCustomerAsync(string CustomerId)
+        {
+            return await apiDbContext.commandes.Where(x => x.CustomerId == CustomerId).ToListAsync();
+        }
+
         public async Task<Commande> GetCommandeByIdAsync(int id)
         {
             return await apiDbContext.commandes.FindAsync(id);
@@ -53,6 +58,11 @@ namespace MarketplaceService.Infrastructure.Repositories
                 apiDbContext.Entry(existingCommande).CurrentValues.SetValues(commande);
                 await apiDbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task<Commande> GetCommandesByPaymentIdAsync(string PaymentId)
+        {
+            return await apiDbContext.commandes.FirstOrDefaultAsync(x => x.PayementId == PaymentId);
         }
     }
 
