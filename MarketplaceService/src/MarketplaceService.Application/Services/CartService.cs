@@ -4,6 +4,7 @@ using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Application.Mappers;
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Events;
+using MarketplaceService.Domain.Events.Commande;
 using MarketplaceService.Domain.Repositories;
 using MassTransit;
 using System;
@@ -62,6 +63,7 @@ namespace MarketplaceService.Application.Services
                 throw new Exception($"Stock du produit {insufficientStockItem.Product.Name} épuisé");
             }
             List<CommandeProduct> commandeProducts = cart.CartProducts.Select(x => x.FromCartItemToCommandeItem()).ToList();
+            
             Commande commande = new Commande()
             {
                 OrderDate = DateTime.Now,
@@ -70,7 +72,15 @@ namespace MarketplaceService.Application.Services
                 TotaleAmount = cart.TotalAmount,
                 CommandeProducts = commandeProducts
             };
+            
             await commandeRepository.AddCommandeAsync(commande);
+            List<CartProduct> cartProducts = cart.CartProducts.ToList();
+            foreach (var item in cartProducts)
+            {
+                await cartProductRepository.DeleteCartProductAsync(item.CartId, item.ProductId);
+            }
+            cart.TotalAmount = 0;
+            await cartRepository.UpdateCartAsync(cart);
             CommandeConfirmedEvent commandeConfirmedEvent = new CommandeConfirmedEvent()
             {
                 Date = commande.OrderDate,
@@ -82,12 +92,11 @@ namespace MarketplaceService.Application.Services
             };
 
             await bus.Publish<ICommandeConfirmedEvent>(commandeConfirmedEvent);
-
         }
 
         public async Task DecreaseProductQuantity(UpdateCartItemDto updateCartItemDto)
         {
-            CartProduct cartProduct = await cartProductRepository.GetCartProductByIdAsync(updateCartItemDto.CartId, updateCartItemDto.ProductId);
+            CartProduct? cartProduct = await cartProductRepository.GetCartProductByIdAsync(updateCartItemDto.CartId, updateCartItemDto.ProductId);
             if (cartProduct != null)
             {
                 cartProduct.Quantity--;

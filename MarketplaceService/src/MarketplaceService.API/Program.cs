@@ -101,7 +101,7 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<ProductDeleteConsumer>();
     x.AddConsumer<DeleteCategoryConsumer>();
     x.AddConsumer<UpdateCategoryConsumer>();
-
+    x.AddConsumer<SortieRecordConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
 
@@ -186,6 +186,15 @@ builder.Services.AddMassTransit(x =>
                 exchange.ExchangeType = ExchangeType.Fanout;
             });
             e.ConfigureConsumer<UpdateCategoryConsumer>(context);
+        });
+        cfg.ReceiveEndpoint("Sortie-Record-queue", e =>
+        {
+            e.Durable = true;
+            e.Bind("Sortie-Record-Exchange", exchange =>
+            {
+                exchange.ExchangeType = ExchangeType.Fanout;
+            });
+            e.ConfigureConsumer<SortieRecordConsumer>(context);
         });
     });
 });

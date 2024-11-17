@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketplaceService.Domain.Events
+namespace MarketplaceService.Domain.Events.Commande
 {
     public class CommandeConfirmedEvent : ICommandeConfirmedEvent
     {
         public List<ICommandeItemEvent> Items { get; set; }
-        public DateTime Date { get ; set ; }
+        public DateTime Date { get; set; }
     }
 }

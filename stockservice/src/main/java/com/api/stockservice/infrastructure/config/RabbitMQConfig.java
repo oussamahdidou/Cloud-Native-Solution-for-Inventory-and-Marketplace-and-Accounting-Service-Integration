@@ -142,5 +142,19 @@ public class RabbitMQConfig {
     public Binding Supplierbinding(Queue SupplierAddedQueue, FanoutExchange SupplierAddedExchange) {
         return BindingBuilder.bind(SupplierAddedQueue).to(SupplierAddedExchange);
     }
+    @Bean
+    public Queue CommandeConfirmedQueue() {
+        return new Queue("commande_confirmed_queue", true);
+    }
 
+
+    @Bean
+    public FanoutExchange CommandeConfirmedExchange() {
+        return new FanoutExchange("commande_confirmed_exchange");
+    }
+
+    @Bean
+    public Binding CommandeConfirmedbinding(Queue CommandeConfirmedQueue, FanoutExchange CommandeConfirmedExchange) {
+        return BindingBuilder.bind(CommandeConfirmedQueue).to(CommandeConfirmedExchange);
+    }
 }
