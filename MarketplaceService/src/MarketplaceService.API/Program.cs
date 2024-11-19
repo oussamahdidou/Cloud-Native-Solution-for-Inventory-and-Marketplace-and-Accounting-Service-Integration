@@ -101,7 +101,7 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<ProductDeleteConsumer>();
     x.AddConsumer<DeleteCategoryConsumer>();
     x.AddConsumer<UpdateCategoryConsumer>();
-
+    x.AddConsumer<SortieRecordConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
 
@@ -187,6 +187,15 @@ builder.Services.AddMassTransit(x =>
             });
             e.ConfigureConsumer<UpdateCategoryConsumer>(context);
         });
+        cfg.ReceiveEndpoint("Sortie-Record-queue", e =>
+        {
+            e.Durable = true;
+            e.Bind("Sortie-Record-Exchange", exchange =>
+            {
+                exchange.ExchangeType = ExchangeType.Fanout;
+            });
+            e.ConfigureConsumer<SortieRecordConsumer>(context);
+        });
     });
 });
 
@@ -197,11 +206,13 @@ builder.Services.AddScoped<ICommandeRepository, CommandeRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICartProductRepository, CartProductRepository>();
+builder.Services.AddScoped<ICommandeProductRepository, CommandeProductRepository>();
 builder.Services.AddScoped<ICartService,CartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IPaypalService, PaypalService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICommandeService, CommandeService>();
 
 var app = builder.Build();
 

@@ -10,6 +10,6 @@ namespace MarketplaceService.Application.Interfaces
 {
     public interface IPaypalService
     {
-        Payment CreatePayment(CreatePaymentDto createPaymentDto);
+        Task<Payment> CreatePayment(CreatePaymentDto createPaymentDto);
     }
 }

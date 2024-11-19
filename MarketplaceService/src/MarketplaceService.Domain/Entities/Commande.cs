@@ -12,6 +12,7 @@ namespace MarketplaceService.Domain.Entities
     {
         [Key]
         public int CommandeId { get; set; }
+        public string? PayementId { get; set; }
         public DateTime OrderDate { get; set; }
         public string Status { get; set; }
         public double TotaleAmount { get; set; }
