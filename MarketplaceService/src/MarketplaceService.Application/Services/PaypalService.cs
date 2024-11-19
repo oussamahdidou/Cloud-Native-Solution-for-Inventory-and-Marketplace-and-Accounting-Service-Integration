@@ -19,12 +19,13 @@ namespace MarketplaceService.Application.Services
         private readonly string clientSecret;
         private readonly string mode;
         private readonly ICommandeRepository commandeRepository;
-        public PaypalService(IConfiguration configuration)
+        public PaypalService(IConfiguration configuration, ICommandeRepository commandeRepository)
         {
             var payPalConfig = configuration.GetSection("PayPal");
             clientId = payPalConfig["ClientId"];
             clientSecret = payPalConfig["ClientSecret"];
             mode = payPalConfig["Mode"];
+            this.commandeRepository = commandeRepository;
         }
 
 

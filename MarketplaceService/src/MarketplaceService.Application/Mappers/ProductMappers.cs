@@ -35,6 +35,7 @@ namespace MarketplaceService.Application.Mappers
                 Name=product.Name,
                 Price=product.Price,
                 Quantity=product.Quantity,
+                Thumbnail= product.Thumbnail,
             };
         }
     }

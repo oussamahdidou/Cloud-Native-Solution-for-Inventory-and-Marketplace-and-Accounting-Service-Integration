@@ -19,15 +19,16 @@ namespace MarketplaceService.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreatePayment([FromBody] decimal amount)
+        public async Task<IActionResult> CreatePayment([FromBody] PaypalRequest paypalRequest)
         {
             CreatePaymentDto createPaymentDto = new CreatePaymentDto()
             {
-                Amount=amount,
+                CommandeId =paypalRequest.CommandeId,
+                Amount=paypalRequest.Amount,
                 Description="pays commande",
-                CancelUrl= "https://e27d-105-156-74-44.ngrok-free.app/api/Paypal/cancel",
-                ReturnUrl= "https://e27d-105-156-74-44.ngrok-free.app/api/Paypal/success"
-
+                CancelUrl= "https://426f-105-156-74-44.ngrok-free.app/api/Paypal/cancel",
+                ReturnUrl= "https://426f-105-156-74-44.ngrok-free.app/api/Paypal/success"
+                
             };
             var payment = await paypalService.CreatePayment(createPaymentDto);
 
