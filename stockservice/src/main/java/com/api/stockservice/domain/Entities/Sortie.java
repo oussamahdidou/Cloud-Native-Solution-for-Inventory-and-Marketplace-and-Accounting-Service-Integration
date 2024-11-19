@@ -16,11 +16,10 @@ import java.time.LocalDateTime;
 public class Sortie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private Integer quantite;
     private LocalDateTime sortieDate;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
     private Product product;
 }

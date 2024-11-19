@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Data
@@ -16,15 +17,13 @@ import java.time.LocalDateTime;
 public class Entree {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private Integer quantite;
-    private LocalDateTime entreeDate;
+    private OffsetDateTime entreeDate;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 }
