@@ -14,7 +14,7 @@ import org.hibernate.annotations.DynamicUpdate;
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private String name;
     private String email;
     private String thumbnail;

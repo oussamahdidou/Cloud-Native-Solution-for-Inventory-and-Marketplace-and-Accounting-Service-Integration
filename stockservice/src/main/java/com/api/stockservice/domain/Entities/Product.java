@@ -16,7 +16,7 @@ public class Product {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String Id;
+    private String id;
     private String name;
     private String thumbnail;
     private String description;
