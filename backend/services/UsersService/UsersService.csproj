@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MarketplaceService\src\EventsContracts\EventsContracts.csproj" />
+    <ProjectReference Include="..\..\contacts\EventsContracts\EventsContracts.csproj" />
   </ItemGroup>
 
 

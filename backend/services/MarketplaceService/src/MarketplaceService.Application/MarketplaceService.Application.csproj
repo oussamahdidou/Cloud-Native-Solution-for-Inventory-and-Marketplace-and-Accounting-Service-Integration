@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\contacts\EventsContracts\EventsContracts.csproj" />
+    <ProjectReference Include="..\MarketplaceService.Domain\MarketplaceService.Domain.csproj" />
     <ProjectReference Include="..\MarketplaceService.Infrastructure\MarketplaceService.Infrastructure.csproj" />
   </ItemGroup>
 
