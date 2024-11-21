@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/menu/bottom_nav_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/qrcode"
+        android:title="Home" />
+    <item
+        android:id="@+id/navigation_cart"
+        android:icon="@drawable/btn_3"
+        android:title="Cart" />
+    <item
+        android:id="@+id/navigation_accounts"
+        android:icon="@drawable/btn_4"
+        android:title="Account" />
+</menu>
