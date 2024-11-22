@@ -16,7 +16,10 @@
       },
       "EventsContracts/1.0.0": {
         "runtime": {
-          "EventsContracts.dll": {}
+          "EventsContracts.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

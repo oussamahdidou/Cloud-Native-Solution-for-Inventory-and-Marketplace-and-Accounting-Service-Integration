@@ -713,7 +713,10 @@
       },
       "EventsContracts/1.0.0": {
         "runtime": {
-          "EventsContracts.dll": {}
+          "EventsContracts.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "MarketplaceService.Domain/1.0.0": {
@@ -721,7 +724,10 @@
           "EventsContracts": "1.0.0"
         },
         "runtime": {
-          "MarketplaceService.Domain.dll": {}
+          "MarketplaceService.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "MarketplaceService.Infrastructure/1.0.0": {
@@ -735,7 +741,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8"
         },
         "runtime": {
-          "MarketplaceService.Infrastructure.dll": {}
+          "MarketplaceService.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
