@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "K3Rl3z5OS9Q=",
+  "dgSpecHash": "FiH0d+RWZVA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj",
+  "projectFilePath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

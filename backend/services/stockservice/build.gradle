@@ -63,6 +63,15 @@ tasks.withType(JavaCompile).configureEach {
 			'-Amapstruct.suppressGeneratorTimestamp=true', // suppress timestamp
 	]
 }
+
+tasks.named('bootJar') {
+	enabled = true
+}
+
+tasks.named('jar') {
+	enabled = false
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }

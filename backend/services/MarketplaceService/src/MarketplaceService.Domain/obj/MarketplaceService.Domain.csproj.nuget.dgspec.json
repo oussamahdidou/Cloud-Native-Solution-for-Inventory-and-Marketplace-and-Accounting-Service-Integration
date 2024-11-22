@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj": {}
+    "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj": {
+    "C:\\Users\\pc\\Desktop\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\Desktop\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj",
         "projectName": "EventsContracts",
-        "projectPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj",
+        "projectPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj",
         "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\contacts\\EventsContracts\\obj\\",
+        "outputPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\contacts\\EventsContracts\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,9 +39,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -66,25 +61,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj": {
+    "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj",
         "projectName": "MarketplaceService.Domain",
-        "projectPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj",
+        "projectPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj",
         "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\obj\\",
+        "outputPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -99,8 +90,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj": {
-                "projectPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj"
+              "C:\\Users\\pc\\Desktop\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj": {
+                "projectPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj"
               }
             }
           }
@@ -113,9 +104,8 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+          "auditMode": "direct"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -136,7 +126,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
