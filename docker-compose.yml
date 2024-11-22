@@ -1,9 +1,67 @@
-version: '3.4'
-
+version: '3.8'
 services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # Port for RabbitMQ (AMQP protocol)
+      - "15672:15672" # Port for RabbitMQ Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - app-network
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "Coding@1234?"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    
   gateway:
     image: ${DOCKER_REGISTRY-}gateway
     build:
       context: .
       dockerfile: backend/infrastructure/Gateway/Dockerfile
+    ports:
+      - "5000:8080"
+    networks:
+      - app-network
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
 
+  marketplaceservice.api:
+    image: ${DOCKER_REGISTRY-}marketplaceserviceapi
+    build:
+      context: .
+      dockerfile: backend/services/MarketplaceService/src/MarketplaceService.API/Dockerfile
+    ports:
+      - "5001:8080"
+    networks:
+      - app-network
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+
+  usersservice:
+    image: ${DOCKER_REGISTRY-}usersservice
+    build:
+      context: .
+      dockerfile: backend/services/UsersService/Dockerfile
+    ports:
+      - "5002:8080"
+    networks:
+      - app-network
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,231 @@
+[
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.CartController",
+    "Method": "AddProductToCart",
+    "RelativePath": "api/Cart/AddProductToCart",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addProductToCartDto",
+        "Type": "MarketplaceService.Application.Dtos.Cart.AddProductToCartDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.CartController",
+    "Method": "Checkout",
+    "RelativePath": "api/Cart/Checkout",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.CartController",
+    "Method": "DecreaseProductQuantity",
+    "RelativePath": "api/Cart/DecreaseProductQuantity",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateCartItemDto",
+        "Type": "MarketplaceService.Application.Dtos.Cart.UpdateCartItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.CartController",
+    "Method": "GetCart",
+    "RelativePath": "api/Cart/GetCart",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.CartController",
+    "Method": "IncreaseProductQuantity",
+    "RelativePath": "api/Cart/IncreaseProductQuantity",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateCartItemDto",
+        "Type": "MarketplaceService.Application.Dtos.Cart.UpdateCartItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.CartController",
+    "Method": "RemoveProductFromCart",
+    "RelativePath": "api/Cart/RemoveProductFromCart",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateCartItemDto",
+        "Type": "MarketplaceService.Application.Dtos.Cart.UpdateCartItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.CategoryController",
+    "Method": "GetCategories",
+    "RelativePath": "api/Category/GetCategories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.CommandeController",
+    "Method": "getUserCommandes",
+    "RelativePath": "api/Commande",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.CommandeController",
+    "Method": "GetCommandeDetail",
+    "RelativePath": "api/Commande/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.PaypalController",
+    "Method": "Cancel",
+    "RelativePath": "api/Paypal/cancel",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.PaypalController",
+    "Method": "CreatePayment",
+    "RelativePath": "api/Paypal/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paypalRequest",
+        "Type": "MarketplaceService.Application.Dtos.Paypal.PaypalRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.PaypalController",
+    "Method": "Success",
+    "RelativePath": "api/Paypal/success",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paymentId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PayerID",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.ProductController",
+    "Method": "GetProducts",
+    "RelativePath": "api/Product/GetProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CategoryId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Marque",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "TextQuery",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "SortByPrice",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "SortByQuantity",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "Descending",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MarketplaceService.API.Controllers.ProductController",
+    "Method": "GetProductDetail",
+    "RelativePath": "api/Product/ProductDetail/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>bea97120-0838-4e0d-91fc-53f6e310ce44</ProjectGuid>
+    <ProjectGuid>82c47c45-4322-4cbe-bb34-0b4c3c900714</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>gateway</DockerServiceName>

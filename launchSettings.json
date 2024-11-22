@@ -4,8 +4,9 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
+        "gateway": "StartDebugging",
         "marketplaceservice.api": "StartDebugging",
-        "gateway": "StartDebugging"
+        "usersservice": "StartDebugging"
       }
     }
   }

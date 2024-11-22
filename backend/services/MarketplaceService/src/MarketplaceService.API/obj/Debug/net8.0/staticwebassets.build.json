@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "TNLrFQtM3wmuciy3buND/O3i8FKi4+xVFkH/zbG1BRs=",
+  "Source": "MarketplaceService.API",
+  "BasePath": "_content/MarketplaceService.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
