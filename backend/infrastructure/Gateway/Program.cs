@@ -8,7 +8,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme =
     options.DefaultChallengeScheme =
-    options.DefaultForbidScheme =
+    options.DefaultForbidScheme = 
     options.DefaultScheme =
     options.DefaultSignInScheme =
     options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
