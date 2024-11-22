@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
-builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+
+
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme =
@@ -26,6 +29,10 @@ builder.Services.AddAuthentication(options =>
 
     };
 });
-app.MapGet("/", () => "Hello World!");
+builder.Services.AddOcelot();
+builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
+var app = builder.Build();
+app.MapGet("/", () => "Hello World!");
+await app.UseOcelot();
 app.Run();
