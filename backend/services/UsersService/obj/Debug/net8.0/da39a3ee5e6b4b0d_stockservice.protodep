@@ -1,2 +1,0 @@
-obj\Debug\net8.0/Stockservice.cs \
-obj\Debug\net8.0/StockserviceGrpc.cs: stockservice.proto

@@ -114,7 +114,9 @@ networks:
     driver: bridge
 
 volumes:
-  sqlserver_data:
-    external: true
   postgres_data:
+    name: microservices_postgres_data
+    external: true
+  sqlserver_data:
+    name: microservices_sqlserver_data
     external: true
