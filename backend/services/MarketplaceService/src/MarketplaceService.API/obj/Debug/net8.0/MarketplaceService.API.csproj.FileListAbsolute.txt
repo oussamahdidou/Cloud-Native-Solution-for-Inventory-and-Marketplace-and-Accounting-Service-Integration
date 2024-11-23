@@ -327,4 +327,3 @@ C:\Users\pc\Downloads\projects\microservices\backend\services\MarketplaceService
 C:\Users\pc\Downloads\projects\microservices\backend\services\MarketplaceService\src\MarketplaceService.API\bin\Debug\net8.0\MarketplaceService.API.staticwebassets.endpoints.json
 C:\Users\pc\Downloads\projects\microservices\backend\services\MarketplaceService\src\MarketplaceService.API\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\pc\Downloads\projects\microservices\backend\services\MarketplaceService\src\MarketplaceService.API\obj\Debug\net8.0\staticwebassets\msbuild.MarketplaceService.API.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\Users\pc\Downloads\projects\microservices\backend\services\MarketplaceService\src\MarketplaceService.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

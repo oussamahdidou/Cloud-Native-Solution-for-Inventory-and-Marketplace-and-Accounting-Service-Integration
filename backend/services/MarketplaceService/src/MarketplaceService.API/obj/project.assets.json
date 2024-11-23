@@ -5250,19 +5250,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pc\\.nuget\\packages\\": {}
+    "C:\\Users\\pc\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.API\\MarketplaceService.API.csproj",
+      "projectUniqueName": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.API\\MarketplaceService.API.csproj",
       "projectName": "MarketplaceService.API",
-      "projectPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.API\\MarketplaceService.API.csproj",
+      "projectPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.API\\MarketplaceService.API.csproj",
       "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.API\\obj\\",
+      "outputPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5277,17 +5282,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\pc\\Desktop\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj": {
-              "projectPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj"
+            "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj": {
+              "projectPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\contacts\\EventsContracts\\EventsContracts.csproj"
             },
-            "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Application\\MarketplaceService.Application.csproj": {
-              "projectPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Application\\MarketplaceService.Application.csproj"
+            "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Application\\MarketplaceService.Application.csproj": {
+              "projectPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Application\\MarketplaceService.Application.csproj"
             },
-            "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj": {
-              "projectPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj"
+            "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj": {
+              "projectPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Domain\\MarketplaceService.Domain.csproj"
             },
-            "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Infrastructure\\MarketplaceService.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\pc\\Desktop\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Infrastructure\\MarketplaceService.Infrastructure.csproj"
+            "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Infrastructure\\MarketplaceService.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\MarketplaceService\\src\\MarketplaceService.Infrastructure\\MarketplaceService.Infrastructure.csproj"
             }
           }
         }
@@ -5300,8 +5305,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
-      }
+        "auditMode": "all"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -5371,16 +5377,66 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
     {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Azure.Identity' 1.10.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-m5vv-6r4h-3vj9",
+      "libraryId": "Azure.Identity",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Azure.Identity' 1.10.3 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-wvxc-855f-jvrv",
+      "libraryId": "Azure.Identity",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Identity.Client' 4.56.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-m5vv-6r4h-3vj9",
+      "libraryId": "Microsoft.Identity.Client",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Identity.Client' 4.56.0 has a known low severity vulnerability, https://github.com/advisories/GHSA-x674-v45j-fwxw",
+      "libraryId": "Microsoft.Identity.Client",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Formats.Asn1' 5.0.0 has a known high severity vulnerability, https://github.com/advisories/GHSA-447r-wph3-92pm",
+      "libraryId": "System.Formats.Asn1",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Le package 'PayPal 1.9.1' a été restauré en utilisant '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' au lieu du framework cible du projet 'net8.0'. Ce package n'est peut-être pas totalement compatible avec votre projet.",
+      "message": "Package 'PayPal 1.9.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
       "libraryId": "PayPal",
       "targetGraphs": [
         "net8.0"

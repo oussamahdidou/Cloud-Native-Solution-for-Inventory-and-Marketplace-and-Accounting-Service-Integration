@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -11,6 +10,7 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     networks:
       - app-network
+
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
@@ -22,9 +22,25 @@ services:
     ports:
       - "1433:1433"
     networks:
-      - app-network    
+      - app-network
+
+  postgresql:
+    image: postgres:15
+    container_name: postgresql
+    environment:
+      POSTGRES_DB: stock
+      POSTGRES_USER: stockuser
+      POSTGRES_PASSWORD: stockpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
   gateway:
     image: ${DOCKER_REGISTRY-}gateway
+    container_name: gateway
     build:
       context: .
       dockerfile: backend/infrastructure/Gateway/Dockerfile
@@ -36,9 +52,12 @@ services:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
+    depends_on:
+      - rabbitmq
 
   marketplaceservice.api:
     image: ${DOCKER_REGISTRY-}marketplaceserviceapi
+    container_name: marketplaceservice
     build:
       context: .
       dockerfile: backend/services/MarketplaceService/src/MarketplaceService.API/Dockerfile
@@ -50,9 +69,13 @@ services:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
+    depends_on:
+      - sqlserver
+      - rabbitmq
 
   usersservice:
     image: ${DOCKER_REGISTRY-}usersservice
+    container_name: usersservice
     build:
       context: .
       dockerfile: backend/services/UsersService/Dockerfile
@@ -64,9 +87,30 @@ services:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
+    depends_on:
+      - sqlserver
+      - rabbitmq
+
+  stockservice:
+    image: ${DOCKER_REGISTRY-}stockservice
+    container_name: stockservice
+    build:
+      context: .
+      dockerfile: backend/services/stockservice/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgresql
+    networks:
+      - app-network
+    depends_on:
+      - postgresql
+      - rabbitmq
 
 networks:
   app-network:
     driver: bridge
+
 volumes:
   sqlserver_data:
+  postgres_data:
