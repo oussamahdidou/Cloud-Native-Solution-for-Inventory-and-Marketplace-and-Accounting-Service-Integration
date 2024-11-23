@@ -10,7 +10,7 @@ const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { itemAmount } = useContext(CartContext);
-
+  const defaultPoster = `${process.env.PUBLIC_URL + "/img/bg_hero.svg"}`;
   // event listener
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -27,7 +27,7 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between h-full">
         <Link to={"/"}>
           <div className="w-[40px]">
-            <img src={Logo} alt="" />
+            <img src={defaultPoster} alt="" />
           </div>
         </Link>
 

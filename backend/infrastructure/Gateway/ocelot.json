@@ -5,24 +5,20 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5098
+          "Host": "usersservice",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      //"AuthenticationOptions": {
-      //  "AuthenticationProviderKey": "Bearer",
-      //  "AllowedScopes": []
-      //}
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5221
+          "Host": "marketplaceservice",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/gateway/marketplace/{everything}",
@@ -37,7 +33,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "stockservice",
           "Port": 8080
         }
       ],
@@ -45,14 +41,11 @@
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": [],
-        //"RouteClaimsRequirement": {
-        //  "role": "user" // Only allow access if the user has the 'user' role
-        //}
+        "AllowedScopes": []
       }
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
+    "BaseUrl": "http://gateway:5000"
   }
 }

@@ -223,7 +223,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseStaticFiles();
-app.UseHttpsRedirection();
 app.UseCors("AllowOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
