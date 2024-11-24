@@ -5,7 +5,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "react-router-dom";
 import { routes } from "./Routes/Routes";
-import ProductProvider from "./Contexts/ProductContext";
 import CartProvider from "./Contexts/CartContext";
 import SidebarProvider from "./Contexts/SidebarContext";
 
@@ -15,11 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <SidebarProvider>
     <CartProvider>
-      <ProductProvider>
-        <React.StrictMode>
-          <RouterProvider router={routes}></RouterProvider>
-        </React.StrictMode>
-      </ProductProvider>
+      <React.StrictMode>
+        <RouterProvider router={routes}></RouterProvider>
+      </React.StrictMode>
     </CartProvider>
   </SidebarProvider>
 );

@@ -9,7 +9,7 @@ const Header = () => {
   // header state
   const [isActive, setIsActive] = useState(false);
   const { isOpen, setIsOpen } = useContext(SidebarContext);
-  const { itemAmount } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
   const defaultPoster = `${process.env.PUBLIC_URL + "/img/bg_hero.svg"}`;
   // event listener
   useEffect(() => {
@@ -38,7 +38,7 @@ const Header = () => {
         >
           <BsBag className="text-2xl" />
           <div className="bg-red-500 absolute -right-2 -bottom-2 text-[12px] w-[18px] h-[18px] text-white rounded-full flex justify-center items-center">
-            {itemAmount}
+            {cart?.cartItems.length}
           </div>
         </div>
       </div>

@@ -89,6 +89,7 @@ builder.Services.AddCors(options =>
         builder => builder.WithOrigins("*")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
+                   
                     );
    
 });

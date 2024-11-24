@@ -23,10 +23,10 @@
       ],
       "UpstreamPathTemplate": "/gateway/marketplace/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      }
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
+      //}
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -39,10 +39,10 @@
       ],
       "UpstreamPathTemplate": "/gateway/stockservice/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      }
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "Bearer",
+      //  "AllowedScopes": []
+      //}
     }
   ],
   "GlobalConfiguration": {
