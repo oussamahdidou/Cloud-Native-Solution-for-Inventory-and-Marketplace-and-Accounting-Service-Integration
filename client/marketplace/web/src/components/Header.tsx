@@ -10,7 +10,7 @@ const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { cart } = useContext(CartContext);
-  const defaultPoster = `${process.env.PUBLIC_URL + "/img/bg_hero.svg"}`;
+  const defaultPoster = `${process.env.PUBLIC_URL + "/img/logo.svg"}`;
   // event listener
   useEffect(() => {
     window.addEventListener("scroll", () => {

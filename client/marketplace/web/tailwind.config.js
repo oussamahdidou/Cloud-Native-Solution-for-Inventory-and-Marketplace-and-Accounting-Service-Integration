@@ -24,6 +24,9 @@ module.exports = {
         darkBlue: "hsl(213.86, 58.82%, 46.67%)",
         lightGreen: "hsl(156.62, 73.33%, 58.82%)",
       },
+      backgroundImage: {
+        hero: "url('../public/img/bghero.jpg')",
+      },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
       },

@@ -19,3 +19,52 @@ export const GetCart = async (): Promise<Cart> => {
   );
   return reponse.data;
 };
+export const AddProductToCart = async (productId: string, cartId: number) => {
+  const reponse = await apiClient.post(
+    `${apiBase}/marketplace/Cart/AddProductToCart`,
+    {
+      productId: productId,
+      cartId: cartId,
+    }
+  );
+  return reponse.data;
+};
+export const RemoveProductFromCart = async (
+  productId: string,
+  cartId: number
+) => {
+  const reponse = await apiClient.post(
+    `${apiBase}/marketplace/Cart/RemoveProductFromCart`,
+    {
+      productId: productId,
+      cartId: cartId,
+    }
+  );
+  return reponse.data;
+};
+export const IncreaseProductQuantity = async (
+  productId: string,
+  cartId: number
+) => {
+  const reponse = await apiClient.post(
+    `${apiBase}/marketplace/Cart/IncreaseProductQuantity`,
+    {
+      productId: productId,
+      cartId: cartId,
+    }
+  );
+  return reponse.data;
+};
+export const DecreaseProductQuantity = async (
+  productId: string,
+  cartId: number
+) => {
+  const reponse = await apiClient.post(
+    `${apiBase}/marketplace/Cart/DecreaseProductQuantity`,
+    {
+      productId: productId,
+      cartId: cartId,
+    }
+  );
+  return reponse.data;
+};
