@@ -3,11 +3,24 @@ import { useParams } from "react-router-dom";
 import { CartContext } from "../Contexts/CartContext";
 import { ProductDetail } from "../models/ProductModels";
 import { GetProductDetail, GetProducts } from "../Services/ProductsService";
+import { CartItem } from "../models/CartModels";
 
 const ProductDetails: React.FC = () => {
   // Get the product id from URL
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<ProductDetail>();
+  const [product, setProduct] = useState<ProductDetail>({
+    categoryId: "id",
+    categoryName: "",
+    categoryThumbnail: "",
+    description: "",
+    marqueIcon: "",
+    marqueName: "",
+    name: "",
+    price: 0,
+    productId: "",
+    quantity: 0,
+    thumbnail: "",
+  });
   useEffect(() => {
     const GetProductDetails = async (id: string) => {
       const result = await GetProductDetail(id);
@@ -15,7 +28,15 @@ const ProductDetails: React.FC = () => {
     };
     GetProductDetails(id || "");
   }, []);
-
+  const cartItem: CartItem = {
+    productId: product.productId,
+    title: product.name,
+    thumbnail: product.thumbnail,
+    quantity: product.quantity,
+    unityPrice: product.price,
+    totalAmount: product.price * product.quantity,
+  };
+  const { addToCart } = useContext(CartContext);
   return (
     <section className="pt-[450px] md:pt-32 pb-[400px] md:pb-12 lg:py-32 h-screen flex items-center">
       <div className="container mx-auto">
@@ -54,7 +75,7 @@ const ProductDetails: React.FC = () => {
               </div>
             </div>
             <button
-              onClick={() => {}}
+              onClick={() => addToCart(cartItem)}
               className="bg-black py-4 px-8 text-white"
             >
               Add to cart

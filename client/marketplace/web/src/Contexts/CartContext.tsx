@@ -6,14 +6,20 @@ import React, {
   useContext,
 } from "react";
 import { Cart, CartItem } from "../models/CartModels";
-import { GetCart } from "../Services/CartService";
+import {
+  AddProductToCart,
+  DecreaseProductQuantity,
+  GetCart,
+  IncreaseProductQuantity,
+  RemoveProductFromCart,
+} from "../Services/CartService";
+import { useAuth } from "./useAuth";
 
 interface CartContextType {
-  cart: Cart | null;
+  cart: Cart;
   addToCart: (product: CartItem) => void;
   removeFromCart: (productId: string) => void;
   clearCart: () => void;
-  increaseAmount: (productId: string) => void;
   decreaseAmount: (productId: string) => void;
   checkItemInCart: (productId: string) => boolean;
 }
@@ -27,14 +33,22 @@ interface CartProviderProps {
 }
 
 const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const [cart, setCart] = useState<Cart | null>(null);
+  const { isLoggedIn } = useAuth();
+  const [cart, setCart] = useState<Cart>({
+    cartId: 0,
+    cartItems: [],
+    totalAmount: 0,
+  });
 
-  // Fetch cart data when the provider is mounted
   useEffect(() => {
     const fetchCart = async () => {
       try {
+        if (!isLoggedIn) {
+          console.error("User is not logged in. Cannot add product to cart.");
+          return;
+        }
         const cartData = await GetCart();
-        setCart(cartData);
+        updateCartTotal(cartData);
       } catch (error) {
         console.error("Failed to fetch cart:", error);
       }
@@ -43,87 +57,84 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     fetchCart();
   }, []);
 
-  // Update totalAmount whenever cartItems change
-  useEffect(() => {
-    if (cart) {
-      const total = cart.cartItems.reduce(
-        (accumulator, item) => accumulator + item.totalAmount,
-        0
-      );
-      setCart((prevCart) =>
-        prevCart ? { ...prevCart, totalAmount: total } : null
-      );
+  // Helper function to update the cart's total amount
+  const updateCartTotal = (updatedCart: Cart | null) => {
+    if (!isLoggedIn) {
+      console.error("User is not logged in. Cannot add product to cart.");
+      return;
     }
-  }, [cart?.cartItems]);
+    if (!updatedCart) return;
+    const total = updatedCart.cartItems.reduce(
+      (sum, item) => sum + item.totalAmount,
+      0
+    );
+    setCart({ ...updatedCart, totalAmount: total });
+  };
 
-  // Add item to cart
-  const addToCart = (product: CartItem) => {
+  const addToCart = async (product: CartItem) => {
+    if (!isLoggedIn) {
+      console.error("User is not logged in. Cannot add product to cart.");
+      return;
+    }
     if (!cart) return;
 
     const existingItem = cart.cartItems.find(
       (item) => item.productId === product.productId
     );
 
-    if (existingItem) {
-      const updatedItems = cart.cartItems.map((item) =>
-        item.productId === product.productId
-          ? {
-              ...item,
-              quantity: item.quantity + 1,
-              totalAmount: (item.quantity + 1) * item.unityPrice,
-            }
-          : item
-      );
-      setCart({ ...cart, cartItems: updatedItems });
-    } else {
-      const newItem = {
-        ...product,
-        quantity: 1,
-        totalAmount: product.unityPrice,
-      };
-      setCart({ ...cart, cartItems: [...cart.cartItems, newItem] });
+    try {
+      if (existingItem) {
+        await IncreaseProductQuantity(product.productId, cart.cartId);
+
+        const updatedItems = cart.cartItems.map((item) =>
+          item.productId === product.productId
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+                totalAmount: (item.quantity + 1) * item.unityPrice,
+              }
+            : item
+        );
+        updateCartTotal({ ...cart, cartItems: updatedItems });
+      } else {
+        await AddProductToCart(product.productId, cart.cartId);
+
+        const newItem = {
+          ...product,
+          quantity: 1,
+          totalAmount: product.unityPrice,
+        };
+        updateCartTotal({ ...cart, cartItems: [...cart.cartItems, newItem] });
+      }
+    } catch (error) {
+      console.error("Failed to add product to cart:", error);
     }
   };
 
-  // Remove item from cart
-  const removeFromCart = (productId: string) => {
-    if (!cart) return;
-
-    const updatedItems = cart.cartItems.filter(
-      (item) => item.productId !== productId
-    );
-    setCart({ ...cart, cartItems: updatedItems });
-  };
-
-  // Clear the cart
-  const clearCart = () => {
-    if (!cart) return;
-
-    setCart({ ...cart, cartItems: [] });
-  };
-
-  // Increase item quantity
-  const increaseAmount = (productId: string) => {
-    if (!cart) return;
-
-    const existingItem = cart.cartItems.find(
-      (item) => item.productId === productId
-    );
-    if (existingItem) {
-      addToCart(existingItem);
+  const decreaseAmount = async (productId: string) => {
+    if (!isLoggedIn) {
+      console.error("User is not logged in. Cannot add product to cart.");
+      return;
     }
-  };
-
-  // Decrease item quantity
-  const decreaseAmount = (productId: string) => {
     if (!cart) return;
 
     const existingItem = cart.cartItems.find(
       (item) => item.productId === productId
     );
 
-    if (existingItem) {
-      if (existingItem.quantity > 1) {
+    if (!existingItem) return;
+
+    try {
+      if (existingItem.quantity === 1) {
+        await RemoveProductFromCart(productId, cart.cartId);
+
+        const updatedItems = cart.cartItems.filter(
+          (item) => item.productId !== productId
+        );
+        updateCartTotal({ ...cart, cartItems: updatedItems });
+      } else {
+        await DecreaseProductQuantity(productId, cart.cartId);
+
         const updatedItems = cart.cartItems.map((item) =>
           item.productId === productId
             ? {
@@ -133,14 +144,49 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
               }
             : item
         );
-        setCart({ ...cart, cartItems: updatedItems });
-      } else {
-        removeFromCart(productId);
+        updateCartTotal({ ...cart, cartItems: updatedItems });
       }
+    } catch (error) {
+      console.error("Failed to decrease product quantity:", error);
     }
   };
 
-  // Check if an item exists in the cart
+  const clearCart = async () => {
+    if (!isLoggedIn) {
+      console.error("User is not logged in. Cannot add product to cart.");
+      return;
+    }
+    if (!cart) return;
+
+    try {
+      for (const item of cart.cartItems) {
+        await RemoveProductFromCart(item.productId, cart.cartId);
+      }
+      updateCartTotal({ ...cart, cartItems: [] });
+    } catch (error) {
+      console.error("Failed to clear cart:", error);
+    }
+  };
+
+  const removeFromCart = async (productId: string) => {
+    if (!isLoggedIn) {
+      console.error("User is not logged in. Cannot add product to cart.");
+      return;
+    }
+    if (!cart) return;
+
+    try {
+      await RemoveProductFromCart(productId, cart.cartId);
+
+      const updatedItems = cart.cartItems.filter(
+        (item) => item.productId !== productId
+      );
+      updateCartTotal({ ...cart, cartItems: updatedItems });
+    } catch (error) {
+      console.error("Failed to remove product from cart:", error);
+    }
+  };
+
   const checkItemInCart = (productId: string): boolean => {
     if (!cart) return false;
     return cart.cartItems.some((item) => item.productId === productId);
@@ -153,7 +199,6 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         addToCart,
         removeFromCart,
         clearCart,
-        increaseAmount,
         decreaseAmount,
         checkItemInCart,
       }}

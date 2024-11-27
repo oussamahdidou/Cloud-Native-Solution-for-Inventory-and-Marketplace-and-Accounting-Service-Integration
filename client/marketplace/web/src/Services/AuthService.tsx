@@ -1,10 +1,10 @@
 import axios from "axios";
-// import { showErrorModal } from "../helpers/handlers";
-const apiBase = "http://localhost:8080";
+
+const apiBase = "http://localhost:5000/gateway";
 
 export const Login = async (username: string, password: string) => {
   try {
-    const reponse = await axios.post<any>(`${apiBase}/Api/Auth/Login`, {
+    const reponse = await axios.post<any>(`${apiBase}/users/Account/Login`, {
       userName: username,
       password: password,
     });
@@ -16,15 +16,13 @@ export const Login = async (username: string, password: string) => {
 export const Register = async (
   email: string,
   userName: string,
-  password: string,
-  role: string
+  password: string
 ) => {
   try {
-    const reponse = await axios.post<any>(`${apiBase}/Api/Auth/Register`, {
+    const reponse = await axios.post<any>(`${apiBase}/users/Account/Register`, {
       userName: userName,
       email: email,
       password: password,
-      role: role,
     });
     return reponse.data;
   } catch (error: any) {

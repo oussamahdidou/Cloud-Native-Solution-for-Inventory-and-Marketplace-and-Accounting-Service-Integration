@@ -5,10 +5,11 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { GetProducts } from "../Services/ProductsService";
 import { ProductItem } from "../models/ProductModels";
+import { useAuth } from "../Contexts/useAuth";
 
 const Home = () => {
   const [products, setProducts] = useState<ProductItem[]>([]);
-
+  const { isLoggedIn } = useAuth();
   useEffect(() => {
     const GetProductsItems = async () => {
       const result = await GetProducts();
@@ -19,7 +20,7 @@ const Home = () => {
   return (
     <div>
       <Header></Header>
-      <Sidebar></Sidebar>
+      {isLoggedIn() ? <Sidebar></Sidebar> : <></>}
       <Hero />
       <section className="py-20">
         <div className="container mx-auto">

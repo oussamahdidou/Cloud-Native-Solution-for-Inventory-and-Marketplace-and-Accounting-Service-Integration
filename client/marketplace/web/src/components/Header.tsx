@@ -4,6 +4,7 @@ import { CartContext } from "../Contexts/CartContext";
 import { Link } from "react-router-dom";
 import Logo from "../img/logo.svg";
 import { BsBag } from "react-icons/bs";
+import { useAuth } from "../Contexts/useAuth";
 
 const Header = () => {
   // header state
@@ -11,7 +12,7 @@ const Header = () => {
   const { isOpen, setIsOpen } = useContext(SidebarContext);
   const { cart } = useContext(CartContext);
   const defaultPoster = `${process.env.PUBLIC_URL + "/img/logo.svg"}`;
-  // event listener
+  const { isLoggedIn } = useAuth();
   useEffect(() => {
     window.addEventListener("scroll", () => {
       window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
@@ -32,15 +33,21 @@ const Header = () => {
         </Link>
 
         {/* cart */}
-        <div
-          onClick={() => setIsOpen(!isOpen)}
-          className="cursor-pointer flex relative"
-        >
-          <BsBag className="text-2xl" />
-          <div className="bg-red-500 absolute -right-2 -bottom-2 text-[12px] w-[18px] h-[18px] text-white rounded-full flex justify-center items-center">
-            {cart?.cartItems.length}
+        {isLoggedIn() ? (
+          <div
+            onClick={() => setIsOpen(!isOpen)}
+            className="cursor-pointer flex relative"
+          >
+            <BsBag className="text-2xl" />
+            <div className="bg-red-500 absolute -right-2 -bottom-2 text-[12px] w-[18px] h-[18px] text-white rounded-full flex justify-center items-center">
+              {cart?.cartItems.length}
+            </div>
           </div>
-        </div>
+        ) : (
+          <Link to={"/login"}>
+            <p>Login</p>
+          </Link>
+        )}
       </div>
     </header>
   );

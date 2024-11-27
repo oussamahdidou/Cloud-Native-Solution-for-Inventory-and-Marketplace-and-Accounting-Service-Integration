@@ -10,8 +10,7 @@ interface CartItemProps {
 }
 
 const CartItemCard: React.FC<CartItemProps> = ({ item }) => {
-  const { removeFromCart, increaseAmount, decreaseAmount } =
-    useContext(CartContext);
+  const { removeFromCart, addToCart, decreaseAmount } = useContext(CartContext);
 
   return (
     <div className="flex gap-x-4 py-2 lg:px-6 border-b border-gray-200 w-full font-light text-gray-500">
@@ -46,10 +45,10 @@ const CartItemCard: React.FC<CartItemProps> = ({ item }) => {
                 <IoMdRemove />
               </div>
               <div className="h-full flex justify-center items-center px-2">
-                {item.totalAmount}
+                {item.quantity}
               </div>
               <div
-                onClick={() => increaseAmount(item.productId)}
+                onClick={() => addToCart(item)}
                 className="h-full flex flex-1 justify-center items-center cursor-pointer"
               >
                 <IoMdAdd />
