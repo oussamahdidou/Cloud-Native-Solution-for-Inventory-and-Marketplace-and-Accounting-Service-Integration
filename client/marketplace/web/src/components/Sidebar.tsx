@@ -11,7 +11,7 @@ import { CartContext } from "../Contexts/CartContext";
 
 const Sidebar = () => {
   const { isOpen, handleClose } = useContext(SidebarContext);
-  const { cart, clearCart } = useContext(CartContext);
+  const { cart, clearCart, checkout } = useContext(CartContext);
 
   return (
     <div
@@ -55,12 +55,14 @@ const Sidebar = () => {
         >
           View Cart
         </Link> */}
-        <Link
-          to={"/"}
+        <button
+          onClick={() => {
+            checkout();
+          }}
           className="bg-black flex p-3 justify-center items-center text-white w-full font-medium"
         >
           Checkout
-        </Link>
+        </button>
       </div>
     </div>
   );

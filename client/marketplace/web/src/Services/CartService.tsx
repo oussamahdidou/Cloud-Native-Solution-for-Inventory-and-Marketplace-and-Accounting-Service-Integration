@@ -58,3 +58,7 @@ export const DecreaseProductQuantity = async (
   );
   return reponse.data;
 };
+export const CheckoutCart = async () => {
+  const reponse = await axios.get(`${apiBase}/marketplace/Cart/Checkout`);
+  return reponse.data;
+};

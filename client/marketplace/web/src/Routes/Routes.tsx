@@ -4,6 +4,7 @@ import DashboardPage from "../Pages/DashboardPage";
 import Home from "../Pages/Home";
 import ProductDetails from "../Pages/ProductDetails";
 import LoginPage from "../Pages/LoginPage";
+import RegisterPage from "../Pages/RegisterPage";
 
 export const routes = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ export const routes = createBrowserRouter([
       { path: "", element: <Home></Home> },
       { path: "/product/:id", element: <ProductDetails /> },
       { path: "/login", element: <LoginPage /> },
+      { path: "/register", element: <RegisterPage /> },
     ],
   },
 ]);

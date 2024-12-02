@@ -1,4 +1,5 @@
 ﻿using MarketplaceService.Application.Dtos.Cart;
+using MarketplaceService.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace MarketplaceService.Application.Interfaces
         Task RemoveProductFromCart(UpdateCartItemDto updateCartItemDto);
         Task IncreaseProductQuantity(UpdateCartItemDto updateCartItemDto);
         Task DecreaseProductQuantity(UpdateCartItemDto updateCartItemDto);
-        Task CartCheckout(string CustomerId);
+        Task<Commande> CartCheckout(string CustomerId);
     }
 }

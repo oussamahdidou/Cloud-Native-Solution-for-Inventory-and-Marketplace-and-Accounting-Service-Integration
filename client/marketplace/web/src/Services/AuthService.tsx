@@ -20,8 +20,8 @@ export const Register = async (
 ) => {
   try {
     const reponse = await axios.post<any>(`${apiBase}/users/Account/Register`, {
-      userName: userName,
-      email: email,
+      username: userName,
+      emailAddress: email,
       password: password,
     });
     return reponse.data;

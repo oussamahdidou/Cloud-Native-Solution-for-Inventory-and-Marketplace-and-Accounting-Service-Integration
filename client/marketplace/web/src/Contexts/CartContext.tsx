@@ -8,12 +8,14 @@ import React, {
 import { Cart, CartItem } from "../models/CartModels";
 import {
   AddProductToCart,
+  CheckoutCart,
   DecreaseProductQuantity,
   GetCart,
   IncreaseProductQuantity,
   RemoveProductFromCart,
 } from "../Services/CartService";
 import { useAuth } from "./useAuth";
+import toast from "react-hot-toast";
 
 interface CartContextType {
   cart: Cart;
@@ -22,6 +24,7 @@ interface CartContextType {
   clearCart: () => void;
   decreaseAmount: (productId: string) => void;
   checkItemInCart: (productId: string) => boolean;
+  checkout: () => void;
 }
 
 export const CartContext = createContext<CartContextType>(
@@ -191,10 +194,31 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     if (!cart) return false;
     return cart.cartItems.some((item) => item.productId === productId);
   };
+  const checkout = async () => {
+    if (!isLoggedIn) {
+      console.error("User is not logged in. Cannot add product to cart.");
+      toast.error("You must be logged in to checkout!");
+      return;
+    }
 
+    if (!cart) {
+      toast.error("Your cart is empty!");
+      return;
+    }
+
+    toast.loading("Processing checkout...");
+    try {
+      await CheckoutCart();
+      toast.success("Checkout successful!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong during checkout.");
+    }
+  };
   return (
     <CartContext.Provider
       value={{
+        checkout,
         cart,
         addToCart,
         removeFromCart,
