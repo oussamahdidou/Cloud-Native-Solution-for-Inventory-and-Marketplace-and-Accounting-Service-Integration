@@ -1,97 +1,106 @@
-import { BRAND } from '../../types/brand';
-import BrandOne from '../../images/brand/brand-01.svg';
-import BrandTwo from '../../images/brand/brand-02.svg';
-import BrandThree from '../../images/brand/brand-03.svg';
-import BrandFour from '../../images/brand/brand-04.svg';
-import BrandFive from '../../images/brand/brand-05.svg';
-import React, { useEffect, useState } from 'react';
-import { getAllProducts } from '../../Services/ProductService.ts';
+import React, { useState, useEffect } from 'react';
+import { Product } from '../../types/product';
+import { ProductService } from '../../Services/ProductService';
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const TableOne = () => {
+
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    
     const fetchProducts = async () => {
       try {
-        const data = await getAllProducts();
-        setProducts(data);
-      } catch (error) {
-        setError('Error fetching products');
-        console.error(error);
-      } finally {
-        setLoading(false);
+        setIsLoading(true);
+        const fetchedProducts = await ProductService.getAllProducts();
+        setProducts(fetchedProducts);
+        setIsLoading(false);
+      } catch (err) {
+        setError('Failed to fetch products');
+        setIsLoading(false);
       }
     };
 
     fetchProducts();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (isLoading) {
+    return (
+      <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <p className="text-center text-black dark:text-white">Loading...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <p className="text-center text-red-500">{error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
-        Top Channels
+        Product List
       </h4>
-
       <div className="flex flex-col">
         <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
           <div className="p-2.5 xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Source
+              Product Name
             </h5>
           </div>
           <div className="p-2.5 text-center xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Visitors
+              Price
             </h5>
           </div>
           <div className="p-2.5 text-center xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Revenues
+              Category
             </h5>
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Sales
+              Quantity
             </h5>
           </div>
           <div className="hidden p-2.5 text-center sm:block xl:p-5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Conversion
+              Thumbnail
             </h5>
           </div>
         </div>
-
-        {products.map((product) => (
-          <div key={product.id} className="mb-4">
+        {products.map((product, key) => (
+          <div
+            className={`grid grid-cols-3 sm:grid-cols-5 ${
+              key === products.length - 1
+                ? ''
+                : 'border-b border-stroke dark:border-strokedark'
+            }`}
+            key={`${product.categoryId}-${key}`}
+          >
             <div className="flex items-center gap-3 p-2.5 xl:p-5">
-              {/* <div className="flex-shrink-0">
-                <img src={brand.logo} alt="Brand" />
-              </div> */}
-              <p className="hidden text-black dark:text-white sm:block">
-                {product.name}
-              </p>
+              <p className="text-black dark:text-white">{product.name}</p>
             </div>
-
             <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{product.quantity}K</p>
+              <p className="text-meta-3">{product.price.toFixed(2)} DH</p>
             </div>
-
             <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-meta-3">${product.price}</p>
+              <p className="text-black dark:text-white">{product.categoryName}</p>
             </div>
-
-            {/* <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-black dark:text-white">{brand.sales}</p>
-            </div>
-
             <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-meta-5">{brand.conversion}%</p>
-            </div> */}
+              <p className="text-black dark:text-white">{product.quantity}</p>
+            </div>
+            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
+              <img 
+                src={product.thumbnail} 
+                alt={product.name} 
+                className="w-16 h-16 object-cover"
+              />
+            </div>
           </div>
         ))}
       </div>
@@ -99,4 +108,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default TableOne;
