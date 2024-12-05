@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: stockservice
-          image: ${DOCKER_REGISTRY}/stockservice
+          image: oussamahdidou/stockservice:latest
           ports:
             - containerPort: 8080
           env:

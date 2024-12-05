@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: usersservice
-          image: ${DOCKER_REGISTRY}/usersservice
+          image: oussamahdidou/usersservice:latest
           ports:
             - containerPort: 8080
           env:

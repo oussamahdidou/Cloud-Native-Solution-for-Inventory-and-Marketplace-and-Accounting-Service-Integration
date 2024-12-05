@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gateway-cert
+spec:
+  dnsNames:
+    - "1bcef901-48b0-4362-ae91-93230f947939.k8s.ondigitalocean.com"
+  secretName: gateway-tls
+  issuerRef:
+    name: self-signed
+    kind: Issuer

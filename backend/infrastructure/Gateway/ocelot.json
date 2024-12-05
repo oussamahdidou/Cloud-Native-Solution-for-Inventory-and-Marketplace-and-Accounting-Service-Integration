@@ -6,11 +6,11 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "usersservice",
-          "Port": 8080
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/users/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
     },
     {
       "DownstreamPathTemplate": "/api/{everything}",
@@ -18,11 +18,11 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "marketplaceservice",
-          "Port": 8080
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/marketplace/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
       //"AuthenticationOptions": {
       //  "AuthenticationProviderKey": "Bearer",
       //  "AllowedScopes": []
@@ -34,11 +34,11 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "stockservice",
-          "Port": 8080
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/gateway/stockservice/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "UpstreamHttpMethod": ["GET", "POST", "PUT", "DELETE"]
       //"AuthenticationOptions": {
       //  "AuthenticationProviderKey": "Bearer",
       //  "AllowedScopes": []

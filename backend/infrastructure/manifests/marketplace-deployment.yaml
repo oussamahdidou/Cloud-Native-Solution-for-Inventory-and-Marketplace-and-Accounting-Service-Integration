@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: marketplaceservice
-          image: ${DOCKER_REGISTRY}/marketplaceserviceapi
+          image: oussamahdidou/marketplaceserviceapi:latest
           ports:
             - containerPort: 8080
           env:

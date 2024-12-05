@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "self-signed"
+spec:
+  tls:
+    - hosts:
+        - "1bcef901-48b0-4362-ae91-93230f947939.k8s.ondigitalocean.com"
+      secretName: gateway-tls
+  rules:
+    - host: "1bcef901-48b0-4362-ae91-93230f947939.k8s.ondigitalocean.com"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gateway
+                port:
+                  number: 80
