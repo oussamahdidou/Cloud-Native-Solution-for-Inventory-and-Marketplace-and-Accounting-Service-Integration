@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stockservice
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: stockservice
+  template:
+    metadata:
+      labels:
+        app: stockservice
+    spec:
+      containers:
+        - name: stockservice
+          image: ${DOCKER_REGISTRY}/stockservice
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: postgresql
+            - name: RABBITMQ_HOST
+              value: rabbitmq
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stockservice
+spec:
+  selector:
+    app: stockservice
+  ports:
+    - port: 80
+      targetPort: 8080

@@ -5,10 +5,18 @@ import { BsPlus, BsEyeFill } from "react-icons/bs";
 
 import { CartContext } from "../Contexts/CartContext";
 import { ProductItem } from "../models/ProductModels";
+import { CartItem } from "../models/CartModels";
 
 const Product = (product: ProductItem) => {
   const { addToCart } = useContext(CartContext);
-
+  const cartItem: CartItem = {
+    productId: product.productId,
+    title: product.name,
+    thumbnail: product.thumbnail,
+    quantity: product.quantity,
+    unityPrice: product.price,
+    totalAmount: product.price * product.quantity,
+  };
   // destructure product
 
   return (
@@ -26,7 +34,7 @@ const Product = (product: ProductItem) => {
         </div>
         {/* buttons */}
         <div className="absolute top-6 -right-11 group-hover:right-5 p-2 flex flex-col justify-center items-center gap-y-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-          <button>
+          <button onClick={() => addToCart(cartItem)}>
             <div className="flex justify-center items-center text-white w-12 h-12 bg-teal-500">
               <BsPlus className="text-3xl" />
             </div>

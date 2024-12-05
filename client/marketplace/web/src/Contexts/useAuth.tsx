@@ -1,18 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 
-import { useNavigate } from "react-router";
 import { Login, Register } from "../Services/AuthService";
 import React from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 type UserContextType = {
   token: string | null;
-  RegisterUser: (
-    email: string,
-    userName: string,
-    password: string,
-    role: string
-  ) => void;
+  RegisterUser: (email: string, userName: string, password: string) => void;
   login: (username: string, password: string) => void;
   logout: () => void;
   isLoggedIn: () => boolean;
@@ -20,7 +14,6 @@ type UserContextType = {
 type Props = { children: React.ReactNode };
 const AuthContext = createContext<UserContextType>({} as UserContextType);
 export const UserProvider = ({ children }: Props) => {
-  const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
 
   const [isReady, setIsReady] = useState<boolean>(false);
@@ -35,15 +28,14 @@ export const UserProvider = ({ children }: Props) => {
   const RegisterUser = async (
     email: string,
     userName: string,
-    password: string,
-    role: string
+    password: string
   ) => {
-    await Register(email, userName, password, role).then(
+    await Register(email, userName, password).then(
       (response) => {
-        localStorage.setItem("token", response.accessToken);
-        setToken(response.accessToken);
+        localStorage.setItem("token", response.token);
+        setToken(response.token);
         toast.success("register successfull");
-        navigate("/stock");
+        window.location.href = "/";
       },
       (error) => {
         toast.success(error.error);
@@ -53,11 +45,11 @@ export const UserProvider = ({ children }: Props) => {
   const login = async (userName: string, password: string) => {
     await Login(userName, password).then(
       (response) => {
-        localStorage.setItem("token", response.accessToken);
-        setToken(response.accessToken);
+        localStorage.setItem("token", response.token);
+        setToken(response.token);
         toast.success("login successfull");
 
-        navigate("/stock");
+        window.location.href = "/";
       },
       (error) => {
         toast.success(error.error);
@@ -70,7 +62,7 @@ export const UserProvider = ({ children }: Props) => {
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
-    navigate("/");
+    window.location.href = "/";
   };
   return (
     <AuthContext.Provider

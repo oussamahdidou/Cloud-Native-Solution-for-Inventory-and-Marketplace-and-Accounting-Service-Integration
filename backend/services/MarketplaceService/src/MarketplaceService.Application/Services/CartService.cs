@@ -51,7 +51,7 @@ namespace MarketplaceService.Application.Services
            
         }
 
-        public async Task CartCheckout(string CustomerId)
+        public async Task<Commande> CartCheckout(string CustomerId)
         {
 
             Cart cart =  await cartRepository.GetCartByCustomerAsync(CustomerId);
@@ -92,6 +92,7 @@ namespace MarketplaceService.Application.Services
             };
 
             await bus.Publish<ICommandeConfirmedEvent>(commandeConfirmedEvent);
+            return commande;
         }
 
         public async Task DecreaseProductQuantity(UpdateCartItemDto updateCartItemDto)

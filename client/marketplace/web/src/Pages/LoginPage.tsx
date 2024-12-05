@@ -1,9 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { useAuth } from "../Contexts/useAuth";
+import { useForm } from "react-hook-form";
 type Props = {};
-
+type LoginFormInputs = {
+  username: string;
+  password: string;
+};
+const validation = Yup.object().shape({
+  username: Yup.string().required("username is required"),
+  password: Yup.string().required("password is required"),
+});
 const LoginPage = (props: Props) => {
+  const { login } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: error,
+  } = useForm<LoginFormInputs>({ resolver: yupResolver(validation) });
+  const handleLogin = (form: LoginFormInputs) => {
+    login(form.username, form.password);
+  };
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="mx-auto max-w-screen-xl  px-4 py-16 sm:px-6 lg:px-8 shadow-lg">
@@ -14,7 +33,10 @@ const LoginPage = (props: Props) => {
           </p>
         </div>
 
-        <form className="mx-auto mb-0 mt-8 max-w-md space-y-4" action="#">
+        <form
+          className="mx-auto mb-0 mt-8 max-w-md space-y-4"
+          onSubmit={handleSubmit(handleLogin)}
+        >
           <div>
             <label className="sr-only" htmlFor="email">
               Email
@@ -24,7 +46,8 @@ const LoginPage = (props: Props) => {
                 placeholder="Enter your email"
                 className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent"
                 id="email"
-                type="email"
+                type="text"
+                {...register("username")}
               />
               <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
                 <svg
@@ -43,6 +66,13 @@ const LoginPage = (props: Props) => {
                 </svg>
               </span>
             </div>
+            {error.errors.username ? (
+              <span className="text-red-600">
+                {error.errors.username?.message}
+              </span>
+            ) : (
+              <></>
+            )}
           </div>
 
           <div>
@@ -55,6 +85,7 @@ const LoginPage = (props: Props) => {
                 className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent"
                 id="password"
                 type="password"
+                {...register("password")}
               />
               <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
                 <svg
@@ -79,6 +110,13 @@ const LoginPage = (props: Props) => {
                 </svg>
               </span>
             </div>
+            {error.errors.password ? (
+              <span className="text-red-600">
+                {error.errors.password?.message}
+              </span>
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className="flex items-center justify-between">
