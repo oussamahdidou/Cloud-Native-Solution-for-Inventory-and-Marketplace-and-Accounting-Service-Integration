@@ -116,7 +116,7 @@ networks:
 volumes:
   postgres_data:
     name: microservices_postgres_data
-    external: true
+    # external: true
   sqlserver_data:
     name: microservices_sqlserver_data
-    external: true
+    # external: true

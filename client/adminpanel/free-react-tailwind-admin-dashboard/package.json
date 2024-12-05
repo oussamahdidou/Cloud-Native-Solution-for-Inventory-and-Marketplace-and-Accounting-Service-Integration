@@ -14,7 +14,9 @@
     "url": "https://tailadmin.com"
   },
   "dependencies": {
+    "@types/axios": "^0.9.36",
     "apexcharts": "^3.41.0",
+    "axios": "^1.7.8",
     "flatpickr": "^4.6.13",
     "headlessui": "^0.0.0",
     "jsvectormap": "^1.5.3",
