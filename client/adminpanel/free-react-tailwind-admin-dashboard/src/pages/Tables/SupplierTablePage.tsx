@@ -1,9 +1,22 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import SupplierTable from '../../components/Tables/SupplierTable';
+import { Supplier } from '../../types/types';
+import { GetSuppliers } from '../../services/supplierservice';
+const SupplierTablePage = () => {
+  const [suppliers, setSuppliers] = useState<Supplier[]>([]);
+  useEffect(() => {
+    const GetAllProducts = async () => {
+      try {
+        const data = await GetSuppliers();
 
-type Props = {};
-
-const SupplierTablePage = (props: Props) => {
+        setSuppliers(data);
+      } catch (error) {
+        console.error('Failed to fetch Products:', error);
+      } finally {
+      }
+    };
+    GetAllProducts();
+  }, []);
   return (
     <div className="container">
       <div className="container flex justify-end items-center py-3 mt-20">
@@ -11,7 +24,7 @@ const SupplierTablePage = (props: Props) => {
           Add Supplier
         </button>
       </div>
-      <SupplierTable></SupplierTable>
+      <SupplierTable suppliers={suppliers}></SupplierTable>
     </div>
   );
 };

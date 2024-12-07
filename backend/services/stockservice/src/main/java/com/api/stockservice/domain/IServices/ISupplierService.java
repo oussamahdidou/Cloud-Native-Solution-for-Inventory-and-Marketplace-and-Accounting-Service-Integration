@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ISupplierService {
     Supplier createSupllier(SupplierDto supplierDto);
-    CreateSupplierDto GetSupplier(Long ID);
-    List<CreateSupplierDto> GetAllSuppliers();
+    Supplier GetSupplier(Long ID);
+    List<Supplier> GetAllSuppliers();
     Supplier UpdateSupplier(Long ID, SupplierDto supplierDto);
     boolean DeleteSupplier(Long ID);
 }

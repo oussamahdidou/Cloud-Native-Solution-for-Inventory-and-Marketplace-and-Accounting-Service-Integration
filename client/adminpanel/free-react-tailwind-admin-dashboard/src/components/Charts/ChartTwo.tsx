@@ -1,95 +1,105 @@
 import { ApexOptions } from 'apexcharts';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import {
+  EntriesOfTheweek,
+  SortiesOfTheweek,
+} from '../../services/dashboardservice';
 
-const options: ApexOptions = {
-  colors: ['#3C50E0', '#80CAEE'],
-  chart: {
-    fontFamily: 'Satoshi, sans-serif',
-    type: 'bar',
-    height: 335,
-    stacked: true,
-    toolbar: {
-      show: false,
-    },
-    zoom: {
-      enabled: false,
-    },
-  },
+const ChartTwo: React.FC = () => {
+  const [sortieData, setSortieData] = useState<number[]>([]);
+  const [entreeData, setEntreeData] = useState<number[]>([]);
+  const [weeks, setWeeks] = useState<string[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const sortieProgress = await SortiesOfTheweek();
+        const entreeProgress = await EntriesOfTheweek();
 
-  responsive: [
-    {
-      breakpoint: 1536,
-      options: {
-        plotOptions: {
-          bar: {
-            borderRadius: 0,
-            columnWidth: '25%',
+        // Extracting the data and month (assuming month format is consistent with categories)
+        const sortieQuantities = sortieProgress.map((item) => item.total);
+        const entreeQuantities = entreeProgress.map((item) => item.total);
+        const weeksdata = sortieProgress.map((item) => item.date.charAt(0)); // Assuming both responses have the same months
+        console.log(weeksdata);
+        setSortieData(sortieQuantities);
+        setEntreeData(entreeQuantities);
+        setWeeks(weeksdata);
+      } catch (error) {
+        console.error('Error fetching stock progress', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const options: ApexOptions = {
+    colors: ['#3C50E0', '#80CAEE'],
+    chart: {
+      fontFamily: 'Satoshi, sans-serif',
+      type: 'bar',
+      height: 335,
+      stacked: true,
+      toolbar: {
+        show: false,
+      },
+      zoom: {
+        enabled: false,
+      },
+    },
+
+    responsive: [
+      {
+        breakpoint: 1536,
+        options: {
+          plotOptions: {
+            bar: {
+              borderRadius: 0,
+              columnWidth: '25%',
+            },
           },
         },
       },
-    },
-  ],
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      borderRadius: 0,
-      columnWidth: '25%',
-      borderRadiusApplication: 'end',
-      borderRadiusWhenStacked: 'last',
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-
-  xaxis: {
-    categories: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-  },
-  legend: {
-    position: 'top',
-    horizontalAlign: 'left',
-    fontFamily: 'Satoshi',
-    fontWeight: 500,
-    fontSize: '14px',
-
-    markers: {
-      radius: 99,
-    },
-  },
-  fill: {
-    opacity: 1,
-  },
-};
-
-interface ChartTwoState {
-  series: {
-    name: string;
-    data: number[];
-  }[];
-}
-
-const ChartTwo: React.FC = () => {
-  const [state, setState] = useState<ChartTwoState>({
-    series: [
-      {
-        name: 'Sales',
-        data: [44, 55, 41, 67, 22, 43, 65],
-      },
-      {
-        name: 'Revenue',
-        data: [13, 23, 20, 8, 13, 27, 15],
-      },
     ],
-  });
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        borderRadius: 0,
+        columnWidth: '25%',
+        borderRadiusApplication: 'end',
+        borderRadiusWhenStacked: 'last',
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
 
-  const handleReset = () => {
-    setState((prevState) => ({
-      ...prevState,
-    }));
+    xaxis: {
+      categories: weeks,
+    },
+    legend: {
+      position: 'top',
+      horizontalAlign: 'left',
+      fontFamily: 'Satoshi',
+      fontWeight: 500,
+      fontSize: '14px',
+
+      markers: {
+        radius: 99,
+      },
+    },
+    fill: {
+      opacity: 1,
+    },
   };
-  handleReset;
-
+  const series = [
+    {
+      name: 'Sortie Stock',
+      data: sortieData,
+    },
+    {
+      name: 'Entree Stock',
+      data: entreeData,
+    },
+  ];
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
       <div className="mb-4 justify-between gap-4 sm:flex">
@@ -105,7 +115,7 @@ const ChartTwo: React.FC = () => {
         <div id="chartTwo" className="-ml-5 -mb-9">
           <ReactApexChart
             options={options}
-            series={state.series}
+            series={series}
             type="bar"
             height={350}
           />

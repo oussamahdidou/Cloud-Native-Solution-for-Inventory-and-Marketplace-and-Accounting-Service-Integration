@@ -1,7 +1,6 @@
 package com.api.stockservice.application.Services;
 
 import com.api.stockservice.application.DTOs.CreateEntreeDto;
-import com.api.stockservice.application.DTOs.EntreeResponseDto;
 import com.api.stockservice.domain.Entities.Entree;
 import com.api.stockservice.domain.Entities.Product;
 import com.api.stockservice.domain.Entities.Supplier;
@@ -31,7 +30,7 @@ public class EntreeServiceImpl implements IEntreeService {
     }
 
     @Override
-    public EntreeResponseDto createEntree(CreateEntreeDto createEntreeDto) {
+    public Entree createEntree(CreateEntreeDto createEntreeDto) {
         try {
             Product product = productRepository.findById(createEntreeDto.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -53,7 +52,7 @@ public class EntreeServiceImpl implements IEntreeService {
                     savedProduct.getName(),savedProduct.getDescription(),savedProduct.getPrice(),
                     savedProduct.getQuantity(),savedProduct.getThumbnail(),
                     savedProduct.getCategory().getId()));
-            return mapToDto(savedEntree);
+            return savedEntree;
         }catch (Exception e)
         {
             e.printStackTrace();
@@ -62,17 +61,15 @@ public class EntreeServiceImpl implements IEntreeService {
     }
 
     @Override
-    public List<EntreeResponseDto> getAllEntrees() {
-        return entreeRepository.findAll().stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
+    public List<Entree> getAllEntrees() {
+        return entreeRepository.findAll();
     }
 
     @Override
-    public EntreeResponseDto getEntreeById(Long id) {
+    public Entree getEntreeById(Long id) {
         Entree entree = entreeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Entree not found"));
-        return mapToDto(entree);
+        return entree;
     }
     @Override
     public void deleteEntree(Long id) {
@@ -95,9 +92,8 @@ public class EntreeServiceImpl implements IEntreeService {
             throw new RuntimeException("Failed to delete entree: " + e.getMessage());
         }
     }
-
     @Override
-    public EntreeResponseDto updateEntree(Long id, CreateEntreeDto createEntreeDto) {
+    public Entree updateEntree(Long id, CreateEntreeDto createEntreeDto) {
         try {
             Product product = productRepository.findById(createEntreeDto.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -124,20 +120,12 @@ public class EntreeServiceImpl implements IEntreeService {
             Entree updatedEntree = entreeRepository.save(entree);
 
 
-            return mapToDto(updatedEntree);
+            return updatedEntree;
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to update entree: " + e.getMessage());
         }
     }
-
-private EntreeResponseDto mapToDto(Entree entree) {
-        EntreeResponseDto dto = new EntreeResponseDto();
-        dto.setId(entree.getId());
-        dto.setQuantite(entree.getQuantite());
-        dto.setEntreeDate(entree.getEntreeDate().toString());
-        dto.setProductName(entree.getProduct().getName());
-        dto.setSupplierName(entree.getSupplier().getName());
-        return dto;
-    }
 }
+
+

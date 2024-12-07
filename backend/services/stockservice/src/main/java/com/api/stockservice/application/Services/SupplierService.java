@@ -49,20 +49,20 @@ public class SupplierService implements ISupplierService {
         return  SavedSupplier;
     }
     @Override
-    public CreateSupplierDto GetSupplier(Long ID)
+    public Supplier GetSupplier(Long ID)
     {
         Supplier supplier = supplierRepository.findById(ID).orElseThrow();
-        return toDto(supplier);
+        return supplier;
     }
     public CreateSupplierDto toDto(Supplier supplier)
     {
         return new CreateSupplierDto(supplier.getName(),supplier.getEmail(),supplier.getThumbnail());
     }
     @Override
-    public List<CreateSupplierDto> GetAllSuppliers()
+    public List<Supplier> GetAllSuppliers()
     {
         List<Supplier> ListOfSuppliers = supplierRepository.findAll();
-        return ListOfSuppliers.stream().map(this::toDto).collect(Collectors.toList());
+        return ListOfSuppliers;
     }
     public Supplier UpdateSupplier(Long Id, SupplierDto supplierDto)
     {

@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ICategoryService {
 
-    createCategoryDTO CreateCategory(CategoryDto categoryDto);
-    createCategoryDTO GetCategory(String Id);
-    List<createCategoryDTO> GetAllCategory();
-    createCategoryDTO UpdateCategory(String id, CategoryDto categoryDto);
+    Category CreateCategory(CategoryDto categoryDto);
+    Category GetCategory(String Id);
+    List<Category> GetAllCategory();
+    Category UpdateCategory(String id, CategoryDto categoryDto);
     boolean DeleteCategory(String ID);
 }

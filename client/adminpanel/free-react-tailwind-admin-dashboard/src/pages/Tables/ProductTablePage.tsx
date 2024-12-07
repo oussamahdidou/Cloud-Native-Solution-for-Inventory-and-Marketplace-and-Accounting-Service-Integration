@@ -1,9 +1,23 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import ProductTable from '../../components/Tables/ProductTable';
+import { Product } from '../../types/types';
+import { GetProducts } from '../../services/productservice';
+const ProductTablePage = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    const GetAllProducts = async () => {
+      try {
+        const data = await GetProducts();
 
-type Props = {};
+        setProducts(data);
+      } catch (error) {
+        console.error('Failed to fetch Products:', error);
+      } finally {
+      }
+    };
+    GetAllProducts();
+  }, []);
 
-const ProductTablePage = (props: Props) => {
   return (
     <div className="container">
       <div className="container flex justify-end items-center py-3 mt-20">
@@ -11,7 +25,7 @@ const ProductTablePage = (props: Props) => {
           Add Product
         </button>
       </div>
-      <ProductTable></ProductTable>
+      <ProductTable products={products}></ProductTable>
     </div>
   );
 };

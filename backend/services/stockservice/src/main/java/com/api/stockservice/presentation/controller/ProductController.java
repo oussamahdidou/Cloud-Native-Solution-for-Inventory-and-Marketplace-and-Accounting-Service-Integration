@@ -39,13 +39,13 @@ public class    ProductController  {
     }
 
     @GetMapping("/{ProductId}")
-    public ProductCreateDto GetProduct(@PathVariable String ProductId)
+    public Product GetProduct(@PathVariable String ProductId)
     {
         return productService.getproduct(ProductId);
     }
 
     @GetMapping("/Products")
-    public List<ProductCreateDto> GetAllProduct()
+    public List<Product> GetAllProduct()
     {
         return productService.getALLProduct();
     }

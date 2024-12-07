@@ -96,17 +96,16 @@ public class ProductService implements IProductService {
         return UpdatedProduct;
     }
     @Override
-    public ProductCreateDto getproduct(String ProductID)
+    public Product getproduct(String ProductID)
     {
         Product product = productRepository.findById(ProductID).orElseThrow(() -> new RuntimeException("Product not found "));
-        return  toDto(product);
+        return  product;
     }
     @Override
-    public List<ProductCreateDto> getALLProduct()
+    public List<Product> getALLProduct()
     {
         List<Product> ListOfProduct = productRepository.findAll();
-        List<ProductCreateDto> ListOfProductDto = ListOfProduct.stream().map(this::toDto).collect(Collectors.toList());
-        return ListOfProductDto;
+        return ListOfProduct;
     }
     private ProductCreateDto toDto(Product product)
     {

@@ -23,13 +23,13 @@ public class SupplierController {
         return supplierService.createSupllier(supplierDto);
     }
     @GetMapping("/{IdSupplier}")
-    public CreateSupplierDto GetSupplier(@PathVariable  Long IdSupplier)
+    public Supplier GetSupplier(@PathVariable  Long IdSupplier)
     {
         return supplierService.GetSupplier(IdSupplier);
     }
 
     @GetMapping("Suppliers")
-    public List<CreateSupplierDto> GetAllSuppliers()
+    public List<Supplier> GetAllSuppliers()
     {
         return supplierService.GetAllSuppliers();
     }

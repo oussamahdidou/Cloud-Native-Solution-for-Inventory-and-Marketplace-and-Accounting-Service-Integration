@@ -2,13 +2,14 @@ package com.api.stockservice.domain.IServices;
 
 import com.api.stockservice.application.DTOs.CreateEntreeDto;
 import com.api.stockservice.application.DTOs.EntreeResponseDto;
+import com.api.stockservice.domain.Entities.Entree;
 
 import java.util.List;
 
 public interface IEntreeService {
-    EntreeResponseDto createEntree(CreateEntreeDto createEntreeDto);
-    List<EntreeResponseDto> getAllEntrees();
-    EntreeResponseDto getEntreeById(Long id);
+    Entree createEntree(CreateEntreeDto createEntreeDto);
+    List<Entree> getAllEntrees();
+    Entree getEntreeById(Long id);
     void deleteEntree(Long id);
-    EntreeResponseDto updateEntree(Long id, CreateEntreeDto createEntreeDto);
+    Entree updateEntree(Long id, CreateEntreeDto createEntreeDto);
 }

@@ -1,9 +1,23 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import CategoryTable from '../../components/Tables/CategoryTable';
+import { Category } from '../../types/types';
+import { GetCategorys } from '../../services/categoryservice';
 
-type Props = {};
+const CategoryTablePage = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+  useEffect(() => {
+    const GetAllCategories = async () => {
+      try {
+        const data = await GetCategorys();
 
-const CategoryTablePage = (props: Props) => {
+        setCategories(data);
+      } catch (error) {
+        console.error('Failed to fetch CateGetCategorys:', error);
+      } finally {
+      }
+    };
+    GetAllCategories();
+  }, []);
   return (
     <div className="container">
       <div className="container flex justify-end items-center py-3 mt-20">
@@ -11,7 +25,7 @@ const CategoryTablePage = (props: Props) => {
           Add Category
         </button>
       </div>
-      <CategoryTable></CategoryTable>
+      <CategoryTable categories={categories}></CategoryTable>
     </div>
   );
 };

@@ -36,7 +36,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public createCategoryDTO CreateCategory(CategoryDto categoryDto)
+    public Category CreateCategory(CategoryDto categoryDto)
     {
         Category category = new Category();
         category.setName(categoryDto.getName());
@@ -49,10 +49,10 @@ public class CategoryService implements ICategoryService {
         }
         Category savedCategory = categoryRepository.save(category);
         categoryPublisher.SendAddedCategroy(new AddedCategoryEvent(savedCategory.getId(),savedCategory.getName(),savedCategory.getThumbnail()));
-        return toDTO(savedCategory);
+        return savedCategory;
     }
     @Override
-    public createCategoryDTO UpdateCategory(String  id , CategoryDto categoryDto)
+    public Category UpdateCategory(String  id , CategoryDto categoryDto)
     {
         Category category = categoryRepository.findById(id).orElseThrow();
         if (categoryDto.getName() != null) category.setName(categoryDto.getName());
@@ -67,21 +67,21 @@ public class CategoryService implements ICategoryService {
         }
         Category savedCategory =  categoryRepository.save(category);
         categoryPublisher.SendUpdateCategory(new UpdateCategoryEvent(savedCategory.getId(),savedCategory.getName(),savedCategory.getThumbnail()));
-        return toDTO(savedCategory);
+        return savedCategory;
     }
-    public createCategoryDTO GetCategory(String id)
+    public Category GetCategory(String id)
     {
         Category category = categoryRepository.findById(id).orElseThrow();
-        return toDTO(category);
+        return category;
     }
     public createCategoryDTO toDTO(Category category)
     {
         return new createCategoryDTO(category.getName(),category.getThumbnail());
     }
-    public List<createCategoryDTO> GetAllCategory()
+    public List<Category> GetAllCategory()
     {
         List<Category> ListOfCategory = categoryRepository.findAll();
-        return ListOfCategory.stream().map(this::toDTO).collect(Collectors.toList());
+        return ListOfCategory;
     }
     public boolean DeleteCategory(String ID)
     {

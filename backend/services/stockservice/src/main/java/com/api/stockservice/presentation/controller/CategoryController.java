@@ -31,25 +31,25 @@ public class CategoryController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public createCategoryDTO addedCategory(@ModelAttribute CategoryDto categoryDto)
+    public Category addedCategory(@ModelAttribute CategoryDto categoryDto)
     {
         return categoryService.CreateCategory(categoryDto);
     }
 
     @GetMapping("/Categories")
-    public List<createCategoryDTO> GetAllCategory()
+    public List<Category> GetAllCategory()
     {
         return categoryService.GetAllCategory();
     }
 
     @GetMapping("/{IdCategory}")
-    public createCategoryDTO GetCategory(@PathVariable String IdCategory)
+    public Category GetCategory(@PathVariable String IdCategory)
     {
         return categoryService.GetCategory(IdCategory);
     }
 
     @PutMapping(path= "/{IdCategory}" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public createCategoryDTO UpdateCategory(@PathVariable String IdCategory, @ModelAttribute CategoryDto categoryDto)
+    public Category UpdateCategory(@PathVariable String IdCategory, @ModelAttribute CategoryDto categoryDto)
     {
         return categoryService.UpdateCategory(IdCategory,categoryDto);
     }

@@ -1,7 +1,8 @@
 package com.api.stockservice.presentation.controller;
 
 import com.api.stockservice.application.DTOs.CreateEntreeDto;
-import com.api.stockservice.application.DTOs.EntreeResponseDto;
+
+import com.api.stockservice.domain.Entities.Entree;
 import com.api.stockservice.domain.IServices.IEntreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,9 @@ public class EntreeController {
     }
 
     @PostMapping
-    public ResponseEntity<EntreeResponseDto> createEntree(@RequestBody CreateEntreeDto createEntreeDto) {
+    public ResponseEntity<Entree> createEntree(@RequestBody CreateEntreeDto createEntreeDto) {
         try {
-            EntreeResponseDto response = entreeService.createEntree(createEntreeDto);
+            Entree response = entreeService.createEntree(createEntreeDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception ex) {
             ex.printStackTrace(); // Log exception for debugging
@@ -32,13 +33,13 @@ public class EntreeController {
     }
 
     @GetMapping
-    public List<EntreeResponseDto> getAllEntrees() {
+    public List<Entree> getAllEntrees() {
         return  entreeService.getAllEntrees();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EntreeResponseDto> getEntreeById(@PathVariable Long id) {
-        EntreeResponseDto entreeResponse = entreeService.getEntreeById(id);
+    public ResponseEntity<Entree> getEntreeById(@PathVariable Long id) {
+        Entree entreeResponse = entreeService.getEntreeById(id);
         return ResponseEntity.ok(entreeResponse);
     }
     @DeleteMapping("/{id}")
@@ -52,9 +53,9 @@ public class EntreeController {
         }
     }
     @PutMapping("/{id}")
-    public ResponseEntity<EntreeResponseDto> updateEntree(@PathVariable Long id, @RequestBody CreateEntreeDto createEntreeDto) {
+    public ResponseEntity<Entree> updateEntree(@PathVariable Long id, @RequestBody CreateEntreeDto createEntreeDto) {
         try {
-            EntreeResponseDto response = entreeService.updateEntree(id, createEntreeDto);
+            Entree response = entreeService.updateEntree(id, createEntreeDto);
             return ResponseEntity.ok(response);
         } catch (Exception ex) {
             ex.printStackTrace();
