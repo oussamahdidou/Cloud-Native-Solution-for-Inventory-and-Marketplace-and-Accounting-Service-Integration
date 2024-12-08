@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiBase = "http://localhost:5000/gateway";
+const apiBase = "http://159.89.248.249/gateway";
 
 export const Login = async (username: string, password: string) => {
   try {

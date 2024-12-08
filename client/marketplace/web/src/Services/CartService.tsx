@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Cart } from "../models/CartModels";
 import { useAuth } from "../Contexts/useAuth";
+import { Commande } from "../types/commande";
 
-const apiBase = "http://localhost:5000/gateway";
+const apiBase = "http://159.89.248.249/gateway";
 
 // Set token to Axios default headers
 export const GetCart = async (): Promise<Cart> => {
@@ -58,7 +59,9 @@ export const DecreaseProductQuantity = async (
   );
   return reponse.data;
 };
-export const CheckoutCart = async () => {
-  const reponse = await axios.get(`${apiBase}/marketplace/Cart/Checkout`);
+export const CheckoutCart = async (): Promise<Commande> => {
+  const reponse = await axios.get<Commande>(
+    `${apiBase}/marketplace/Cart/Checkout`
+  );
   return reponse.data;
 };

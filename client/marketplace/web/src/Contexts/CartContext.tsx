@@ -16,6 +16,7 @@ import {
 } from "../Services/CartService";
 import { useAuth } from "./useAuth";
 import toast from "react-hot-toast";
+import { createPaypal } from "../Services/PaypalService";
 
 interface CartContextType {
   cart: Cart;
@@ -198,6 +199,7 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     if (!isLoggedIn) {
       console.error("User is not logged in. Cannot add product to cart.");
       toast.error("You must be logged in to checkout!");
+
       return;
     }
 
@@ -208,8 +210,16 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
     toast.loading("Processing checkout...");
     try {
-      await CheckoutCart();
+      const checkout = await CheckoutCart();
+      console.log(checkout);
+      const link = await createPaypal(
+        checkout.commandeId,
+        checkout.totaleAmount
+      );
       toast.success("Checkout successful!");
+      setCart({ cartId: cart.cartId, cartItems: [], totalAmount: 0 });
+
+      window.location.href = link;
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong during checkout.");
