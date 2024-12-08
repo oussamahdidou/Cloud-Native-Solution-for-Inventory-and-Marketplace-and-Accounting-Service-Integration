@@ -55,3 +55,18 @@ export interface productDto {
   categoryId: string;
   supplierId: number;
 }
+export interface CategoryDto {
+  name: string;
+  thumbnail: FileList;
+}
+export interface SupplierDto {
+  name: string;
+  email: string;
+  thumbnail: FileList;
+}
+export interface EntreeDto {
+  quantite: number;
+  entreeDate: string; // Use ISO 8601 string format for OffsetDateTime
+  productId: string;
+  supplierId: number;
+}

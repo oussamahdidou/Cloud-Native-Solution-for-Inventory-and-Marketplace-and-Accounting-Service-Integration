@@ -1,31 +1,32 @@
-import { useEffect, useState } from 'react';
-import { Category, productDto, Supplier } from '../../types/types';
-import { GetCategorys } from '../../services/categoryservice';
-import { GetSuppliers } from '../../services/supplierservice';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { EntreeDto, Product, Supplier } from '../../types/types';
+import { useEffect, useState } from 'react';
+import { GetProducts } from '../../services/productservice';
+import { GetSuppliers } from '../../services/supplierservice';
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: (data?: productDto) => void; // A function type that takes no arguments and returns void
+  onClose: (data?: EntreeDto) => void; // A function type that takes no arguments and returns void
 }
 
-const CreateProductModal = (props: ModalProps) => {
+const CreateEntryModal = (props: ModalProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<productDto>();
+  } = useForm<EntreeDto>();
 
-  const onSubmit: SubmitHandler<productDto> = (data) => {
+  const onSubmit: SubmitHandler<EntreeDto> = (data) => {
+    data.entreeDate = new Date(data.entreeDate).toISOString();
     props.onClose(data);
     console.log(data);
   };
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
   useEffect(() => {
     const GetEntrys = async () => {
-      const categoriesReponse = await GetCategorys();
-      setCategories(categoriesReponse);
+      const productssReponse = await GetProducts();
+      setProducts(productssReponse);
       const fournisseursReponse = await GetSuppliers();
       setSuppliers(fournisseursReponse);
     };
@@ -79,20 +80,20 @@ const CreateProductModal = (props: ModalProps) => {
             <div className="grid gap-4 mb-4 grid-cols-2">
               <div className="col-span-2">
                 <label
-                  htmlFor="name"
+                  htmlFor="quantity"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Name
+                  Quantity
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="name"
                   className="bg-gray-50 border border-gray-300 outline-none text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Type product name"
-                  {...register('name', { required: true })}
+                  {...register('quantite', { required: true })}
                 />
-                {errors.name && (
-                  <span className="text-red-500">Name is required</span>
+                {errors.quantite && (
+                  <span className="text-red-500">quantite is required</span>
                 )}
               </div>
               <div className="col-span-2 sm:col-span-1">
@@ -103,34 +104,17 @@ const CreateProductModal = (props: ModalProps) => {
                   quantity
                 </label>
                 <input
-                  type="number"
+                  type="datetime-local"
                   id="quantity"
                   className="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="999"
-                  {...register('quantity', { required: true })}
+                  {...register('entreeDate', { required: true })}
                 />
-                {errors.quantity && (
-                  <span className="text-red-500">quantity is required</span>
+                {errors.entreeDate && (
+                  <span className="text-red-500">entreeDate is required</span>
                 )}
               </div>
-              <div className="col-span-2 sm:col-span-1">
-                <label
-                  htmlFor="price"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Price
-                </label>
-                <input
-                  type="number"
-                  id="price"
-                  className="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="$2999"
-                  {...register('price', { required: true })}
-                />
-                {errors.price && (
-                  <span className="text-red-500">price is required</span>
-                )}
-              </div>
+
               <div className="col-span-2 sm:col-span-1">
                 <label
                   htmlFor="supplier"
@@ -159,57 +143,23 @@ const CreateProductModal = (props: ModalProps) => {
                   htmlFor="category"
                   className="block mb-2 text-sm font-medium outline-none text-gray-900 dark:text-white"
                 >
-                  Category
+                  Product
                 </label>
                 <select
-                  id="category"
+                  id="product"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  {...register('categoryId', { required: true })}
+                  {...register('productId', { required: true })}
                 >
-                  <option>Select category</option>
-                  {categories.map((category) => (
+                  <option>Select Product</option>
+                  {products.map((category) => (
                     <option value={category.id} key={category.id}>
                       {category.name}
                     </option>
                   ))}
                 </select>
-                {errors.categoryId && (
+                {errors.productId && (
                   <span className="text-red-500">category is required</span>
                 )}
-              </div>
-
-              <div className="col-span-2">
-                <label
-                  htmlFor="description"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Product Description
-                </label>
-                <textarea
-                  id="description"
-                  className="block outline-none p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Write product description here"
-                  {...register('description', { required: true })}
-                ></textarea>
-                {errors.description && (
-                  <span className="text-red-500">description is required</span>
-                )}
-              </div>
-              <div className="col-span-2">
-                <label
-                  htmlFor="thumbnail"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Product thumbnail
-                </label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  id=""
-                  {...register('thumbnail', {
-                    required: 'Thumbnail is required',
-                  })}
-                />
               </div>
             </div>
 
@@ -229,7 +179,7 @@ const CreateProductModal = (props: ModalProps) => {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              Add new product
+              Add new Entree
             </button>
           </form>
         </div>
@@ -238,4 +188,4 @@ const CreateProductModal = (props: ModalProps) => {
   );
 };
 
-export default CreateProductModal;
+export default CreateEntryModal;
