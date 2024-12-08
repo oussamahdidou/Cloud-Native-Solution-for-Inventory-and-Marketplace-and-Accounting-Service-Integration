@@ -39,7 +39,7 @@ const ChartThree: React.FC = () => {
     labels: products,
     colors: colors, // Use consistent colors for the chart
     legend: {
-      show: true,
+      show: false,
       position: 'bottom',
       formatter: (seriesName, opts) =>
         `${seriesName}: ${opts.w.globals.series[opts.seriesIndex]}`,
@@ -101,7 +101,7 @@ const ChartThree: React.FC = () => {
               ></span>
               <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
                 <span>{product}</span>
-                <span>{quantities[index]}%</span>
+                <span>{quantities[index]}</span>
               </p>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import api from '../axios';
+import { api } from '../axios';
 import { Supplier } from '../types/types';
 
 export const GetSuppliers = async (): Promise<Supplier[]> => {

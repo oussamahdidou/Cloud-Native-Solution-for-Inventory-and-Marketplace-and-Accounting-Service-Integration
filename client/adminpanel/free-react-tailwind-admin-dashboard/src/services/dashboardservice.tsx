@@ -1,4 +1,4 @@
-import api from '../axios';
+import { api } from '../axios';
 import { Performance } from '../types/types';
 
 export const SortiesOfTheweek = async (): Promise<Performance[]> => {

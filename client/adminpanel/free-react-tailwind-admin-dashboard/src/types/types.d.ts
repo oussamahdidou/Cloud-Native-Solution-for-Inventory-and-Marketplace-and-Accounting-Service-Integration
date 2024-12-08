@@ -46,3 +46,12 @@ export interface Performance {
   date: string;
   total: number;
 }
+export interface productDto {
+  name: string;
+  thumbnail: FileList;
+  description: string;
+  price: number;
+  quantity: number;
+  categoryId: string;
+  supplierId: number;
+}

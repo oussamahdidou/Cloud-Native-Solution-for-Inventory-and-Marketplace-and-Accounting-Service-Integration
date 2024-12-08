@@ -1,4 +1,4 @@
-import api from '../axios';
+import { api } from '../axios';
 import { Category } from '../types/types';
 
 export const GetCategorys = async (): Promise<Category[]> => {

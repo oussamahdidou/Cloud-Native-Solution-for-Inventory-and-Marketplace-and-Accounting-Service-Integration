@@ -1,4 +1,4 @@
-import api from '../axios';
+import { api } from '../axios';
 import { StockEntry, StockSortie, Supplier } from '../types/types';
 
 export const GetStockEntrees = async (): Promise<StockEntry[]> => {
