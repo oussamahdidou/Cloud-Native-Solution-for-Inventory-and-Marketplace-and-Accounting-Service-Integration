@@ -3,23 +3,22 @@ import CategoryTable from '../../components/Tables/CategoryTable';
 import { Category, CategoryDto } from '../../types/types';
 import { AddCategory, GetCategorys } from '../../services/categoryservice';
 import CreateCategoryModal from '../../components/Modals/CreateCategoryModal';
-import toast from 'react-hot-toast';
-import { AddProduct } from '../../services/productservice';
+import toast, { Toaster } from 'react-hot-toast';
 
 const CategoryTablePage = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const onClose = async (productDto?: CategoryDto) => {
-    if (productDto) {
+  const onClose = async (categorydto?: CategoryDto) => {
+    if (categorydto) {
       const loadingToast = toast.loading('Processing your request...', {
         duration: 0, // indefinite duration
       });
       try {
-        console.log(productDto);
+        console.log(categorydto);
 
         const formData = new FormData();
-        formData.append('name', productDto.name);
-        formData.append('thumbnail', productDto.thumbnail[0]);
+        formData.append('name', categorydto.name);
+        formData.append('thumbnail', categorydto.thumbnail[0]);
         const category = await AddCategory(formData);
         setCategories([category, ...categories]);
         toast.success('Action completed successfully!', {
@@ -48,6 +47,7 @@ const CategoryTablePage = () => {
   }, []);
   return (
     <>
+      <Toaster></Toaster>
       <CreateCategoryModal
         isOpen={isModalOpen}
         onClose={onClose}

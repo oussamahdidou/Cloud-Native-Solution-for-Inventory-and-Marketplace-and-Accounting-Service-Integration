@@ -8,7 +8,7 @@ import {
 } from '../../services/Stockioservice';
 import { EntreeDto, StockEntry, StockSortie } from '../../types/types';
 import { mapStockEntriesAndSortiesToIO } from '../../mappers/mappers';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import CreateEntryModal from '../../components/Modals/CreateEntryModal';
 
 type Props = {};
@@ -55,6 +55,7 @@ const StockChangesTablePage = (props: Props) => {
   }, []);
   return (
     <>
+      <Toaster></Toaster>
       <CreateEntryModal
         isOpen={isModalOpen}
         onClose={onClose}

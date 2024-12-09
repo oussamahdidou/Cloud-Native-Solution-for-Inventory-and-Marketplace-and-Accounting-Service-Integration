@@ -3,7 +3,7 @@ import SupplierTable from '../../components/Tables/SupplierTable';
 import { Supplier, SupplierDto } from '../../types/types';
 import { AddSupplier, GetSuppliers } from '../../services/supplierservice';
 import CreateSupplierModal from '../../components/Modals/CreateSupplierModal';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 const SupplierTablePage = () => {
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -48,6 +48,7 @@ const SupplierTablePage = () => {
 
   return (
     <>
+      <Toaster></Toaster>
       <CreateSupplierModal
         isOpen={isModalOpen}
         onClose={onClose}

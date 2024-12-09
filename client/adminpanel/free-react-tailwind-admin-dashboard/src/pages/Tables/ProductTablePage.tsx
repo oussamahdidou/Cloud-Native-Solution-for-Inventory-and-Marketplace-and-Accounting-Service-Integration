@@ -3,7 +3,7 @@ import ProductTable from '../../components/Tables/ProductTable';
 import { Product, productDto } from '../../types/types';
 import { AddProduct, GetProducts } from '../../services/productservice';
 import CreateProductModal from '../../components/Modals/CreateProductModal';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ProductTablePage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -54,6 +54,7 @@ const ProductTablePage = () => {
 
   return (
     <>
+      <Toaster></Toaster>
       <CreateProductModal
         isOpen={isModalOpen}
         onClose={onClose}
