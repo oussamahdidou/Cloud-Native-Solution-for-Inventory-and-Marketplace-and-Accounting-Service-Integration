@@ -12,7 +12,6 @@
 }
 
 @layer utilities {
-  /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -29,16 +28,12 @@
     @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
   }
 }
-
-/* third-party libraries CSS */
-
 .tableCheckbox:checked ~ div span {
   @apply opacity-100;
 }
 .tableCheckbox:checked ~ div {
   @apply bg-primary border-primary;
 }
-
 .apexcharts-legend-text {
   @apply !text-body dark:!text-bodydark;
 }
@@ -79,7 +74,6 @@
 .apexcharts-tooltip-series-group {
   @apply !pl-1.5;
 }
-
 .flatpickr-wrapper {
   @apply w-full;
 }
@@ -117,7 +111,9 @@ span.flatpickr-weekday,
 }
 .flatpickr-day.inRange {
   @apply dark:!shadow-7;
-  box-shadow: -5px 0 0 #EFF4FB, 5px 0 0 #EFF4FB;
+  box-shadow:
+    -5px 0 0 #eff4fb,
+    5px 0 0 #eff4fb;
 }
 .flatpickr-day.inRange,
 .flatpickr-day.prevMonthDay.inRange,

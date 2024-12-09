@@ -3,7 +3,6 @@ import CardDataStats from '../../components/CardDataStats';
 import ChartOne from '../../components/Charts/ChartOne';
 import ChartThree from '../../components/Charts/ChartThree';
 import ChartTwo from '../../components/Charts/ChartTwo';
-
 const ECommerce: React.FC = () => {
   return (
     <>
@@ -102,5 +101,4 @@ const ECommerce: React.FC = () => {
     </>
   );
 };
-
 export default ECommerce;
