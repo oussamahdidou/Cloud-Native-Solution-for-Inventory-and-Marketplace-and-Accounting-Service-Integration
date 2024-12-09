@@ -23,12 +23,12 @@ namespace MarketplaceService.API.Controllers
         {
             CreatePaymentDto createPaymentDto = new CreatePaymentDto()
             {
-                CommandeId =paypalRequest.CommandeId,
-                Amount=paypalRequest.Amount,
-                Description="pays commande",
-                CancelUrl= "http://159.89.248.249/gateway/Paypal/cancel",
-                ReturnUrl= "http://159.89.248.249/gateway/Paypal/success"
-                
+                CommandeId = paypalRequest.CommandeId,
+                Amount = paypalRequest.Amount,
+                Description = "pays commande",
+                CancelUrl = "http://159.89.248.249/gateway/marketplace/Paypal/cancel",
+                ReturnUrl = "http://159.89.248.249/gateway/marketplace/Paypal/success"
+
             };
             var payment = await paypalService.CreatePayment(createPaymentDto);
 

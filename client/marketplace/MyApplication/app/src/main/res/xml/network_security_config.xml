@@ -4,4 +4,9 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">res.cloudinary.com</domain>
     </domain-config>
+
+    <!-- Allow cleartext traffic for 159.89.248.249 -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">159.89.248.249</domain>
+    </domain-config>
 </network-security-config>

@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static final String BASE_URL = "https://2331-105-73-98-11.ngrok-free.app/"; // Replace with your API base URL
+    private static final String BASE_URL = "http://159.89.248.249"; // Replace with your API base URL
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {

@@ -9,9 +9,9 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ApiService {
-    @GET("api/Category/GetCategories") // Replace "categories" with your actual endpoint
+    @GET("/gateway/marketplace/Category/GetCategories") // Replace "categories" with your actual endpoint
     Call<List<CategoryItem>> getCategories();
-    @GET("api/Product/GetProducts")
+    @GET("/gateway/marketplace/Product/GetProducts")
     Call<List<ProductItem>> getProducts();
 
 }
