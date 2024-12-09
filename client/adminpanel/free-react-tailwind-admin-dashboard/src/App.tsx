@@ -3,7 +3,6 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
-import SignIn from './pages/Authentication/SignIn';
 import Chart from './pages/Chart';
 import ECommerce from './pages/Dashboard/ECommerce';
 
@@ -82,16 +81,6 @@ function App() {
             <>
               <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <Chart />
-            </>
-          }
-        />
-
-        <Route
-          path="/auth/signin"
-          element={
-            <>
-              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <SignIn />
             </>
           }
         />

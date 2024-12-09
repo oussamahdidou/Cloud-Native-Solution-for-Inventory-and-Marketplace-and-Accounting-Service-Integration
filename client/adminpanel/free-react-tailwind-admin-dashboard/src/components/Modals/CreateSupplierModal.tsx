@@ -1,24 +1,19 @@
 import { SupplierDto } from '../../types/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
 interface ModalProps {
   isOpen: boolean;
   onClose: (data?: SupplierDto) => void; // A function type that takes no arguments and returns void
 }
-
 const CreateSupplierModal = (props: ModalProps) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<SupplierDto>();
-
   const onSubmit: SubmitHandler<SupplierDto> = (data) => {
     props.onClose(data);
     console.log(data);
   };
-
   if (!props.isOpen) {
     return null;
   }
@@ -143,5 +138,4 @@ const CreateSupplierModal = (props: ModalProps) => {
     </div>
   );
 };
-
 export default CreateSupplierModal;

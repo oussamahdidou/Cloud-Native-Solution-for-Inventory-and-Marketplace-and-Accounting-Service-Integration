@@ -4,7 +4,6 @@ import { Category, CategoryDto } from '../../types/types';
 import { AddCategory, GetCategorys } from '../../services/categoryservice';
 import CreateCategoryModal from '../../components/Modals/CreateCategoryModal';
 import toast, { Toaster } from 'react-hot-toast';
-
 const CategoryTablePage = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

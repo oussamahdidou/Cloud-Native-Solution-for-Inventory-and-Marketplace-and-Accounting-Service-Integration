@@ -1,9 +1,7 @@
 import { Category } from '../../types/types';
-
 interface Props {
   categories: Category[];
 }
-
 const CategoryTable = (props: Props) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -13,7 +11,6 @@ const CategoryTable = (props: Props) => {
             <th scope="col" className="px-6 py-3">
               Category name
             </th>
-
             <th scope="col" className="px-6 py-3">
               Thumbnail
             </th>
@@ -46,5 +43,4 @@ const CategoryTable = (props: Props) => {
     </div>
   );
 };
-
 export default CategoryTable;

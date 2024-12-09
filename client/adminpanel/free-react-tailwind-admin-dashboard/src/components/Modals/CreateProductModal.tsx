@@ -3,19 +3,16 @@ import { Category, productDto, Supplier } from '../../types/types';
 import { GetCategorys } from '../../services/categoryservice';
 import { GetSuppliers } from '../../services/supplierservice';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
 interface ModalProps {
   isOpen: boolean;
   onClose: (data?: productDto) => void; // A function type that takes no arguments and returns void
 }
-
 const CreateProductModal = (props: ModalProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<productDto>();
-
   const onSubmit: SubmitHandler<productDto> = (data) => {
     props.onClose(data);
     console.log(data);
@@ -237,5 +234,4 @@ const CreateProductModal = (props: ModalProps) => {
     </div>
   );
 };
-
 export default CreateProductModal;

@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Category, CategoryDto, Supplier } from '../../types/types';
+import { CategoryDto } from '../../types/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
 interface ModalProps {
   isOpen: boolean;
   onClose: (data?: CategoryDto) => void; // A function type that takes no arguments and returns void
 }
-
 const CreateCategoryModal = (props: ModalProps) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<CategoryDto>();
-
   const onSubmit: SubmitHandler<CategoryDto> = (data) => {
     props.onClose(data);
     console.log(data);
   };
-
   if (!props.isOpen) {
     return null;
   }
@@ -127,5 +121,4 @@ const CreateCategoryModal = (props: ModalProps) => {
     </div>
   );
 };
-
 export default CreateCategoryModal;

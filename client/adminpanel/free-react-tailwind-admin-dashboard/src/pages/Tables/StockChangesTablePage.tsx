@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import StockChangesTable from '../../components/Tables/StockChangesTable';
-
 import {
   AddEntry,
   GetStockEntrees,
@@ -10,10 +9,7 @@ import { EntreeDto, StockEntry, StockSortie } from '../../types/types';
 import { mapStockEntriesAndSortiesToIO } from '../../mappers/mappers';
 import toast, { Toaster } from 'react-hot-toast';
 import CreateEntryModal from '../../components/Modals/CreateEntryModal';
-
-type Props = {};
-
-const StockChangesTablePage = (props: Props) => {
+const StockChangesTablePage = () => {
   const [entries, setEntries] = useState<StockEntry[]>([]);
   const [sorties, setSorties] = useState<StockSortie[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -24,7 +20,6 @@ const StockChangesTablePage = (props: Props) => {
       });
       try {
         console.log(entreeDto);
-
         const entree = await AddEntry(entreeDto);
         setEntries([entree, ...entries]);
         toast.success('Action completed successfully!', {

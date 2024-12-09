@@ -1,4 +1,3 @@
-import React from 'react';
 import { StockIO } from '../../types/types';
 
 interface Props {

@@ -3,19 +3,16 @@ import { EntreeDto, Product, Supplier } from '../../types/types';
 import { useEffect, useState } from 'react';
 import { GetProducts } from '../../services/productservice';
 import { GetSuppliers } from '../../services/supplierservice';
-
 interface ModalProps {
   isOpen: boolean;
   onClose: (data?: EntreeDto) => void; // A function type that takes no arguments and returns void
 }
-
 const CreateEntryModal = (props: ModalProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<EntreeDto>();
-
   const onSubmit: SubmitHandler<EntreeDto> = (data) => {
     data.entreeDate = new Date(data.entreeDate).toISOString();
     props.onClose(data);
@@ -187,5 +184,4 @@ const CreateEntryModal = (props: ModalProps) => {
     </div>
   );
 };
-
 export default CreateEntryModal;
