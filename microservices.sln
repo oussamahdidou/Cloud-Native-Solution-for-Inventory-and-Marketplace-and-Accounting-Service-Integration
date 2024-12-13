@@ -19,6 +19,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway", "backend\infrastr
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{82C47C45-4322-4CBE-BB34-0B4C3C900714}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.API.tests", "backend\services\MarketplaceService\test\MarketplaceService.API.tests\MarketplaceService.API.tests.csproj", "{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.Application.tests", "backend\services\MarketplaceService\test\MarketplaceService.Application.tests\MarketplaceService.Application.tests.csproj", "{A0AA035D-72F8-4D70-9A59-96668AAD67A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.Infrastructure.tests", "backend\services\MarketplaceService\test\MarketplaceService.Infrastructure.tests\MarketplaceService.Infrastructure.tests.csproj", "{D60DCBF4-5925-42B9-A175-76B53F48168C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.Domain.tests", "backend\services\MarketplaceService\test\MarketplaceService.Domain.tests\MarketplaceService.Domain.tests.csproj", "{EAE22EBA-8F26-4E7A-AA17-40172F759B02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +65,22 @@ Global
 		{82C47C45-4322-4CBE-BB34-0B4C3C900714}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82C47C45-4322-4CBE-BB34-0B4C3C900714}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82C47C45-4322-4CBE-BB34-0B4C3C900714}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0AA035D-72F8-4D70-9A59-96668AAD67A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0AA035D-72F8-4D70-9A59-96668AAD67A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0AA035D-72F8-4D70-9A59-96668AAD67A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0AA035D-72F8-4D70-9A59-96668AAD67A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D60DCBF4-5925-42B9-A175-76B53F48168C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D60DCBF4-5925-42B9-A175-76B53F48168C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D60DCBF4-5925-42B9-A175-76B53F48168C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D60DCBF4-5925-42B9-A175-76B53F48168C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAE22EBA-8F26-4E7A-AA17-40172F759B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAE22EBA-8F26-4E7A-AA17-40172F759B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAE22EBA-8F26-4E7A-AA17-40172F759B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAE22EBA-8F26-4E7A-AA17-40172F759B02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

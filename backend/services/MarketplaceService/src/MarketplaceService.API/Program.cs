@@ -2,7 +2,9 @@
 using EventsContracts.EventsContracts;
 using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Application.Services;
+using MarketplaceService.Domain.Caching;
 using MarketplaceService.Domain.Repositories;
+using MarketplaceService.Infrastructure.Caching;
 using MarketplaceService.Infrastructure.Consumers;
 using MarketplaceService.Infrastructure.Data;
 using MarketplaceService.Infrastructure.Repositories;
@@ -13,7 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
-
+//using Microsoft.Extensions.Caching.Distributed;
+//using Microsoft.Extensions.Caching.StackExchangeRedis;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
@@ -201,6 +204,15 @@ builder.Services.AddMassTransit(x =>
 });
 
 builder.Services.AddMassTransitHostedService();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+    options.InstanceName = "RedisCacheInstance"; // Optional prefix for cache keys
+});
+
+// Add RedisCachingService to DI container
+builder.Services.AddScoped(typeof(IRedisCachingService<>), typeof(RedisCachingService<>));
+
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICommandeRepository, CommandeRepository>();

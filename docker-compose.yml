@@ -3,7 +3,7 @@ services:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"  # Port for RabbitMQ (AMQP protocol)
+      - "5672:5672" # Port for RabbitMQ (AMQP protocol)
       - "15672:15672" # Port for RabbitMQ Management UI
     environment:
       RABBITMQ_DEFAULT_USER: guest
@@ -11,6 +11,7 @@ services:
     networks:
       - app-network
 
+  #############################################################
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver
@@ -24,6 +25,7 @@ services:
     networks:
       - app-network
 
+  #############################################################
   postgresql:
     image: postgres:15
     container_name: postgresql
@@ -38,6 +40,19 @@ services:
     networks:
       - app-network
 
+  #############################################################
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    command: [ "redis-server", "--save", "60", "1", "--loglevel", "warning" ]
+    volumes:
+      - redis_data:/data
+
+  #############################################################
   gateway:
     image: ${DOCKER_REGISTRY-}gateway
     container_name: gateway
@@ -52,9 +67,12 @@ services:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
+      - REDIS_HOST=redis
     depends_on:
       - rabbitmq
+      - redis
 
+  #############################################################
   marketplaceservice.api:
     image: ${DOCKER_REGISTRY-}marketplaceserviceapi
     container_name: marketplaceservice
@@ -70,10 +88,13 @@ services:
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
       - DB_HOST=sqlserver
+      - REDIS_HOST=redis
     depends_on:
       - sqlserver
       - rabbitmq
+      - redis
 
+  #############################################################
   usersservice:
     image: ${DOCKER_REGISTRY-}usersservice
     container_name: usersservice
@@ -89,10 +110,13 @@ services:
       - RABBITMQ_USER=guest
       - RABBITMQ_PASS=guest
       - DB_HOST=sqlserver
+      - REDIS_HOST=redis
     depends_on:
       - sqlserver
       - rabbitmq
+      - redis
 
+  #############################################################
   stockservice:
     image: ${DOCKER_REGISTRY-}stockservice
     container_name: stockservice
@@ -103,12 +127,15 @@ services:
       - "8080:8080"
     environment:
       - DB_HOST=postgresql
+      - REDIS_HOST=redis
     networks:
       - app-network
     depends_on:
       - postgresql
       - rabbitmq
+      - redis
 
+#############################################################
 networks:
   app-network:
     driver: bridge
@@ -116,7 +143,7 @@ networks:
 volumes:
   postgres_data:
     name: microservices_postgres_data
-    # external: true
   sqlserver_data:
     name: microservices_sqlserver_data
-    # external: true
+  redis_data:
+    name: microservices_redis_data
