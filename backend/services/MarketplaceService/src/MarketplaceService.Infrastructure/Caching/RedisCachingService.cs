@@ -9,7 +9,7 @@ using Microsoft.Extensions.Caching.StackExchangeRedis;
 using System.Text.Json;
 namespace MarketplaceService.Infrastructure.Caching
 {
-    public class RedisCachingService<T> : IRedisCachingService<T>
+    public class RedisCachingService : IRedisCachingService
     {
         private readonly IDistributedCache _cache;
 
@@ -18,7 +18,7 @@ namespace MarketplaceService.Infrastructure.Caching
             _cache = cache;
         }
 
-        public async Task<T> AddItemToCacheAsync(T item, string key)
+        public async Task<T> AddItemToCacheAsync<T>(T item, string key)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
 
@@ -32,12 +32,12 @@ namespace MarketplaceService.Infrastructure.Caching
             return item;
         }
 
-        public async Task<T> GetElementByKeyAsync(string key)
+        public async Task<T> GetElementByKeyAsync<T>(string key)
         {
             if (string.IsNullOrEmpty(key)) throw new ArgumentNullException(nameof(key));
 
             var cachedItem = await _cache.GetStringAsync(key);
-            if (cachedItem == null) return default; // Return default(T) if not found
+            if (cachedItem == null) return default; 
 
             return JsonSerializer.Deserialize<T>(cachedItem);
         }

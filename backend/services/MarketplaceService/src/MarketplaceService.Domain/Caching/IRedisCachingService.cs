@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MarketplaceService.Domain.Caching
 {
-    public interface IRedisCachingService<T>
+    public interface IRedisCachingService
     {
-       Task<T> GetElementByKeyAsync(string key);
-       Task<T> AddItemToCacheAsync(T item,string key);
+       Task<T> GetElementByKeyAsync<T>(string key);
+       Task<T> AddItemToCacheAsync<T>(T item,string key);
        Task<bool> RemoveItemFromCacheAsync(string key);
     }
 }

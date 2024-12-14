@@ -207,12 +207,9 @@ builder.Services.AddMassTransitHostedService();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
-    options.InstanceName = "RedisCacheInstance"; // Optional prefix for cache keys
+    options.InstanceName = "RedisCacheInstance";
 });
-
-// Add RedisCachingService to DI container
-builder.Services.AddScoped(typeof(IRedisCachingService<>), typeof(RedisCachingService<>));
-
+builder.Services.AddScoped<IRedisCachingService, RedisCachingService>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICommandeRepository, CommandeRepository>();
