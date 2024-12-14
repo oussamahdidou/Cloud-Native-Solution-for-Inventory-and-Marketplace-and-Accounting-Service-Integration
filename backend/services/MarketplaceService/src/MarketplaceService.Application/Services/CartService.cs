@@ -2,6 +2,7 @@
 using MarketplaceService.Application.Dtos.Cart;
 using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Application.Mappers;
+using MarketplaceService.Domain.Caching;
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Events;
 using MarketplaceService.Domain.Events.Commande;
@@ -23,13 +24,15 @@ namespace MarketplaceService.Application.Services
         private readonly ICommandeRepository commandeRepository;
         private readonly IProductRepository productRepository;
         private readonly IBus bus;
-        public CartService(ICartRepository cartRepository, ICartProductRepository cartProductRepository, ICommandeRepository commandeRepository, IBus bus, IProductRepository productRepository)
+        private readonly IRedisCachingService redisCachingService;
+        public CartService(ICartRepository cartRepository, ICartProductRepository cartProductRepository, ICommandeRepository commandeRepository, IBus bus, IProductRepository productRepository, IRedisCachingService redisCachingService)
         {
             this.cartRepository = cartRepository;
             this.cartProductRepository = cartProductRepository;
             this.commandeRepository = commandeRepository;
             this.bus = bus;
             this.productRepository = productRepository;
+            this.redisCachingService = redisCachingService;
         }
 
         public async Task AddProductToCart(AddProductToCartDto addProductToCartDto)

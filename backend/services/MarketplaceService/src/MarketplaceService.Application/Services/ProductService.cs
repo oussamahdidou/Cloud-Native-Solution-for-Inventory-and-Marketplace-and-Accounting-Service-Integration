@@ -1,6 +1,7 @@
 ﻿using MarketplaceService.Application.Dtos.Products;
 using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Application.Mappers;
+using MarketplaceService.Domain.Caching;
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Queries;
 using MarketplaceService.Domain.Repositories;
@@ -15,16 +16,22 @@ namespace MarketplaceService.Application.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository productRepository;
-        public ProductService(IProductRepository productRepository)
+        private readonly IRedisCachingService redisCachingService;
+
+        public ProductService(IProductRepository productRepository, IRedisCachingService redisCachingService)
         {
             this.productRepository = productRepository;
+            this.redisCachingService = redisCachingService;
         }
         public async Task<ProductDetail> GetProductDetail(string productId)
         {
             try
             {
-               Product product = await productRepository.GetProductByIdAsync(productId);
-                return product.FromProductToDetail();
+                ProductDetail? productDetail = await redisCachingService.GetElementByKeyAsync<ProductDetail>(productId);
+                if (productDetail != null) { return productDetail; }
+                Product product = await productRepository.GetProductByIdAsync(productId);
+                if(product==null) throw new KeyNotFoundException();
+                return await redisCachingService.AddItemToCacheAsync<ProductDetail>(product.FromProductToDetail(),productId);
             }
             catch(Exception ex) 
             {
