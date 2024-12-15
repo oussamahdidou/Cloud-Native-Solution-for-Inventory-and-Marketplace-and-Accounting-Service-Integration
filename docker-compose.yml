@@ -22,7 +22,6 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     networks:
       - app-network
-
   #############################################################
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -36,7 +35,6 @@ services:
       - "1433:1433"
     networks:
       - app-network
-
   #############################################################
   postgresql:
     image: postgres:15
@@ -51,7 +49,6 @@ services:
       - "5432:5432"
     networks:
       - app-network
-
   #############################################################
   gateway:
     image: ${DOCKER_REGISTRY-}gateway
