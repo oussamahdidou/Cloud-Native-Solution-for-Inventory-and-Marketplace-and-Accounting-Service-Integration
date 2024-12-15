@@ -3,7 +3,7 @@ import { Cart } from "../models/CartModels";
 import { useAuth } from "../Contexts/useAuth";
 import { Commande } from "../types/commande";
 
-const apiBase = "http://159.89.248.249/gateway";
+const apiBase = "http://localhost:5000/gateway";
 
 // Set token to Axios default headers
 export const GetCart = async (): Promise<Cart> => {

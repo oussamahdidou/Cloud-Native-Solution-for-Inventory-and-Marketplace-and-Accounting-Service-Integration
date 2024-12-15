@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAuth } from "../Contexts/useAuth";
 
-const apiBase = "http://159.89.248.249/gateway";
+const apiBase = "http://localhost:5000/gateway";
 
 // Set token to Axios default headers
 export const createPaypal = async (

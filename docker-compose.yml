@@ -1,4 +1,16 @@
 services:
+  #############################################################
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    command: [ "redis-server", "--save", "60", "1", "--loglevel", "warning" ]
+    volumes:
+      - redis_data:/data
+  #############################################################
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -41,18 +53,6 @@ services:
       - app-network
 
   #############################################################
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-      - "6379:6379"
-    networks:
-      - app-network
-    command: [ "redis-server", "--save", "60", "1", "--loglevel", "warning" ]
-    volumes:
-      - redis_data:/data
-
-  #############################################################
   gateway:
     image: ${DOCKER_REGISTRY-}gateway
     container_name: gateway
@@ -71,7 +71,6 @@ services:
     depends_on:
       - rabbitmq
       - redis
-
   #############################################################
   marketplaceservice.api:
     image: ${DOCKER_REGISTRY-}marketplaceserviceapi
@@ -93,7 +92,6 @@ services:
       - sqlserver
       - rabbitmq
       - redis
-
   #############################################################
   usersservice:
     image: ${DOCKER_REGISTRY-}usersservice
@@ -115,7 +113,6 @@ services:
       - sqlserver
       - rabbitmq
       - redis
-
   #############################################################
   stockservice:
     image: ${DOCKER_REGISTRY-}stockservice
@@ -134,7 +131,6 @@ services:
       - postgresql
       - rabbitmq
       - redis
-
 #############################################################
 networks:
   app-network:
