@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\contacts\EventsContracts\EventsContracts.csproj" />
+    <ProjectReference Include="..\..\infrastructure\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
   </ItemGroup>
 
 

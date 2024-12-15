@@ -19,6 +19,8 @@ using UsersService.Producers;
 using UsersService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 builder.Configuration.AddEnvironmentVariables();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -149,6 +151,8 @@ builder.Services.AddMassTransitHostedService();
 builder.Services.AddScoped<MyPublisher>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 if (args.Length >= 2 && args[0].Length == 1 && args[1].ToLower() == "seeddata")
 {
     await SeedData.SeedUsersAndRolesAsync(app);

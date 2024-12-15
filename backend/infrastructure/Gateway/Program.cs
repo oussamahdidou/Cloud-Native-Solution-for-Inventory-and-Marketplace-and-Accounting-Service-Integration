@@ -5,6 +5,8 @@ using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin",
@@ -40,6 +42,8 @@ builder.Services.AddOcelot();
 builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 app.UseCors("AllowOrigin");
 app.MapGet("/", () => "Hello World!");
 await app.UseOcelot();
