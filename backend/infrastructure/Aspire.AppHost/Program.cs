@@ -24,8 +24,18 @@ builder.AddProject<Projects.UsersService>("usersservice")
     .WithReference(redis);
 builder.AddProject<Projects.Gateway>("gateway");
 builder.AddProject<Projects.MarketplaceService_API>("marketplaceservice-api")
+    
     .WithReference(rabbitmq)
     .WithReference(sqlserver)
     .WithReference(redis);
 
+var executableapp = builder.AddSpringApp("executableapp",
+    @"C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\stockservice\\build\\libs\\stockservice-0.0.1-SNAPSHOT.jar",
+    new JavaAppExecutableResourceOptions()
+    {
+        
+        ApplicationName = "stockservice",
+        OtelAgentPath = "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\stockservice\\agents\\opentelemetry-javaagent.jar"
+    })
+.WithEnvironment("DB_HOST", "127.0.0.1");
 builder.Build().Run();
