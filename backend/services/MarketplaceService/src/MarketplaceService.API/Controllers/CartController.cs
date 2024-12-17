@@ -29,24 +29,28 @@ namespace MarketplaceService.API.Controllers
             CartDetail cartDetail = await cartService.GetCart(customer.CustomerId);
             return Ok(cartDetail);
         }
+        [Authorize]
         [HttpPost("AddProductToCart")]
         public async Task<IActionResult> AddProductToCart([FromBody] AddProductToCartDto addProductToCartDto)
         {
            await cartService.AddProductToCart(addProductToCartDto); 
             return Ok();
         }
+        [Authorize]
         [HttpPost("RemoveProductFromCart")]
         public async Task<IActionResult> RemoveProductFromCart([FromBody] UpdateCartItemDto updateCartItemDto)
         {
             await cartService.RemoveProductFromCart(updateCartItemDto);
             return Ok("success");
         }
+        [Authorize]
         [HttpPost("DecreaseProductQuantity")]
         public async Task<IActionResult> DecreaseProductQuantity([FromBody] UpdateCartItemDto updateCartItemDto)
         {
             await cartService.DecreaseProductQuantity(updateCartItemDto);
             return Ok("success");
         }
+        [Authorize]
         [HttpPost("IncreaseProductQuantity")]
         public async Task<IActionResult> IncreaseProductQuantity([FromBody] UpdateCartItemDto updateCartItemDto)
         {

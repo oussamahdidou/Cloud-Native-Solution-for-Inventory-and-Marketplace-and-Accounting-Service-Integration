@@ -1,0 +1,43 @@
+{
+  "projectPath": ".",
+  "outputPath": "aspirate-output",
+  "containerImageTags": [
+    "latest"
+  ],
+  "imagePullPolicy": "IfNotPresent",
+  "containerBuilder": "docker",
+  "outputFormat": "kustomize",
+  "skipFinalKustomizeGeneration": false,
+  "privateRegistryEmail": "aspir8@aka.ms",
+  "includeDashboard": true,
+  "useCustomNamespace": false,
+  "secrets": {
+    "salt": "f9SZj9za6ZUu6Fzs",
+    "hash": "kWJZTCA7ZZQ0KTwZleAjzNNi3X8vrPAuUJ8yrkdmulY=",
+    "secrets": {
+      "sqlserver-password": {
+        "value": "f9SZj9za6ZUu6FzsyvxshRYkpoK217JKvkd97B\u002B4tOheOJLX2wMr0YAwIwfaaOF/O6o="
+      },
+      "redis": {},
+      "sqlserver": {
+        "MSSQL_SA_PASSWORD": "f9SZj9za6ZUu6FzsyvxshRYkpoK217JKvkd97B\u002B4tOheOJLX2wMr0YAwIwfaaOF/O6o="
+      },
+      "postgresql": {
+        "POSTGRES_PASSWORD": "f9SZj9za6ZUu6FzsTkm8Z3Hne8WS8S5SQH4BJCSnndNCJpTW8Qcs\u002Brc="
+      },
+      "rabbitmq": {},
+      "usersservice": {
+        "ConnectionStrings__rabbitmq": "f9SZj9za6ZUu6FzsCop4ny1\u002BSRROOHHebuTINja\u002Bg8ATedrC9xUw/OkZYyHvPOdzOOkdn/KHO210/sJCYXi2biEYZe1gR8jIiGRHv3jRh\u002BA=",
+        "ConnectionStrings__sqlserver": "f9SZj9za6ZUu6FzsIGmRRNuBaNsQUVQ7IrRpJwS2gMZMJMjW8xww7aEUdDKhb7o0ZqNlnPaGaFNfsdUNLEm7aDcSSu1lGOLKulFB6yqV6aGbXcVjBrbCcbqix2YRhXAketE0K8Yr/a3UwGlLMEc4yblS5SYGnttC",
+        "ConnectionStrings__redis": "f9SZj9za6ZUu6FzsLRp3cihA7ZXB2x2xM8\u002Bw6CW2ltlabMOWtUk="
+      },
+      "gateway": {},
+      "marketplaceservice-api": {
+        "ConnectionStrings__rabbitmq": "f9SZj9za6ZUu6FzsCop4ny1\u002BSRROOHHebuTINja\u002Bg8ATedrC9xUw/OkZYyHvPOdzOOkdn/KHO210/sJCYXi2biEYZe1gR8jIiGRHv3jRh\u002BA=",
+        "ConnectionStrings__sqlserver": "f9SZj9za6ZUu6FzsIGmRRNuBaNsQUVQ7IrRpJwS2gMZMJMjW8xww7aEUdDKhb7o0ZqNlnPaGaFNfsdUNLEm7aDcSSu1lGOLKulFB6yqV6aGbXcVjBrbCcbqix2YRhXAketE0K8Yr/a3UwGlLMEc4yblS5SYGnttC",
+        "ConnectionStrings__redis": "f9SZj9za6ZUu6FzsLRp3cihA7ZXB2x2xM8\u002Bw6CW2ltlabMOWtUk="
+      }
+    }
+  },
+  "processAllComponents": true
+}

@@ -22,20 +22,26 @@ builder.AddProject<Projects.UsersService>("usersservice")
     .WithReference(rabbitmq)
     .WithReference(sqlserver)
     .WithReference(redis);
-builder.AddProject<Projects.Gateway>("gateway");
+var gateway=builder.AddProject<Projects.Gateway>("gateway");
 builder.AddProject<Projects.MarketplaceService_API>("marketplaceservice-api")
-    
     .WithReference(rabbitmq)
     .WithReference(sqlserver)
     .WithReference(redis);
 
-var executableapp = builder.AddSpringApp("executableapp",
-    @"C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\stockservice\\build\\libs\\stockservice-0.0.1-SNAPSHOT.jar",
+var stockservice = builder.AddSpringApp("stockservice",
+    "../../services/stockservice",
     new JavaAppExecutableResourceOptions()
     {
         
-        ApplicationName = "stockservice",
-        OtelAgentPath = "C:\\Users\\pc\\Downloads\\projects\\microservices\\backend\\services\\stockservice\\agents\\opentelemetry-javaagent.jar"
+        ApplicationName = "../../services/stockservice/build/libs/stockservice-0.0.1-SNAPSHOT.jar",
+        OtelAgentPath = "../../services/stockservice/agents"
     })
 .WithEnvironment("DB_HOST", "127.0.0.1");
+builder.AddViteApp("dashboard", workingDirectory: "../../../client/adminpanel/free-react-tailwind-admin-dashboard")
+        .WithHttpEndpoint(name: "dashboard-http", port: 3100, targetPort: 3100, isProxied: false)
+        .WithReference(gateway);
+
+builder.AddNpmApp("marketplace", workingDirectory: "../../../client/marketplace/web")
+        .WithHttpEndpoint(name: "marketplace-http", port: 3000, targetPort: 3000, isProxied: false)
+        .WithReference(gateway);
 builder.Build().Run();

@@ -30,6 +30,7 @@ namespace MarketplaceService.API.Controllers
             return Ok(commandes);
         }
         [HttpGet("{Id:int}")]
+        [Authorize]
         public async Task<IActionResult> GetCommandeDetail([FromRoute] int Id)
         {
         

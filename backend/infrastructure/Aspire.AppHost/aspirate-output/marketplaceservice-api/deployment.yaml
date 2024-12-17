@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketplaceservice-api
+  labels:
+    app: marketplaceservice-api
+spec:
+  minReadySeconds: 60
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplaceservice-api
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: marketplaceservice-api
+    spec:
+      containers:
+      - name: marketplaceservice-api
+        image: marketplaceservice-api:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: https
+          containerPort: 8443
+        envFrom:
+        - configMapRef:
+            name: marketplaceservice-api-env
+        - secretRef:
+            name: marketplaceservice-api-secrets
+      terminationGracePeriodSeconds: 180

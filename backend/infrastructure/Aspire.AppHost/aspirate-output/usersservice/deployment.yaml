@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usersservice
+  labels:
+    app: usersservice
+spec:
+  minReadySeconds: 60
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usersservice
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: usersservice
+    spec:
+      containers:
+      - name: usersservice
+        image: usersservice:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: https
+          containerPort: 8443
+        envFrom:
+        - configMapRef:
+            name: usersservice-env
+        - secretRef:
+            name: usersservice-secrets
+      terminationGracePeriodSeconds: 180
