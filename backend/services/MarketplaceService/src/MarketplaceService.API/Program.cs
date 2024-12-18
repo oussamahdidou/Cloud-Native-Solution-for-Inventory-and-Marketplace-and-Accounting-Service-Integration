@@ -11,15 +11,16 @@ using MarketplaceService.Infrastructure.Repositories;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
-//using Microsoft.Extensions.Caching.Distributed;
-//using Microsoft.Extensions.Caching.StackExchangeRedis;
+
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddOpenTelemetry();
+builder.Services.AddLogging();
 builder.AddServiceDefaults();
 builder.Configuration.AddEnvironmentVariables();
 // Add services to the container.
@@ -61,8 +62,9 @@ builder.Services.AddSwaggerGen(option =>
 });
 builder.Services.AddDbContext<ApiDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("MarketplaceService.API"));
-  
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("MarketplaceService.API")); // Log to console
+
+    
 });
 
 

@@ -19,6 +19,7 @@ using UsersService.Producers;
 using UsersService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddOpenTelemetry();
 
 builder.AddServiceDefaults();
 builder.Configuration.AddEnvironmentVariables();
