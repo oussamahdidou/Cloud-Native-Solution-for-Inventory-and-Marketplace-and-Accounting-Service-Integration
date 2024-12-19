@@ -15,13 +15,25 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using RabbitMQ.Client;
 
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddOpenTelemetry();
-builder.Services.AddLogging();
-builder.AddServiceDefaults();
+//builder.Services.AddOpenTelemetry().ConfigureResource(res=>res.AddService("marketplaceservice-api"))
+//    .WithTracing(tracing =>
+//    {
+//        tracing.AddAspNetCoreInstrumentation()
+//               .AddHttpClientInstrumentation()
+//               .AddEntityFrameworkCoreInstrumentation();
+//        tracing.AddOtlpExporter();
+  
+//           }
+//    );
+//builder.Logging.AddOpenTelemetry(x => x.AddOtlpExporter());
+    builder.AddServiceDefaults();
 builder.Configuration.AddEnvironmentVariables();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -207,7 +219,6 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-builder.Services.AddMassTransitHostedService();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("Redis");
@@ -243,5 +254,4 @@ app.UseCors("AllowOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
