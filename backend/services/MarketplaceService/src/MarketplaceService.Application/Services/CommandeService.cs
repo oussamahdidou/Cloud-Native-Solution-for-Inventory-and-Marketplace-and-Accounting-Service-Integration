@@ -37,9 +37,16 @@ namespace MarketplaceService.Application.Services
 
         public async Task ConfirmeCommande(string PaymentId)
         {
-            Commande commande= await  commandeRepository.GetCommandesByPaymentIdAsync(PaymentId);
-            commande.Status = "Confirmed";
-            await commandeRepository.UpdateCommandeAsync(commande);
+            try
+            {
+                Commande commande = await commandeRepository.GetCommandesByPaymentIdAsync(PaymentId);
+                commande.Status = "Confirmed";
+                await commandeRepository.UpdateCommandeAsync(commande);
+            }
+            catch(Exception ex) 
+            {
+                throw ex;
+            }
         }
     }
 }

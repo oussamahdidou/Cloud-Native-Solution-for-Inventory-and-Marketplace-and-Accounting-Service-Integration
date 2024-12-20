@@ -2,11 +2,6 @@
 using MarketplaceService.Domain.Repositories;
 using MarketplaceService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Infrastructure.Repositories
 {
@@ -47,7 +42,12 @@ namespace MarketplaceService.Infrastructure.Repositories
 
         public async Task<Commande> GetCommandeByIdAsync(int id)
         {
-            return await apiDbContext.commandes.FindAsync(id);
+            Commande? commande = await apiDbContext.commandes.FindAsync(id);
+            if (commande == null)
+            {
+                throw new KeyNotFoundException("commande not found");
+            }
+            return commande;
         }
 
         public async Task UpdateCommandeAsync(Commande commande)
@@ -62,7 +62,12 @@ namespace MarketplaceService.Infrastructure.Repositories
 
         public async Task<Commande> GetCommandesByPaymentIdAsync(string PaymentId)
         {
-            return await apiDbContext.commandes.FirstOrDefaultAsync(x => x.PayementId == PaymentId);
+            Commande? commande = await apiDbContext.commandes.FirstOrDefaultAsync(x => x.PayementId == PaymentId);
+            if (commande == null)
+            {
+                throw new KeyNotFoundException("commande not found");
+            }
+            return commande;
         }
     }
 

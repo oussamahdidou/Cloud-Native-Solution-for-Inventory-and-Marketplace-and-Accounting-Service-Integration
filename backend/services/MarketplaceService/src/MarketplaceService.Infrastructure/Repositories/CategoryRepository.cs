@@ -41,7 +41,13 @@ namespace MarketplaceService.Infrastructure.Repositories
 
         public async Task<Category> GetCategoryByIdAsync(string id)
         {
-            return await apiDbContext.categories.FindAsync(id);
+            Category? category =   await apiDbContext.categories.FindAsync(id);
+
+            if (category==null)
+            {
+                throw new KeyNotFoundException("product Not Found");
+            }
+            return category;
         }
 
         public async Task UpdateCategoryAsync(Category category)

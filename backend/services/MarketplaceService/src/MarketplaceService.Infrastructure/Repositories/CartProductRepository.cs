@@ -2,11 +2,6 @@
 using MarketplaceService.Domain.Repositories;
 using MarketplaceService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Infrastructure.Repositories
 {
@@ -35,22 +30,27 @@ namespace MarketplaceService.Infrastructure.Repositories
             }
         }
 
-  
+
 
         public async Task<List<CartProduct>> GetAllCartProductsAsync()
         {
             return await apiDbContext.cartProducts.ToListAsync();
         }
 
-        public async Task<CartProduct?> GetCartProductByIdAsync(int CartId, string ProductId)
+        public async Task<CartProduct> GetCartProductByIdAsync(int CartId, string ProductId)
         {
             CartProduct? cartProduct = await apiDbContext.cartProducts.Include(x => x.Product).Include(x => x.Cart).FirstOrDefaultAsync(x => x.CartId == CartId && x.ProductId == ProductId);
-          
+
+            if (cartProduct != null)
+            {
                 return cartProduct;
-            
+
+            }
+            throw new KeyNotFoundException("cartProduct not found");
+
         }
 
-    
+
 
         public async Task UpdateCartProductAsync(CartProduct cartProduct)
         {

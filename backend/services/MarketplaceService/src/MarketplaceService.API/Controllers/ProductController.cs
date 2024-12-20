@@ -1,7 +1,6 @@
 ﻿using MarketplaceService.Application.Dtos.Products;
 using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Domain.Queries;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketplaceService.API.Controllers
@@ -20,13 +19,20 @@ namespace MarketplaceService.API.Controllers
         public async Task<IActionResult> GetProducts([FromQuery] ProductQuery productQuery)
         {
             List<ProductItem> productItems = await productService.GetProductItems(productQuery);
-        return Ok(productItems);
+            return Ok(productItems);
         }
         [HttpGet("ProductDetail/{Id}")]
         public async Task<IActionResult> GetProductDetail([FromRoute] string Id)
         {
-            ProductDetail productDetail =await productService.GetProductDetail(Id);
-            return Ok(productDetail);   
+            try
+            {
+                ProductDetail productDetail = await productService.GetProductDetail(Id);
+                return Ok(productDetail);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

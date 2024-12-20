@@ -30,7 +30,7 @@ namespace MarketplaceService.Application.Services
                 ProductDetail? productDetail = await redisCachingService.GetElementByKeyAsync<ProductDetail>(productId);
                 if (productDetail != null) { return productDetail; }
                 Product product = await productRepository.GetProductByIdAsync(productId);
-                if(product==null) throw new KeyNotFoundException();
+                if(product==null) throw new KeyNotFoundException("product not found");
                 return await redisCachingService.AddItemToCacheAsync<ProductDetail>(product.FromProductToDetail(),productId);
             }
             catch(Exception ex) 

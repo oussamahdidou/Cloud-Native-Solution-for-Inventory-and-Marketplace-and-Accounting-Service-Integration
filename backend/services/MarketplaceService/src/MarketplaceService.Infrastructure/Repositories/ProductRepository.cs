@@ -3,11 +3,6 @@ using MarketplaceService.Domain.Queries;
 using MarketplaceService.Domain.Repositories;
 using MarketplaceService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace MarketplaceService.Infrastructure.Repositories
@@ -34,6 +29,10 @@ namespace MarketplaceService.Infrastructure.Repositories
             {
                 apiDbContext.products.Remove(product);
                 await apiDbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException("product not found");
             }
         }
 
@@ -74,12 +73,12 @@ namespace MarketplaceService.Infrastructure.Repositories
 
         public async Task<Product> GetProductByIdAsync(string id)
         {
-            Product? product = await apiDbContext.products.Include(x=>x.Category).FirstOrDefaultAsync(x=>x.ProductId==id);
-            if (product!=null)
+            Product? product = await apiDbContext.products.Include(x => x.Category).FirstOrDefaultAsync(x => x.ProductId == id);
+            if (product != null)
             {
                 return product;
             }
-            throw new Exception("product not found");
+            throw new KeyNotFoundException("product not found");
         }
 
         public async Task UpdateProductAsync(Product product)
@@ -89,6 +88,10 @@ namespace MarketplaceService.Infrastructure.Repositories
             {
                 apiDbContext.Entry(existingProduct).CurrentValues.SetValues(product);
                 await apiDbContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException("product not found");
             }
         }
     }

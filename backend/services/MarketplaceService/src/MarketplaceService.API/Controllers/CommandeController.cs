@@ -3,7 +3,6 @@ using MarketplaceService.Application.Extensions;
 using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketplaceService.API.Controllers
@@ -26,14 +25,14 @@ namespace MarketplaceService.API.Controllers
         {
             string username = User.GetUsername();
             Customer customer = await customerService.GetCustomerByUsername(username);
-            List<CommandeItem> commandes =await commandeService.GetUserCommandes(customer.CustomerId);
+            List<CommandeItem> commandes = await commandeService.GetUserCommandes(customer.CustomerId);
             return Ok(commandes);
         }
         [HttpGet("{Id:int}")]
         [Authorize]
         public async Task<IActionResult> GetCommandeDetail([FromRoute] int Id)
         {
-        
+
             CommandeDetail commande = await commandeService.GetCommandeDetail(Id);
             return Ok(commande);
         }

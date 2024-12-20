@@ -1,9 +1,4 @@
 ﻿using MarketplaceService.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Domain.Repositories
 {
@@ -13,7 +8,7 @@ namespace MarketplaceService.Domain.Repositories
         Task<List<CartProduct>> GetAllCartProductsAsync();
 
         // Get a cartProduct by ID
-        Task<CartProduct?> GetCartProductByIdAsync(int CartId,string ProductId);
+        Task<CartProduct> GetCartProductByIdAsync(int CartId, string ProductId);
 
         // Add a new cartProduct
         Task AddCartProductAsync(CartProduct cartProduct);
