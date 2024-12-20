@@ -19,17 +19,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway", "backend\infrastr
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{82C47C45-4322-4CBE-BB34-0B4C3C900714}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.API.tests", "backend\services\MarketplaceService\test\MarketplaceService.API.tests\MarketplaceService.API.tests.csproj", "{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.Application.tests", "backend\services\MarketplaceService\test\MarketplaceService.Application.tests\MarketplaceService.Application.tests.csproj", "{A0AA035D-72F8-4D70-9A59-96668AAD67A6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.Infrastructure.tests", "backend\services\MarketplaceService\test\MarketplaceService.Infrastructure.tests\MarketplaceService.Infrastructure.tests.csproj", "{D60DCBF4-5925-42B9-A175-76B53F48168C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.Domain.tests", "backend\services\MarketplaceService\test\MarketplaceService.Domain.tests\MarketplaceService.Domain.tests.csproj", "{EAE22EBA-8F26-4E7A-AA17-40172F759B02}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppHost", "backend\infrastructure\Aspire.AppHost\Aspire.AppHost.csproj", "{0063F1FC-0EF9-44FA-A21E-EA54C86ACACD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "backend\infrastructure\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{966B3EAC-CB69-4D3E-87C1-57D191DA1805}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.API.tests", "backend\services\MarketplaceService\test\MarketplaceService.API.tests\MarketplaceService.API.tests.csproj", "{2CB83031-F0A4-4C16-9504-EED6AA7FED5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.Domain.tests", "backend\services\MarketplaceService\test\MarketplaceService.Domain.tests\MarketplaceService.Domain.tests.csproj", "{C67F01B7-5262-4044-93E0-FF23E6190876}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.Application.tests", "backend\services\MarketplaceService\test\MarketplaceService.Application.tests\MarketplaceService.Application.tests.csproj", "{7F3BA9AF-963B-470A-A926-E29F78566D13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketplaceService.Infrastructure.tests", "backend\services\MarketplaceService\test\MarketplaceService.Infrastructure.tests\MarketplaceService.Infrastructure.tests.csproj", "{FBC7ED55-FFF4-4BE7-830C-1954000C51E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,22 +69,6 @@ Global
 		{82C47C45-4322-4CBE-BB34-0B4C3C900714}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82C47C45-4322-4CBE-BB34-0B4C3C900714}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82C47C45-4322-4CBE-BB34-0B4C3C900714}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC28F74F-E48C-45E3-B932-98D7FDF7EDA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0AA035D-72F8-4D70-9A59-96668AAD67A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0AA035D-72F8-4D70-9A59-96668AAD67A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0AA035D-72F8-4D70-9A59-96668AAD67A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0AA035D-72F8-4D70-9A59-96668AAD67A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D60DCBF4-5925-42B9-A175-76B53F48168C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D60DCBF4-5925-42B9-A175-76B53F48168C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D60DCBF4-5925-42B9-A175-76B53F48168C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D60DCBF4-5925-42B9-A175-76B53F48168C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAE22EBA-8F26-4E7A-AA17-40172F759B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAE22EBA-8F26-4E7A-AA17-40172F759B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAE22EBA-8F26-4E7A-AA17-40172F759B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAE22EBA-8F26-4E7A-AA17-40172F759B02}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0063F1FC-0EF9-44FA-A21E-EA54C86ACACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0063F1FC-0EF9-44FA-A21E-EA54C86ACACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0063F1FC-0EF9-44FA-A21E-EA54C86ACACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -93,6 +77,22 @@ Global
 		{966B3EAC-CB69-4D3E-87C1-57D191DA1805}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{966B3EAC-CB69-4D3E-87C1-57D191DA1805}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{966B3EAC-CB69-4D3E-87C1-57D191DA1805}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB83031-F0A4-4C16-9504-EED6AA7FED5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB83031-F0A4-4C16-9504-EED6AA7FED5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB83031-F0A4-4C16-9504-EED6AA7FED5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB83031-F0A4-4C16-9504-EED6AA7FED5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C67F01B7-5262-4044-93E0-FF23E6190876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C67F01B7-5262-4044-93E0-FF23E6190876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C67F01B7-5262-4044-93E0-FF23E6190876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C67F01B7-5262-4044-93E0-FF23E6190876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F3BA9AF-963B-470A-A926-E29F78566D13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F3BA9AF-963B-470A-A926-E29F78566D13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F3BA9AF-963B-470A-A926-E29F78566D13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F3BA9AF-963B-470A-A926-E29F78566D13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC7ED55-FFF4-4BE7-830C-1954000C51E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC7ED55-FFF4-4BE7-830C-1954000C51E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC7ED55-FFF4-4BE7-830C-1954000C51E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC7ED55-FFF4-4BE7-830C-1954000C51E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
