@@ -11,29 +11,14 @@ using MarketplaceService.Infrastructure.Repositories;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 using RabbitMQ.Client;
 
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddOpenTelemetry().ConfigureResource(res=>res.AddService("marketplaceservice-api"))
-//    .WithTracing(tracing =>
-//    {
-//        tracing.AddAspNetCoreInstrumentation()
-//               .AddHttpClientInstrumentation()
-//               .AddEntityFrameworkCoreInstrumentation();
-//        tracing.AddOtlpExporter();
-  
-//           }
-//    );
-//builder.Logging.AddOpenTelemetry(x => x.AddOtlpExporter());
-    builder.AddServiceDefaults();
+builder.AddServiceDefaults();
 builder.Configuration.AddEnvironmentVariables();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -76,7 +61,7 @@ builder.Services.AddDbContext<ApiDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("MarketplaceService.API")); // Log to console
 
-    
+
 });
 
 
@@ -108,9 +93,9 @@ builder.Services.AddCors(options =>
         builder => builder.WithOrigins("*")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                   
+
                     );
-   
+
 });
 builder.Services.AddMassTransit(x =>
 {
@@ -138,7 +123,7 @@ builder.Services.AddMassTransit(x =>
         cfg.UseNewtonsoftRawJsonDeserializer();
 
         cfg.ConfigureEndpoints(context);
-       
+
         cfg.ReceiveEndpoint("marketplace_user_registration_queue", e =>
         {
             e.Bind("user_registration_exchange", exchange =>
@@ -232,7 +217,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICartProductRepository, CartProductRepository>();
 builder.Services.AddScoped<ICommandeProductRepository, CommandeProductRepository>();
-builder.Services.AddScoped<ICartService,CartService>();
+builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IPaypalService, PaypalService>();
