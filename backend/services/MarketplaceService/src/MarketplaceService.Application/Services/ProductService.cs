@@ -5,11 +5,7 @@ using MarketplaceService.Domain.Caching;
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Queries;
 using MarketplaceService.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace MarketplaceService.Application.Services
 {
@@ -28,12 +24,20 @@ namespace MarketplaceService.Application.Services
             try
             {
                 ProductDetail? productDetail = await redisCachingService.GetElementByKeyAsync<ProductDetail>(productId);
-                if (productDetail != null) { return productDetail; }
+                if (productDetail != null)
+                {
+                    Console.WriteLine($"Found in cache: {JsonConvert.SerializeObject(productDetail)}");
+                    return productDetail;
+                }
                 Product product = await productRepository.GetProductByIdAsync(productId);
-                if(product==null) throw new KeyNotFoundException("product not found");
-                return await redisCachingService.AddItemToCacheAsync<ProductDetail>(product.FromProductToDetail(),productId);
+                if (product == null) throw new KeyNotFoundException("product not found");
+                Console.WriteLine($"Mapped Product: {JsonConvert.SerializeObject(product)}");
+
+                productDetail = product.FromProductToDetail();
+                Console.WriteLine($"Mapped ProductDetail: {JsonConvert.SerializeObject(productDetail)}");
+                return await redisCachingService.AddItemToCacheAsync(productDetail, productId);
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -41,10 +45,10 @@ namespace MarketplaceService.Application.Services
 
         public async Task<List<ProductItem>> GetProductItems(ProductQuery productQuery)
         {
-            try 
+            try
             {
                 List<Product> products = await productRepository.GetAllProductsAsync(productQuery);
-                return products.Select(x=>x.FromProductToItem()).ToList();
+                return products.Select(x => x.FromProductToItem()).ToList();
             }
             catch (Exception ex)
             {

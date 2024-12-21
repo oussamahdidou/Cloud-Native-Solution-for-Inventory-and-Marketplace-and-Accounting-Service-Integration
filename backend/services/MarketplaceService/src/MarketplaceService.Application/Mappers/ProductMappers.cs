@@ -1,10 +1,5 @@
 ﻿using MarketplaceService.Application.Dtos.Products;
 using MarketplaceService.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Application.Mappers
 {
@@ -31,11 +26,11 @@ namespace MarketplaceService.Application.Mappers
         {
             return new ProductItem()
             {
-                ProductId=product.ProductId,
-                Name=product.Name,
-                Price=product.Price,
-                Quantity=product.Quantity,
-                Thumbnail= product.Thumbnail,
+                ProductId = product.ProductId,
+                Name = product.Name,
+                Price = product.Price,
+                Quantity = product.Quantity,
+                Thumbnail = product.Thumbnail,
             };
         }
     }
