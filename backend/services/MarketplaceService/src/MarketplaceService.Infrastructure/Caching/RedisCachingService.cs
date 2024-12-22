@@ -1,11 +1,5 @@
 ﻿using MarketplaceService.Domain.Caching;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
 using System.Text.Json;
 namespace MarketplaceService.Infrastructure.Caching
 {
@@ -25,7 +19,7 @@ namespace MarketplaceService.Infrastructure.Caching
             var serializedItem = JsonSerializer.Serialize(item);
             var options = new DistributedCacheEntryOptions
             {
-                AbsoluteExpirationRelativeToNow =  TimeSpan.FromMinutes(5) 
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
             };
 
             await _cache.SetStringAsync(key, serializedItem, options);
@@ -37,7 +31,7 @@ namespace MarketplaceService.Infrastructure.Caching
             if (string.IsNullOrEmpty(key)) throw new ArgumentNullException(nameof(key));
 
             var cachedItem = await _cache.GetStringAsync(key);
-            if (cachedItem == null) return default; 
+            if (cachedItem == null) return default(T);
 
             return JsonSerializer.Deserialize<T>(cachedItem);
         }
