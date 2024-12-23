@@ -28,12 +28,21 @@ namespace MarketplaceService.Infrastructure.Caching
 
         public async Task<T> GetElementByKeyAsync<T>(string key)
         {
-            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException(nameof(key));
+            try
+            {
+                if (string.IsNullOrEmpty(key)) throw new ArgumentNullException(nameof(key));
 
-            var cachedItem = await _cache.GetStringAsync(key);
-            if (cachedItem == null) return default(T);
+                var cachedItem = await _cache.GetStringAsync(key);
+                if (cachedItem == null) throw new KeyNotFoundException(key);
 
-            return JsonSerializer.Deserialize<T>(cachedItem);
+                return JsonSerializer.Deserialize<T>(cachedItem);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+
+            }
         }
 
         public async Task<bool> RemoveItemFromCacheAsync(string key)

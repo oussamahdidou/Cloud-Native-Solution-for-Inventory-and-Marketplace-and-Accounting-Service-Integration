@@ -66,7 +66,6 @@ namespace MarketplaceService.Application.tests.Services
                 },
             };
 
-            // This is the key change - create the expected result using the same mapping method
             var expectedProductDetail = product.FromProductToDetail();
 
             A.CallTo(() => redisCachingService.GetElementByKeyAsync<ProductDetail>(productId))
@@ -75,7 +74,6 @@ namespace MarketplaceService.Application.tests.Services
             A.CallTo(() => productRepository.GetProductByIdAsync(productId))
                 .Returns(Task.FromResult(product));
 
-            // Configure the mock to return the SAME object that was passed to it
             A.CallTo(() => redisCachingService.AddItemToCacheAsync(A<ProductDetail>._, productId))
                 .ReturnsLazily((ProductDetail detail, string id) => Task.FromResult(detail));
 
