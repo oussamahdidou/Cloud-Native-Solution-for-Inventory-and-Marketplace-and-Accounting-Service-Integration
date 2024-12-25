@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\MarketplaceService.Infrastructure\MarketplaceService.Infrastructure.csproj" />
   </ItemGroup>
 
