@@ -47,4 +47,6 @@ builder.AddNpmApp("marketplace", workingDirectory: "../../../client/marketplace/
        .WithHttpEndpoint(name: "marketplace-http", port: 3000, targetPort: 3000, isProxied: false)
        .WithReference(gateway);
 
+builder.AddProject<Projects.AccountingService>("accountingservice");
+
 builder.Build().Run();
