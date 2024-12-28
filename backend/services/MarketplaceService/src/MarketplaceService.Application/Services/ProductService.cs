@@ -29,12 +29,10 @@ namespace MarketplaceService.Application.Services
                     Console.WriteLine($"Found in cache: {JsonConvert.SerializeObject(productDetail)}");
                     return productDetail;
                 }
-                Product product = await productRepository.GetProductByIdAsync(productId);
-                if (product == null) throw new KeyNotFoundException("product not found");
-                Console.WriteLine($"Mapped Product: {JsonConvert.SerializeObject(product)}");
+                Product? product = await productRepository.GetProductByIdAsync(productId);
+                if (product == null) { throw new KeyNotFoundException("product not found"); }
 
                 productDetail = product.FromProductToDetail();
-                Console.WriteLine($"Mapped ProductDetail: {JsonConvert.SerializeObject(productDetail)}");
                 return await redisCachingService.AddItemToCacheAsync(productDetail, productId);
             }
             catch (Exception ex)

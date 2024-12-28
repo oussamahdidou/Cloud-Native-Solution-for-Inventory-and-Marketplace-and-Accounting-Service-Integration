@@ -1,4 +1,3 @@
-
 using EventsContracts.EventsContracts;
 using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Application.Services;

@@ -41,12 +41,7 @@ namespace MarketplaceService.Infrastructure.Repositories
         {
             CartProduct? cartProduct = await apiDbContext.cartProducts.Include(x => x.Product).Include(x => x.Cart).FirstOrDefaultAsync(x => x.CartId == CartId && x.ProductId == ProductId);
 
-            if (cartProduct != null)
-            {
-                return cartProduct;
-
-            }
-            throw new KeyNotFoundException("cartProduct not found");
+            return cartProduct;
 
         }
 
