@@ -1,3 +1,4 @@
+using ComptabiliteService.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -75,6 +76,8 @@ builder.Services.AddCors(options =>
                     .AllowAnyMethod()
                     );
 });
+var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
+builder.Services.AddSingleton(databaseSettings);
 var app = builder.Build();
 app.UseHttpsRedirection();
 

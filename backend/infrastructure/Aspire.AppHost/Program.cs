@@ -1,4 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
+var mongoDb = builder.AddMongoDB("mongodb", port: 27017)
+    .WithVolume("mongodb_data", "/data/db");
 var redis = builder.AddRedis("redis", port: 6379)
     .WithImage("redis", tag: "latest");
 var sqlserver = builder.AddSqlServer("sqlserver", port: 1433)
@@ -46,7 +48,8 @@ builder.AddNpmApp("marketplace", workingDirectory: "../../../client/marketplace/
        .WithReference(gateway);
 
 
-builder.AddProject<Projects.ComptabiliteService>("comptabiliteservice");
+builder.AddProject<Projects.ComptabiliteService>("comptabiliteservice")
+    .WithReference(mongoDb);
 
 
 builder.Build().Run();
