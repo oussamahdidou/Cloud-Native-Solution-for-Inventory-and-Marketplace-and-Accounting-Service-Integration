@@ -1,0 +1,6 @@
+@ComptabiliteService_HostAddress = http://localhost:5219
+
+GET {{ComptabiliteService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

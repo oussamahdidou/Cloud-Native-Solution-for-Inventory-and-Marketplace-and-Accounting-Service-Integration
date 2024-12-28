@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\services\ComptabiliteService\ComptabiliteService.csproj" />
     <ProjectReference Include="..\..\services\MarketplaceService\src\MarketplaceService.API\MarketplaceService.API.csproj" />
     <ProjectReference Include="..\..\services\UsersService\UsersService.csproj" />
     <ProjectReference Include="..\Gateway\Gateway.csproj" />

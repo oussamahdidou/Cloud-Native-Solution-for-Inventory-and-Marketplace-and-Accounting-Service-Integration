@@ -46,4 +46,7 @@ builder.AddNpmApp("marketplace", workingDirectory: "../../../client/marketplace/
        .WithReference(gateway);
 
 
+builder.AddProject<Projects.ComptabiliteService>("comptabiliteservice");
+
+
 builder.Build().Run();
