@@ -1,7 +1,9 @@
 using ComptabiliteService.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -76,8 +78,22 @@ builder.Services.AddCors(options =>
                     .AllowAnyMethod()
                     );
 });
-var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
-builder.Services.AddSingleton(databaseSettings);
+builder.Services.Configure<DatabaseSettings>(
+        builder.Configuration.GetSection("DatabaseSettings")
+);
+
+builder.Services.AddSingleton<IMongoClient>(sp =>
+{
+    var settings = sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
+    return new MongoClient(settings.ConnectionString);
+});
+
+builder.Services.AddSingleton(sp =>
+{
+    var client = sp.GetRequiredService<IMongoClient>();
+    var settings = sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
+    return client.GetDatabase(settings.DatabaseName);
+});
 var app = builder.Build();
 app.UseHttpsRedirection();
 
