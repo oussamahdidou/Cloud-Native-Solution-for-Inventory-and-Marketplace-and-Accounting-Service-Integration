@@ -1,10 +1,112 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            font-size: 12px;
+        }
+
+        .header {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .account-header {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+
+        .total-row {
+            font-weight: bold;
+        }
+
+        .solde-row {
+            font-style: italic;
+        }
+
+        .debit-col {
+            text-align: right;
+        }
+
+        .credit-col {
+            text-align: right;
+        }
+
+        .date-col {
+            width: 15%;
+        }
+
+        .libelle-col {
+            width: 45%;
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        GRAND-LIVRE GÉNÉRAL au <span id="date">{{TODAY}}</span>
+    </div>
 
+    <table>
+        <tr class="account-header">
+            <td colspan="4">{{COMPTE}}</td>
+        </tr>
+        <tr>
+            <th class="date-col">Date</th>
+            <th class="libelle-col">Libellé</th>
+            <th class="debit-col">Débit</th>
+            <th class="credit-col">Crédit</th>
+        </tr>
+        <tr>
+            <td id="401_date_1">{{DATE}}</td>
+            <td id="401_libelle_1">{{Libelle}}</td>
+            <td id="401_debit_1" class="debit-col"></td>
+            <td id="401_credit_1" class="credit-col">105.50</td>
+        </tr>
+        <tr>
+            <td id="401_date_2">21/05/2015</td>
+            <td id="401_libelle_2">Règlement par chèque</td>
+            <td id="401_debit_2" class="debit-col">105.50</td>
+            <td id="401_credit_2" class="credit-col"></td>
+        </tr>
+        <tr class="total-row">
+            <td colspan="2">Total</td>
+            <td id="401_total_debit" class="debit-col">105.50</td>
+            <td id="401_total_credit" class="credit-col">105.50</td>
+        </tr>
+        <tr class="solde-row">
+            <td colspan="2">Solde</td>
+            <td id="401_solde_debit" class="debit-col">0.00</td>
+            <td id="401_solde_credit" class="credit-col">0.00</td>
+        </tr>
+    </table>
+
+
+
+    <!-- Grand Total -->
+    <table>
+        <tr class="total-row">
+            <td colspan="2">TOTAL GRAND-LIVRE</td>
+            <td id="grand_total_debit" class="debit-col">232.10</td>
+            <td id="grand_total_credit" class="credit-col">232.10</td>
+        </tr>
+    </table>
 </body>
 </html>

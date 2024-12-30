@@ -1,10 +1,107 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            font-size: 12px;
+        }
+
+        .header {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+        }
+
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .numeric {
+            text-align: right;
+        }
+
+        .date-col {
+            width: 12%;
+        }
+
+        .ref-col {
+            width: 10%;
+        }
+
+        .account-col {
+            width: 10%;
+        }
+
+        .libelle-col {
+            width: 38%;
+        }
+
+        .amount-col {
+            width: 15%;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+
+        .entry-group {
+            border-bottom: 2px solid #000;
+        }
+
+        .indent {
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        LIVRE JOURNAL au <span id="date">{{DATE}}</span>
+    </div>
 
+    <table>
+        <thead>
+            <tr>
+                <th class="date-col">Date</th>
+                <th class="ref-col">N° Pièce</th>
+                <th class="account-col">N° Compte</th>
+                <th class="libelle-col">Libellé</th>
+                <th class="amount-col">Débit</th>
+                <th class="amount-col">Crédit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="entry-group">
+                <td id="entry1_date">{{DATE}}</td>
+                <td id="entry1_ref">{{NUM_PIECE}}</td>
+                <td id="entry1_account">{{NUM_COMPTE}}</td>
+                <td id="entry1_libelle">{{LIBELLE}}</td>
+                <td id="entry1_debit" class="numeric">{{DEBIT_ENTRY}}</td>
+                <td id="entry1_credit" class="numeric">{{CREDIT_ENTRY}}</td>
+            </tr>
+
+
+
+            <tr class="total-row">
+                <td colspan="4">Total du jour</td>
+                <td id="total_debit" class="numeric">{{TOTAL_DEBIT}}</td>
+                <td id="total_credit" class="numeric">{{TOTAL_CREDIT}}</td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
