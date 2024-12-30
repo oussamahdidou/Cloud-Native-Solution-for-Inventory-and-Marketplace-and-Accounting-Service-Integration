@@ -10,9 +10,9 @@
     <DockerComposeProjectPath>..\..\..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
@@ -35,6 +35,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\contacts\EventsContracts\EventsContracts.csproj" />
     <ProjectReference Include="..\..\..\..\infrastructure\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\..\infrastructure\Gateway\Gateway.csproj" />
     <ProjectReference Include="..\MarketplaceService.Application\MarketplaceService.Application.csproj" />
     <ProjectReference Include="..\MarketplaceService.Domain\MarketplaceService.Domain.csproj" />
     <ProjectReference Include="..\MarketplaceService.Infrastructure\MarketplaceService.Infrastructure.csproj" />

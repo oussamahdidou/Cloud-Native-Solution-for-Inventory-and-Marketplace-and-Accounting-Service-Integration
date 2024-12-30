@@ -1,4 +1,6 @@
 using ComptabiliteService.Config;
+using ComptabiliteService.Interfaces;
+using ComptabiliteService.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -94,6 +96,7 @@ builder.Services.AddSingleton(sp =>
     var settings = sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
     return client.GetDatabase(settings.DatabaseName);
 });
+builder.Services.AddScoped<IEcritureComptableRepository, EcritureComptableRepository>();
 var app = builder.Build();
 app.UseHttpsRedirection();
 

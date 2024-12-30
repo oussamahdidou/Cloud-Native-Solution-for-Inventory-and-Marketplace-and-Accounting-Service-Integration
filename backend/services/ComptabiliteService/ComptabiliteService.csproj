@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.2" />
+    <PackageReference Include="itext7.pdfhtml" Version="6.0.0" />
     <PackageReference Include="MassTransit" Version="8.3.5-develop.2163" />
     <PackageReference Include="MassTransit.Newtonsoft" Version="8.3.5-develop.2163" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.3.4" />
