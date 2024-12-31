@@ -1,7 +1,5 @@
 ﻿using MarketplaceService.Application.Dtos.Paypal;
 using MarketplaceService.Application.Interfaces;
-using MarketplaceService.Application.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketplaceService.API.Controllers
@@ -26,8 +24,8 @@ namespace MarketplaceService.API.Controllers
                 CommandeId = paypalRequest.CommandeId,
                 Amount = paypalRequest.Amount,
                 Description = "pays commande",
-                CancelUrl = "http://159.89.248.249/gateway/marketplace/Paypal/cancel",
-                ReturnUrl = "http://159.89.248.249/gateway/marketplace/Paypal/success"
+                CancelUrl = "http://localhost:5000/gateway/marketplace/Paypal/cancel",
+                ReturnUrl = "http://localhost:5000/gateway/marketplace/Paypal/success"
 
             };
             var payment = await paypalService.CreatePayment(createPaymentDto);

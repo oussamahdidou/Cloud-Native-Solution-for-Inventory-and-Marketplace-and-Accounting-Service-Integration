@@ -1,5 +1,5 @@
-﻿using ComptabiliteService.Config;
-using ComptabiliteService.Entities;
+﻿using ComptabiliteService.Entities;
+using ComptabiliteService.Helpers;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

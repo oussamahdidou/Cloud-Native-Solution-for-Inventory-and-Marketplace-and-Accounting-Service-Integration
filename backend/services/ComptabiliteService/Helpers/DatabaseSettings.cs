@@ -1,4 +1,4 @@
-﻿namespace ComptabiliteService.Config
+﻿namespace ComptabiliteService.Helpers
 {
     public class DatabaseSettings
     {

@@ -3,30 +3,16 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace ComptabiliteService.Entities
 {
+
     public class EcritureComptable
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
-
-        [BsonElement("dateOperation")]
-        [BsonRepresentation(BsonType.DateTime)]
+        public ObjectId Id { get; set; } // MongoDB ObjectId
         public DateTime DateOperation { get; set; } // Date of the operation
 
-        [BsonElement("reference")]
-        public string Reference { get; set; } // Reference of the operation
+        public string Libelle { get; set; }
 
-        [BsonElement("libelle")]
-        public string Libelle { get; set; } // Description of the operation
-
-        [BsonElement("comptesMouvementes")]
-        public string ComptesMouvementes { get; set; } // Accounting entry
-
-        [BsonElement("montant")]
-        [BsonRepresentation(BsonType.Decimal128)]
-        public decimal Montant { get; set; } // Amount of the operation
-
-        [BsonElement("sensFlux")]
-        public string SensFlux { get; set; } // Flow direction: "debit" or "credit"
+        public string Piece { get; set; } // Reference of the operation   [BsonElement("lignes")]
+        public List<LigneEcriture> Lignes { get; set; } = new List<LigneEcriture>(); // List of the operation's lines
     }
 }

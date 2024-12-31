@@ -1,6 +1,7 @@
-using ComptabiliteService.Config;
+using ComptabiliteService.Helpers;
 using ComptabiliteService.Interfaces;
 using ComptabiliteService.Repositories;
+using ComptabiliteService.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -11,9 +12,6 @@ using Newtonsoft.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers().AddNewtonsoftJson(
     options =>
@@ -97,9 +95,12 @@ builder.Services.AddSingleton(sp =>
     return client.GetDatabase(settings.DatabaseName);
 });
 builder.Services.AddScoped<IEcritureComptableRepository, EcritureComptableRepository>();
+builder.Services.AddScoped<IEcritureComptableService, EcritureComptableService>();
+
 var app = builder.Build();
 app.UseHttpsRedirection();
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseAuthorization();
 
 app.MapControllers();

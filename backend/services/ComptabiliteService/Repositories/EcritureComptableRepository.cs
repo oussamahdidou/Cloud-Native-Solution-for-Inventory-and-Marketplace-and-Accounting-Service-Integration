@@ -1,5 +1,6 @@
 ﻿using ComptabiliteService.Entities;
 using ComptabiliteService.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace ComptabiliteService.Repositories
@@ -16,7 +17,7 @@ namespace ComptabiliteService.Repositories
             await ecritureComptableCollection.InsertOneAsync(ecritureComptable).ConfigureAwait(false);
         }
 
-        public async Task DeleteEcritureComptable(string id)
+        public async Task DeleteEcritureComptable(ObjectId id)
         {
             await ecritureComptableCollection.DeleteOneAsync(ec => ec.Id == id).ConfigureAwait(false);
         }
@@ -26,12 +27,12 @@ namespace ComptabiliteService.Repositories
             return await ecritureComptableCollection.Find(ec => true).ToListAsync().ConfigureAwait(false);
         }
 
-        public async Task<EcritureComptable> GetEcritureComptableById(string Id)
+        public async Task<EcritureComptable> GetEcritureComptableById(ObjectId Id)
         {
             return await ecritureComptableCollection.Find(ec => ec.Id == Id).FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
-        public async Task UpdateEcritureComptable(string id, EcritureComptable ecritureComptable)
+        public async Task UpdateEcritureComptable(ObjectId id, EcritureComptable ecritureComptable)
         {
             await ecritureComptableCollection.ReplaceOneAsync(ec => ec.Id == id, ecritureComptable).ConfigureAwait(false);
         }
