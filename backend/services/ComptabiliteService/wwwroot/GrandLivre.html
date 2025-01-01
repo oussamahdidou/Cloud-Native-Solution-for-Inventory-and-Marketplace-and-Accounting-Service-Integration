@@ -77,36 +77,26 @@
         <tr>
             <td id="401_date_1">{{DATE}}</td>
             <td id="401_libelle_1">{{Libelle}}</td>
-            <td id="401_debit_1" class="debit-col"></td>
-            <td id="401_credit_1" class="credit-col">105.50</td>
+            <td id="401_debit_1" class="debit-col">{{DEBIT}}</td>
+            <td id="401_credit_1" class="credit-col">{{CREDIT}}</td>
         </tr>
-        <tr>
-            <td id="401_date_2">21/05/2015</td>
-            <td id="401_libelle_2">Règlement par chèque</td>
-            <td id="401_debit_2" class="debit-col">105.50</td>
-            <td id="401_credit_2" class="credit-col"></td>
-        </tr>
+
         <tr class="total-row">
             <td colspan="2">Total</td>
-            <td id="401_total_debit" class="debit-col">105.50</td>
-            <td id="401_total_credit" class="credit-col">105.50</td>
-        </tr>
-        <tr class="solde-row">
-            <td colspan="2">Solde</td>
-            <td id="401_solde_debit" class="debit-col">0.00</td>
-            <td id="401_solde_credit" class="credit-col">0.00</td>
+            <td id="401_total_debit" class="debit-col">{{TOTAL_DEBIT}}</td>
+            <td id="401_total_credit" class="credit-col">{{TOTAL_CREDIT}}</td>
         </tr>
     </table>
 
 
 
     <!-- Grand Total -->
-    <table>
+    <!--<table>
         <tr class="total-row">
             <td colspan="2">TOTAL GRAND-LIVRE</td>
             <td id="grand_total_debit" class="debit-col">232.10</td>
             <td id="grand_total_credit" class="credit-col">232.10</td>
         </tr>
-    </table>
+    </table>-->
 </body>
 </html>
