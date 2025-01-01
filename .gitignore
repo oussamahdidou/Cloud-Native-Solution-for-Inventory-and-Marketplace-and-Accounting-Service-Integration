@@ -2,3 +2,4 @@
 obj/
 bin/
 /backend/services/MarketplaceService/src/MarketplaceService.API/appsettings.json
+/backend/services/stockservice/src/main/resources/application.properties
