@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EventsContracts.EventsContracts
+﻿namespace EventsContracts.EventsContracts
 {
     public interface ISortieRecordedEvent
     {
+        public DateTime Date { get; set; }
         List<ISortieItem> SortieItems { get; set; }
     }
 }

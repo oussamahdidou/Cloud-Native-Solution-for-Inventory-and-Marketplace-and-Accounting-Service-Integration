@@ -1,4 +1,4 @@
-﻿using ComptabiliteService.Entities;
+﻿using ComptabiliteService.Dtos;
 using ComptabiliteService.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,12 +15,12 @@ namespace ComptabiliteService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEcritureComptable([FromBody] EcritureComptable ecritureComptable)
+        public async Task<IActionResult> CreateEcritureComptable([FromBody] EcritureComptableDto ecritureComptable)
         {
             try
             {
-                var result = await ecritureComptableService.CreateEcritureComptable(ecritureComptable);
-                return Ok(result);
+                await ecritureComptableService.CreateEcritureComptable(ecritureComptable);
+                return Ok(ecritureComptable);
             }
             catch (Exception ex)
             {

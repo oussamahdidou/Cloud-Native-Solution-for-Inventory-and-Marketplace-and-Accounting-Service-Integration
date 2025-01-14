@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SortieItem {
-    private String ProductId;
-    private int Quantity;
+    private String productId;
+    private int quantity;
+    private double price;
 }

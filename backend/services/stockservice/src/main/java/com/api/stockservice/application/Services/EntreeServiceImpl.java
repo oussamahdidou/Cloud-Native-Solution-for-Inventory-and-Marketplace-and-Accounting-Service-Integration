@@ -9,6 +9,7 @@ import com.api.stockservice.domain.Repositories.EntreeRepository;
 import com.api.stockservice.domain.Repositories.IProductPublisher;
 import com.api.stockservice.domain.Repositories.ProductRepository;
 import com.api.stockservice.domain.Repositories.SupplierRepository;
+import com.api.stockservice.domain.event.EntreeEvents.EntreeRecordedEvent;
 import com.api.stockservice.domain.event.PoductEvents.UpdateProductEvent;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,7 @@ public class EntreeServiceImpl implements IEntreeService {
                     savedProduct.getName(),savedProduct.getDescription(),savedProduct.getPrice(),
                     savedProduct.getQuantity(),savedProduct.getThumbnail(),
                     savedProduct.getCategory().getId()));
+            productPublisher.recordproductentree(new EntreeRecordedEvent(product.getId(),product.getPrice(),entree.getQuantite(),entree.getEntreeDate()));
             return savedEntree;
         }catch (Exception e)
         {

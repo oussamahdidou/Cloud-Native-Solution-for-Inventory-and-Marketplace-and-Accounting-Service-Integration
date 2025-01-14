@@ -1,14 +1,13 @@
 ﻿using ComptabiliteService.Entities;
-using MongoDB.Bson;
 
 namespace ComptabiliteService.Interfaces
 {
     public interface IEcritureComptableRepository
     {
         Task<List<EcritureComptable>> GetAllEcrituresComptable();
-        Task<EcritureComptable> GetEcritureComptableById(ObjectId Id);
+        Task<EcritureComptable> GetEcritureComptableById(string Id);
         Task AddEcritureComptable(EcritureComptable ecritureComptable);
-        Task DeleteEcritureComptable(ObjectId id);
-        Task UpdateEcritureComptable(ObjectId Id, EcritureComptable ecritureComptable);
+        Task DeleteEcritureComptable(string id);
+        Task UpdateEcritureComptable(string Id, EcritureComptable ecritureComptable);
     }
 }

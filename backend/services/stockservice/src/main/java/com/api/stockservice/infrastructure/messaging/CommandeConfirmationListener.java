@@ -42,8 +42,8 @@ public class CommandeConfirmationListener {
            sortieRepository.save(sortie);
            product.setQuantity(product.getQuantity() - item.getQuantity());
            Product updateProduct = productRepository.save(product);
-           sortieItems.add(new SortieItem(updateProduct.getId(), updateProduct.getQuantity()));
+           sortieItems.add(new SortieItem(updateProduct.getId(), updateProduct.getQuantity(),updateProduct.getPrice()));
        }
-        rabbitTemplate.convertAndSend("Sortie-Record-Exchange", "", new SortieRecordedEvent(sortieItems)); // No routing key needed for fanout exchange
+        rabbitTemplate.convertAndSend("Sortie-Record-Exchange", "", new SortieRecordedEvent(sortieItems,commandeConfirmedEvent.getDate())); // No routing key needed for fanout exchange
     }
 }

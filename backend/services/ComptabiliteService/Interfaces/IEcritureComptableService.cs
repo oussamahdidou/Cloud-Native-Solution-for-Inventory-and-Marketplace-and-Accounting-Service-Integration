@@ -1,9 +1,9 @@
-﻿using ComptabiliteService.Entities;
+﻿using ComptabiliteService.Dtos;
 
 namespace ComptabiliteService.Interfaces
 {
     public interface IEcritureComptableService
     {
-        Task<EcritureComptable> CreateEcritureComptable(EcritureComptable ecritureComptable);
+        Task CreateEcritureComptable(EcritureComptableDto ecritureComptableDto);
     }
 }

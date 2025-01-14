@@ -3,6 +3,7 @@ package com.api.stockservice.infrastructure.messaging;
 import com.api.stockservice.application.DTOs.ProductDto;
 import com.api.stockservice.domain.Repositories.IProductPublisher;
 import com.api.stockservice.domain.Entities.Product;
+import com.api.stockservice.domain.event.EntreeEvents.EntreeRecordedEvent;
 import com.api.stockservice.domain.event.PoductEvents.ProductAddedEvent;
 import com.api.stockservice.domain.event.PoductEvents.ProductDeleteEvent;
 import com.api.stockservice.domain.event.PoductEvents.UpdateProductEvent;
@@ -37,5 +38,11 @@ public class ProductPublisher implements IProductPublisher {
     public void sendIdProduct(ProductDeleteEvent productDeleteEvent)
     {
         rabbitTemplate.convertAndSend(DeleteExchange,"",productDeleteEvent);
+    }
+
+    @Override
+    public void recordproductentree(EntreeRecordedEvent entreeRecordedEvent) {
+        rabbitTemplate.convertAndSend("product-entree-exchange","",entreeRecordedEvent);
+
     }
 }

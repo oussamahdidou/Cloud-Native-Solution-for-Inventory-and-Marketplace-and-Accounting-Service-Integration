@@ -1,15 +1,16 @@
-package com.api.stockservice.domain.event.Sortie;
+package com.api.stockservice.domain.event.EntreeEvents;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SortieRecordedEvent {
-    List<SortieItem> sortieItems ;
+public class EntreeRecordedEvent {
+    private String id;
+    private Double price;
+    private int quantity;
     private OffsetDateTime date;
 }

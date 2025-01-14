@@ -24,7 +24,7 @@ public class CategoryPublisher implements ICategoryPublisher {
 
 
     @Override
-    public  void SendAddedCategroy(AddedCategoryEvent addedCategoryEvent)
+    public void SendAddedCategroy(AddedCategoryEvent addedCategoryEvent)
     {
         rabbitTemplate.convertAndSend(Exchange,"",addedCategoryEvent);
     }

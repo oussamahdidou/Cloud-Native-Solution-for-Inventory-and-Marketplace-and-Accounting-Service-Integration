@@ -1,5 +1,6 @@
-﻿using ComptabiliteService.Entities;
+﻿using ComptabiliteService.Dtos;
 using ComptabiliteService.Interfaces;
+using ComptabiliteService.Mappers;
 
 namespace ComptabiliteService.Services
 {
@@ -10,10 +11,9 @@ namespace ComptabiliteService.Services
         {
             this.ecritureComptableRepository = ecritureComptableRepository;
         }
-        public async Task<EcritureComptable> CreateEcritureComptable(EcritureComptable ecritureComptable)
+        public async Task CreateEcritureComptable(EcritureComptableDto ecritureComptableDto)
         {
-            await ecritureComptableRepository.AddEcritureComptable(ecritureComptable);
-            return ecritureComptable;
+            await ecritureComptableRepository.AddEcritureComptable(ecritureComptableDto.FromEcritureComptableDtoToEcritureComptable());
         }
     }
 }
