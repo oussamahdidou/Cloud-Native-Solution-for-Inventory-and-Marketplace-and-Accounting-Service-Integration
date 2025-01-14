@@ -20,7 +20,7 @@ namespace ComptabiliteService.Consumers
                 DateOperation = context.Message.Date,
                 Libelle = "Ventes de marchandises",
                 Piece = $"Sortie du stock le {context.Message.Date}",
-                Lignes = context.Message.SortieItems.FromSortieItemToLigneEcriture()
+                Lignes = context.Message.SortieItems.FromSortieItemToLigneEcriture(),
             };
             await ecritureComptableRepository.AddEcritureComptable(ecritureComptable);
         }
