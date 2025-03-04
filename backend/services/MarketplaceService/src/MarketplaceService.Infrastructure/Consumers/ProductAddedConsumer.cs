@@ -2,20 +2,15 @@
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Repositories;
 using MassTransit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Infrastructure.Consumers
 {
-    public class ProductAddedConsumer: IConsumer<IProductAddedEvent>
+    public class ProductAddedConsumer : IConsumer<IProductAddedEvent>
     {
         private readonly IProductRepository productRepository;
         public ProductAddedConsumer(IProductRepository productRepository)
         {
-            this.productRepository =  productRepository;
+            this.productRepository = productRepository;
         }
         public async Task Consume(ConsumeContext<IProductAddedEvent> context)
         {

@@ -1,7 +1,4 @@
-﻿using MassTransit;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UsersService.Model;
 using UsersService.Producers;
@@ -22,7 +19,7 @@ namespace UsersService.Controllers
         [HttpGet("send-request/{username}")]
         public async Task<IActionResult> SendRequest([FromRoute] string username)
         {
-      
+
             return Ok((await userManager.FindByNameAsync(username)).Id);
         }
         [HttpGet("publish-event")]
@@ -31,6 +28,6 @@ namespace UsersService.Controllers
             await myPublisher.PublishToCustomExchange("Test Value");
             return Ok("Request Sent");
         }
-  
+
     }
 }

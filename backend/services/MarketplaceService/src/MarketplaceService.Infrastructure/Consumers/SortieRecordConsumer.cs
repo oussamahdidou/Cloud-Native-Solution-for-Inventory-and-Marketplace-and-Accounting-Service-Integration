@@ -2,11 +2,6 @@
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Repositories;
 using MassTransit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Infrastructure.Consumers
 {
@@ -24,9 +19,9 @@ namespace MarketplaceService.Infrastructure.Consumers
             ISortieRecordedEvent sortieRecordedEvent = context.Message;
             foreach (var item in sortieRecordedEvent.SortieItems)
             {
-               Product product= await productRepository.GetProductByIdAsync(item.ProductId);
-               product.Quantity=item.Quantity;
-               await productRepository.UpdateProductAsync(product);
+                Product product = await productRepository.GetProductByIdAsync(item.ProductId);
+                product.Quantity = item.Quantity;
+                await productRepository.UpdateProductAsync(product);
             }
         }
     }

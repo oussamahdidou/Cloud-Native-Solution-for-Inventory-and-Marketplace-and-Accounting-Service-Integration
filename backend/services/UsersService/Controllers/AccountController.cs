@@ -1,8 +1,5 @@
-﻿using Confluent.Kafka;
-using EventsContracts.EventsContracts;
+﻿using EventsContracts.EventsContracts;
 using MassTransit;
-using MassTransit.Transports;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +44,7 @@ namespace UsersService.Controllers
                 Token = token
             });
         }
-         [HttpPost("Register")]
+        [HttpPost("Register")]
         public async Task<IActionResult> RegisterUser([FromBody] RegistrationDto model)
         {
             try
@@ -67,9 +64,9 @@ namespace UsersService.Controllers
                         NewUserRegistredEvent userRegistredEvent = new NewUserRegistredEvent()
                         {
                             CustomerId = appUser.Id,
-                            UserName=appUser.UserName
+                            UserName = appUser.UserName
                         };
-                
+
                         await bus.Publish<INewUserRegistredEvent>(userRegistredEvent);
 
                         return Ok(new NewUserDto()

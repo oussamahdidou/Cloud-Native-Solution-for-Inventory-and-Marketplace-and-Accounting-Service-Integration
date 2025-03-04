@@ -4,11 +4,6 @@ using MarketplaceService.Application.Mappers;
 using MarketplaceService.Domain.Caching;
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Application.Services
 {
@@ -25,8 +20,8 @@ namespace MarketplaceService.Application.Services
 
         public async Task<List<CategorieItem>> GetCategoriesAsync()
         {
-           List<Category> categories = await categoryRepository.GetAllCategoriesAsync();
-            return categories.Select(x=>x.FromCategorieToItem()).ToList();
+            List<Category> categories = await categoryRepository.GetAllCategoriesAsync();
+            return categories.Select(x => x.FromCategorieToItem()).ToList();
         }
     }
 }

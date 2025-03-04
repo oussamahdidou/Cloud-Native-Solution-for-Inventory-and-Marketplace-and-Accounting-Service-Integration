@@ -2,11 +2,6 @@
 using MarketplaceService.Domain.Repositories;
 using MarketplaceService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Infrastructure.Repositories
 {
@@ -41,9 +36,9 @@ namespace MarketplaceService.Infrastructure.Repositories
 
         public async Task<Category> GetCategoryByIdAsync(string id)
         {
-            Category? category =   await apiDbContext.categories.FindAsync(id);
+            Category? category = await apiDbContext.categories.FindAsync(id);
 
-            if (category==null)
+            if (category == null)
             {
                 throw new KeyNotFoundException("product Not Found");
             }

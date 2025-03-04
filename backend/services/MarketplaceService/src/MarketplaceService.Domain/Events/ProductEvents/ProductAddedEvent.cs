@@ -3,7 +3,7 @@
 
 namespace MarketplaceService.Domain.Events.ProductEvents
 {
-    public class ProductAddedEvent: IProductAddedEvent
+    public class ProductAddedEvent : IProductAddedEvent
     {
         public string Id { get; set; }
         public string MarqueName { get; set; }

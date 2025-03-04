@@ -1,13 +1,7 @@
 ﻿using EventsContracts.EventsContracts;
 using MarketplaceService.Domain.Entities;
-using MarketplaceService.Domain.Events;
 using MarketplaceService.Domain.Repositories;
 using MassTransit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Infrastructure.Consumers
 {
@@ -24,7 +18,7 @@ namespace MarketplaceService.Infrastructure.Consumers
             Customer customer = new Customer()
             {
                 CustomerId = context.Message.CustomerId,
-                UserName = context.Message.UserName,  
+                UserName = context.Message.UserName,
             };
             Cart cart = new Cart()
             {
@@ -32,7 +26,7 @@ namespace MarketplaceService.Infrastructure.Consumers
                 TotalAmount = 0
             };
             await cartRepository.AddCartAsync(cart);
-            
+
         }
     }
 }

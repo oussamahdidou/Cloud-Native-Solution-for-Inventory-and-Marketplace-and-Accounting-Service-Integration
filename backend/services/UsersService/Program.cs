@@ -1,16 +1,11 @@
-using System.Net.Mime;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using EventsContracts.EventsContracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using RabbitMQ.Client;
 using UsersService.Consumers;
 using UsersService.Data;
 using UsersService.Interfaces;
@@ -89,8 +84,8 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true, 
-        ValidIssuer = builder.Configuration["JWT:Issuer"], 
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
         ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:Audience"],
         ValidateIssuerSigningKey = true,
@@ -113,10 +108,10 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<FirstEventConsumer>();
 
     x.AddConsumer<SecondEventConsumer>();
-   
+
     x.UsingRabbitMq((context, cfg) =>
     {
-     
+
         cfg.Host("127.0.0.1", "/", h =>
         {
             h.Username("guest");
@@ -128,7 +123,7 @@ builder.Services.AddMassTransit(x =>
         });
         cfg.UseNewtonsoftRawJsonSerializer();
         cfg.UseNewtonsoftRawJsonDeserializer();
-        
+
         cfg.ConfigureEndpoints(context);
 
         cfg.ReceiveEndpoint("first-publish-queue", e =>
@@ -141,7 +136,7 @@ builder.Services.AddMassTransit(x =>
             e.Bind("publish_exchange");
             e.ConfigureConsumer<SecondEventConsumer>(context);
         });
-  
+
 
 
     });

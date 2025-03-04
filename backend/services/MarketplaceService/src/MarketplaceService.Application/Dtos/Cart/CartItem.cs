@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MarketplaceService.Application.Dtos.Cart
+﻿namespace MarketplaceService.Application.Dtos.Cart
 {
     public class CartItem
     {
@@ -13,6 +7,6 @@ namespace MarketplaceService.Application.Dtos.Cart
         public string Thumbnail { get; set; }
         public int Quantity { get; set; }
         public double UnityPrice { get; set; }
-        public double TotalAmount  => Quantity*UnityPrice;
+        public double TotalAmount => Quantity * UnityPrice;
     }
 }

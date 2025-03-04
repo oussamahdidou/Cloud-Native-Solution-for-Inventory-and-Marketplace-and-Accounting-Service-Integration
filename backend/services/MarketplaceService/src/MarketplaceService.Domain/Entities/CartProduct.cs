@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MarketplaceService.Domain.Entities
+﻿namespace MarketplaceService.Domain.Entities
 {
     public class CartProduct
     {

@@ -4,11 +4,6 @@ using MarketplaceService.Application.Mappers;
 using MarketplaceService.Domain.Caching;
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Application.Services
 {
@@ -25,14 +20,14 @@ namespace MarketplaceService.Application.Services
 
         public async Task<CommandeDetail> GetCommandeDetail(int Id)
         {
-          Commande commande =  await commandeRepository.GetCommandeByIdAsync(Id);
+            Commande commande = await commandeRepository.GetCommandeByIdAsync(Id);
             return commande.FromCommandeToDetail();
         }
 
         public async Task<List<CommandeItem>> GetUserCommandes(string CustomerId)
         {
-           List<Commande> commandes = await commandeRepository.GetCommandesByCustomerAsync(CustomerId);
-           return commandes.Select(x=>x.FromCommandeToItem()).ToList();
+            List<Commande> commandes = await commandeRepository.GetCommandesByCustomerAsync(CustomerId);
+            return commandes.Select(x => x.FromCommandeToItem()).ToList();
         }
 
         public async Task ConfirmeCommande(string PaymentId)
@@ -43,7 +38,7 @@ namespace MarketplaceService.Application.Services
                 commande.Status = "Confirmed";
                 await commandeRepository.UpdateCommandeAsync(commande);
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 throw ex;
             }

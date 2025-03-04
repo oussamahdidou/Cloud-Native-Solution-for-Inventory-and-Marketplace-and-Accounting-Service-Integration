@@ -1,11 +1,5 @@
 ﻿using MarketplaceService.Application.Dtos.Cart;
 using MarketplaceService.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Application.Mappers
 {
@@ -15,10 +9,10 @@ namespace MarketplaceService.Application.Mappers
         {
             return new CartDetail()
             {
-                CartId=cart.CartId,
-                CartItems = cart.CartProducts.Select(x=>x.FromProductToCartItem()).ToList(),
+                CartId = cart.CartId,
+                CartItems = cart.CartProducts.Select(x => x.FromProductToCartItem()).ToList(),
                 TotalAmount = cart.TotalAmount,
-                
+
             };
         }
         public static CartItem FromProductToCartItem(this CartProduct cartProduct)
@@ -37,7 +31,7 @@ namespace MarketplaceService.Application.Mappers
             return new CommandeProduct()
             {
                 ProductId = cartProduct.ProductId,
-                Quantity=cartProduct.Quantity
+                Quantity = cartProduct.Quantity
             };
         }
     }

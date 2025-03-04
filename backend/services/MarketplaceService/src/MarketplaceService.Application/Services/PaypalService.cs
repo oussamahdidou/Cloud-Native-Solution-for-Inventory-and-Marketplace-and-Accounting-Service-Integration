@@ -3,17 +3,11 @@ using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Repositories;
 using Microsoft.Extensions.Configuration;
-using PayPal;
 using PayPal.Api;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Application.Services
 {
-    public class PaypalService:IPaypalService
+    public class PaypalService : IPaypalService
     {
         private readonly string clientId;
         private readonly string clientSecret;

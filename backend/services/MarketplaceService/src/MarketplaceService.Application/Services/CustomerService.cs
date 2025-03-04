@@ -1,13 +1,7 @@
-﻿using MarketplaceService.Application.Dtos.Products;
-using MarketplaceService.Application.Interfaces;
+﻿using MarketplaceService.Application.Interfaces;
 using MarketplaceService.Domain.Caching;
 using MarketplaceService.Domain.Entities;
 using MarketplaceService.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarketplaceService.Application.Services
 {

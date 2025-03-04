@@ -1,6 +1,5 @@
 ﻿using MarketplaceService.Application.Dtos.Category;
 using MarketplaceService.Application.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketplaceService.API.Controllers
@@ -21,6 +20,6 @@ namespace MarketplaceService.API.Controllers
             List<CategorieItem> categorieItems = await categoryService.GetCategoriesAsync();
             return Ok(categorieItems);
         }
-        
-}
+
+    }
 }
