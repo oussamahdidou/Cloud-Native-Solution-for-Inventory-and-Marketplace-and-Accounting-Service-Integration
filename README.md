@@ -47,7 +47,7 @@ A modern, scalable solution that combines inventory management with marketplace 
 - Cloudinary - Media management and optimization
 
 # 🏗 Architecture
-![design](./conception/microservices.drawio.svg)
+![design](./conception/system_design.gif)
 
 ![architecture](./conception/mermaid-diagram-2025-01-15-150737.png)
 The system is composed of several microservices:
@@ -140,4 +140,5 @@ dotnet run
 
 - Oussama Hdidou
 - Noura Aoujil
+
 
