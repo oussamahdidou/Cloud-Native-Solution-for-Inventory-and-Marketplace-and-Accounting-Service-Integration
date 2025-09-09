@@ -1,0 +1,51 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push MarketplaceService image
+        run: |
+          docker build -t oussamahdidou/marketplaceservice:latest ./backend/services/MarketplaceService/src/MarketplaceService.API
+          docker push oussamahdidou/marketplaceservice:latest
+
+      - name: Build and push UsersService image
+        run: |
+          docker build -t oussamahdidou/usersservice:latest ./backend/services/UsersService
+          docker push oussamahdidou/usersservice:latest
+
+      - name: Build and push StockService image
+        run: |
+          docker build -t oussamahdidou/stockservice:latest ./backend/services/stockservice
+          docker push oussamahdidou/stockservice:latest
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.27.4'
+
+      - name: Set up Kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f backend/infrastructure/manifests
